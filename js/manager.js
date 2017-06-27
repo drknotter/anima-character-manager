@@ -75,6 +75,7 @@ $( document ).ready(function() {
       'forging':{'dpInvested':0},
     },
     'lifePointMultiple':{'dpInvested':0},
+    'currentLifePoints':100,
   }
 
   oras = new Character(orasData);

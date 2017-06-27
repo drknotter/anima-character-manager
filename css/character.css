@@ -9,6 +9,7 @@ table {
   border: none;
   margin: 0px;
   padding: 0px;
+  border-spacing: 0px;
 }
 td {
   padding: 0px;
@@ -30,6 +31,12 @@ td {
 
 #characteristics {
   width: 40%;
+  vertical-align: top;
+  padding: 10px;
+}
+
+#characteristics>table tr:nth-child(even) {
+  background: #ccc;
 }
 
 #primaryAbilities {
@@ -37,18 +44,18 @@ td {
 }
 
 .characteristic .name {
-  text-align: right;
-  width: 33%;
-}
-
-.characteristic .nickname {
-  width: 33%;
+  text-align: left;
+  width: 50%;
+  padding: 5px;
+  padding-left: 10px;
 }
 
 .characteristic .score {
-  width: 33%;
+  text-align: center;
+  width: 25%;
 }
 
 .characteristic .modifier {
-  width: 33%;
+  text-align: center;
+  width: 25%;
 }

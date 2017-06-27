@@ -42,6 +42,8 @@ class Character {
     }
 
     this.lifePointMultiple = new DPInvestment(data.lifePointMultiple);
+
+    this.currentLifePoints = data.currentLifePoints;
   }
 
   get level() {

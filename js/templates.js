@@ -4,7 +4,9 @@ Template.character = [
 '<div id="character">',
 '<div id="title" />',
 '<table><tr>',
-'<td id="characteristics"><table /></td>',
+'<td id="characteristics"><table>',
+'<tr class="characteristic"><th class="name">Characteristic</th><th>Score</th><th>Modifier</th></tr>',
+'</table></td>',
 '<td id="primaryAbilities"><table /></td>',
 '</tr></table>',
 '</div>',].join('\n');
@@ -20,7 +22,6 @@ Template.title = [
 Template.characteristic = [
 '<tr class="characteristic">',
 '<td class="name">{{name}}</td>',
-'<td class="nickname">({{nickname}})</td>',
 '<td class="score">{{score}}</td>',
 '<td class="modifier">{{modifier}}</td>',
 '</tr>',
