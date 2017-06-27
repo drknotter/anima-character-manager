@@ -15,32 +15,38 @@ td {
   padding: 0px;
 }
 
-#name {
-  text-align: center;
-  font-size: 30px;
-  padding: 25px;
-  padding-bottom: 0px;
+#column1 {
+  vertical-align: top;
+  width: 50%;
+}
+#column2 {
+  width: 50%;
 }
 
-#class {
-  text-align: center;
-  font-size: 16px;
-  padding: 25px;
-  padding-top: 0px;
+#mainInfo {
+  margin: 10px;
+  padding: 10px;
+  background: #ccc;
+}
+
+#name {
+  font-size: 200%;
+  vertical-align: top;
+  line-height: 85%;
+}
+
+#classAndAppearance {
+  font-size: 90%;
+  text-align: right;
 }
 
 #characteristics {
-  width: 40%;
   vertical-align: top;
   padding: 10px;
 }
 
-#characteristics>table tr:nth-child(even) {
+#characteristics tr:nth-child(even) {
   background: #ccc;
-}
-
-#primaryAbilities {
-  width: 60%;
 }
 
 .characteristic .name {

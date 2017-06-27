@@ -2,7 +2,7 @@ $( document ).ready(function() {
   var orasData = {
     'name':'Oras',
     'exp':610,
-    'class':'mentalist',
+    'classId':'mentalist',
     'appearance':5,
     'height':"5'2'\"",
     'weight':"100lbs",
@@ -85,11 +85,11 @@ $( document ).ready(function() {
 
 function renderCharacter(character) {
   $('body').html(Mustache.render(Template.character, character));
-  $('#title').html(Mustache.render(Template.title, character));
+
+  $('#mainInfo').html(Mustache.render(Template.mainInfo, character));
+
+  $('#characteristics').append(Mustache.render(Template.characteristic, {'rowType':'th','name':'Characteristics','score':'Score','modifier':'Modifier'}));
   for (let i in character.characteristics) {
-    $('#characteristics > table').append(Mustache.render(Template.characteristic, character.characteristics[i]));
-  }
-  for (let i in character.primaryAbilities) {
-    $('#primaryAbilities > table').append(Mustache.render(Template.primaryAbilities, character.primaryAbilities[i]));
+    $('#characteristics').append(Mustache.render(Template.characteristic, character.characteristics[i]));
   }
 }

@@ -1,35 +1,42 @@
 var Template = {};
 
-Template.character = [
-'<div id="character">',
-'<div id="title" />',
-'<table><tr>',
-'<td id="characteristics"><table>',
-'<tr class="characteristic"><th class="name">Characteristic</th><th>Score</th><th>Modifier</th></tr>',
-'</table></td>',
-'<td id="primaryAbilities"><table /></td>',
-'</tr></table>',
-'</div>',].join('\n');
+Template.character = String.raw`
+<div id="character">
+<table>
+<tr>
+  <td id="column1">
+    <div id="mainInfo"/>
+  </td>
+  <td id="column2">
+    <table id="characteristics" />
+  </td>
+</tr>
+</div>
+`;
 
-Template.title = [
-'<div id="name">',
-'{{name}}',
-'</div>',
-'<div id="class">',
-'{{classObject.name}}',
-'</div>',].join('\n');
+Template.mainInfo = String.raw`
+<table>
+<tr>
+<td id="name">{{name}}</td>
+<td id="classAndAppearance">
+Level {{level}} {{class.name}}<br/>
+XP: {{exp}}<br/>
+Next level: {{toNextLevel}}
+</td>
+`;
 
-Template.characteristic = [
-'<tr class="characteristic">',
-'<td class="name">{{name}}</td>',
-'<td class="score">{{score}}</td>',
-'<td class="modifier">{{modifier}}</td>',
-'</tr>',
-].join('\n')
+Template.characteristic = String.raw`
+<tr class="characteristic">
+<{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="modifier">{{modifier}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+</tr>
+`;
 
-Template.primaryAbilities = [
-'<tr class="primaryAbility">',
-'<td class="name">{{name}}</td>',
-'<td class="score">{{score}}</td>',
-'</tr>',
-].join('\n')
+
+Template.primaryAbilities = String.raw`
+<tr class="primaryAbility">
+<td class="name">{{name}}</td>
+<td class="score">{{score}}</td>
+</tr>
+`;

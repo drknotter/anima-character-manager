@@ -29,7 +29,7 @@ class Character {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
-    this.class = data.class;
+    this.classId = data.classId;
 
     this.primaryAbilities = {};
     for (var pKey in data.primaryAbilities) {
@@ -158,8 +158,8 @@ class Character {
     };
   }
 
-  get classObject() {
-    return Class[this.class];
+  get class() {
+    return Class[this.classId];
   }
 }
 
