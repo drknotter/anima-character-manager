@@ -1,0 +1,54 @@
+body {
+  margin: auto;
+  font-family: 'Roboto', sans-serif;
+  width: 200mm;
+}
+
+table {
+  width: 100%;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+td {
+  padding: 0px;
+}
+
+#name {
+  text-align: center;
+  font-size: 30px;
+  padding: 25px;
+  padding-bottom: 0px;
+}
+
+#class {
+  text-align: center;
+  font-size: 16px;
+  padding: 25px;
+  padding-top: 0px;
+}
+
+#characteristics {
+  width: 40%;
+}
+
+#primaryAbilities {
+  width: 60%;
+}
+
+.characteristic .name {
+  text-align: right;
+  width: 33%;
+}
+
+.characteristic .nickname {
+  width: 33%;
+}
+
+.characteristic .score {
+  width: 33%;
+}
+
+.characteristic .modifier {
+  width: 33%;
+}
