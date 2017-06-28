@@ -9,12 +9,12 @@ class Ability extends DPInvestment {
     super(data);
 
     this.bonusPerDp = function() {
-      var bonusInfo = Class[character.class][ABILITY_INFO[key].type + 'AbilityCosts'][key];
+      var bonusInfo = character.class[ABILITY_INFO[key].type + 'AbilityCosts'][key];
       return bonusInfo ? bonusInfo.bonus / bonusInfo.cost : 0;
     };
 
     this.classLevelBonus = function() {
-      var innateBonus = Class[character.class].innateBonuses[ABILITY_INFO[key].type + 'Ability'][key];
+      var innateBonus = character.class.innateBonuses[ABILITY_INFO[key].type + 'Ability'][key];
       return innateBonus ? character.level * innateBonus.bonus : 0;
     }
 

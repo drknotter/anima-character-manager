@@ -44,6 +44,7 @@ class Character {
     this.lifePointMultiple = new DPInvestment(data.lifePointMultiple);
 
     this.currentLifePoints = data.currentLifePoints;
+    this.currentFatigue = data.currentFatigue;
   }
 
   get level() {
@@ -78,20 +79,17 @@ class Character {
   }
 
   classLevelLifePoints() {
-    var myClass = Class[this.class];
-    return myClass.lifePoints.bonus * Math.floor(this.level / myClass.lifePoints.cost);
+    return this.class.lifePoints.bonus * Math.floor(this.level / this.class.lifePoints.cost);
   }
 
   multipleLifePoints() {
-    var myClass = Class[this.class];
-    return myClass.lifePointMultiple.bonus * Math.floor(this.lifePointMultiple.dpInvested / myClass.lifePointMultiple.cost) * this.characteristics.con.score;
+    return this.class.lifePointMultiple.bonus * Math.floor(this.lifePointMultiple.dpInvested / this.class.lifePointMultiple.cost) * this.characteristics.con.score;
   }
 
   get initiative() {
-    var myClass = Class[this.class];
     var baseInitiative = 20 + this.characteristics.dex.modifier + this.characteristics.agi.modifier;
     var armorModifier = 0; // TODO: fill this in.
-    var levelBonus = myClass.initiative.bonus * Math.floor(this.level / myClass.initiative.cost);
+    var levelBonus = this.class.initiative.bonus * Math.floor(this.level / this.class.initiative.cost);
     return baseInitiative + armorModifier + levelBonus;
   }
 

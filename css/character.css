@@ -7,12 +7,12 @@ body {
 table {
   width: 100%;
   border: none;
-  margin: 0px;
-  padding: 0px;
-  border-spacing: 0px;
+  margin: 0mm;
+  padding: 0mm;
+  border-spacing: 0mm;
 }
 td {
-  padding: 0px;
+  padding: 0mm;
 }
 
 #column1 {
@@ -23,9 +23,9 @@ td {
   width: 50%;
 }
 
-#mainInfo {
-  margin: 10px;
-  padding: 10px;
+#mainInfo,#physicalAbilities {
+  margin: 2mm;
+  padding: 2mm;
   background: #ccc;
 }
 
@@ -35,25 +35,63 @@ td {
   line-height: 85%;
 }
 
-#classAndAppearance {
-  font-size: 90%;
+#levelAndClass {
+  vertical-align: top;
   text-align: right;
+  font-size: 120%;
+}
+
+#mainInfo .stats, #physicalAbilities .stats {
+  table-layout: fixed;
+  padding-top: 1.5mm;
+}
+#mainInfo .stat, #physicalAbilities .stat {
+  text-align: center;
+  background: #eee;
+  padding: 2mm;
+  font-size: 80%;
+  width: auto;
+}
+#mainInfo .space, #physicalAbilities .space {
+  width: 2mm;
+}
+#mainInfo .stat>span, #physicalAbilities .stat>span {
+  font-size: 200%;
+  text-align: right;
+}
+
+#physicalAbilities {
+  text-align: center;
+}
+#physicalAbilities:first-line {
+  font-size: 120%;
 }
 
 #characteristics {
   vertical-align: top;
-  padding: 10px;
+  padding: 2mm;
 }
 
 #characteristics tr:nth-child(even) {
   background: #ccc;
 }
+#characteristics tr:nth-child(even) td:first-child {
+  border-top-left-radius: 2mm;
+  border-bottom-left-radius: 2mm;
+}
+#characteristics tr:nth-child(even) td:last-child {
+  border-top-right-radius: 2mm;
+  border-bottom-right-radius: 2mm;
+}
+#characteristics th {
+  font-size: 120%;
+}
 
 .characteristic .name {
   text-align: left;
   width: 50%;
-  padding: 5px;
-  padding-left: 10px;
+  padding: 1mm;
+  padding-left: 4mm;
 }
 
 .characteristic .score {
