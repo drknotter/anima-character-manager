@@ -67,21 +67,27 @@ td {
   font-size: 120%;
 }
 
+#resistances {
+  margin: 2mm;
+  padding: 2mm;
+  background: #ccc;
+}
+#resistances>table {
+  background: #eee;
+  padding: 2mm;
+}
+#resistances>table tr {
+  padding: 2mm;
+}
+
 #characteristics {
   vertical-align: top;
   padding: 2mm;
+  margin: 2mm;
 }
 
 #characteristics tr:nth-child(even) {
   background: #ccc;
-}
-#characteristics tr:nth-child(even) td:first-child {
-  border-top-left-radius: 2mm;
-  border-bottom-left-radius: 2mm;
-}
-#characteristics tr:nth-child(even) td:last-child {
-  border-top-right-radius: 2mm;
-  border-bottom-right-radius: 2mm;
 }
 #characteristics th {
   font-size: 120%;
@@ -102,4 +108,44 @@ td {
 .characteristic .modifier {
   text-align: center;
   width: 25%;
+}
+
+#secondaryAbilities {
+  background: #ccc;
+  padding: 2mm;
+  margin: 2mm;
+}
+#secondaryAbilities>caption {
+  background: #ccc;
+  padding: 2mm;
+  margin-bottom: -4mm;
+  font-size: 120%;
+  font-weight: bold;
+}
+
+#secondaryAbilities .category {
+  background: #eee;
+  padding: 2mm;
+  margin-top: 2mm;
+}
+#secondaryAbilities .category th {
+  vertical-align: top;
+}
+#secondaryAbilities .category th:first-child {
+  background: #eee;
+  font-size: 110%;
+  text-align: left;
+  padding-left: 4mm;
+  padding-bottom: 2mm;
+  font-weight: bold;
+}
+#secondaryAbilities .category tr:nth-child(even) {
+  background: #ccc;
+}
+#secondaryAbilities .category td {
+  padding: 1mm 4mm;
+}
+#secondaryAbilities .category .score {
+  text-align: center;
+  width: 10mm;
 }

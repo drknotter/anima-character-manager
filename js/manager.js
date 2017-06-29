@@ -20,6 +20,18 @@ function renderCharacter(character) {
   }
 
   $('#physicalAbilities').html(Mustache.render(Template.physicalAbilities, character));
+  for (let i in SECONDARY_ABILITIES_BY_CATEGORY) {
+    $('#secondaryAbilities').append(Mustache.render(Template.secondaryAbilitiesCategory, SECONDARY_ABILITIES_BY_CATEGORY[i]));
+    var category = $('#secondaryAbilities .category tbody').last();
+    for (let j in SECONDARY_ABILITIES_BY_CATEGORY[i].abilities) {
+      category.append(Mustache.render(Template.secondaryAbility, 
+        character.secondaryAbilities[SECONDARY_ABILITIES_BY_CATEGORY[i].abilities[j]]));
+    }
+  }
+  for (let i in character.resistances) {
+    console.log(i);
+    $('#resistances>table').append(Mustache.render(Template.resistance, character.resistances[i]));
+  }
 
   $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);
   $('#fatigue').keypress({'key':'currentFatigue', 'character': character}, updateCharacterFrom);

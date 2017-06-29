@@ -148,11 +148,11 @@ class Character {
 
   get resistances() {
     return {
-      'disease': this.basePresence + this.characteristics.con.modifier,
-      'magic': this.basePresence + this.characteristics.pow.modifier,
-      'physical': this.basePresence + this.characteristics.con.modifier,
-      'venom': this.basePresence + this.characteristics.con.modifier,
-      'psychic': this.basePresence + this.characteristics.wp.modifier,
+      'disease': {'name':'Disease', 'score': this.basePresence + this.characteristics.con.modifier},
+      'magic': {'name':'Magic', 'score': this.basePresence + this.characteristics.pow.modifier},
+      'physical': {'name':'Physical', 'score': this.basePresence + this.characteristics.con.modifier},
+      'venom': {'name':'Venom', 'score': this.basePresence + this.characteristics.con.modifier},
+      'psychic': {'name':'Psychic', 'score': this.basePresence + this.characteristics.wp.modifier},
     };
   }
 
