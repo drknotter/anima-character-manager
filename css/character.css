@@ -1,7 +1,34 @@
-body {
-  margin: auto;
+html {
+  background: #899099;
   font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0px;
+}
+
+#content {
+  margin: auto;
   width: 200mm;
+}
+
+#popupBackground {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0,0,0,0.5);
+}
+
+#popup {
+  position: absolute;
+  max-width: 50%;
+  max-height: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 table {
@@ -23,71 +50,78 @@ td {
   width: 50%;
 }
 
-#mainInfo,#physicalAbilities {
+.box {
   margin: 2mm;
   padding: 2mm;
   background: #ccc;
+}
+#column1 .box {
+  margin-right: 1mm;
+}
+#column2 .box {
+  margin-left: 1mm;
 }
 
 #name {
   font-size: 200%;
   vertical-align: top;
   line-height: 85%;
+  padding: 2mm;
 }
 
 #levelAndClass {
   vertical-align: top;
   text-align: right;
   font-size: 120%;
+  padding-right: 2mm;
+  padding-top: 2mm;
 }
 
-#mainInfo .stats, #physicalAbilities .stats {
+#mainInfo .stats, #combat .stats {
   table-layout: fixed;
   padding-top: 1.5mm;
 }
-#mainInfo .stat, #physicalAbilities .stat {
+#mainInfo .stat, #combat .stat {
   text-align: center;
   background: #eee;
   padding: 2mm;
   font-size: 80%;
   width: auto;
 }
-#mainInfo .space, #physicalAbilities .space {
+#mainInfo .space, #combat .space {
   width: 2mm;
 }
-#mainInfo .stat>span, #physicalAbilities .stat>span {
+#mainInfo .stat>span, #combat .stat>span {
   font-size: 200%;
   text-align: right;
 }
 
-#physicalAbilities {
+#combat {
   text-align: center;
 }
-#physicalAbilities:first-line {
+#combat:first-line {
   font-size: 120%;
 }
 
-#resistances {
-  margin: 2mm;
-  padding: 2mm;
-  background: #ccc;
-}
-#resistances>table {
+#resistances tr:nth-child(even) {
   background: #eee;
-  padding: 2mm;
 }
-#resistances>table tr {
-  padding: 2mm;
+#resistances th {
+  font-size: 120%;
 }
 
-#characteristics {
-  vertical-align: top;
-  padding: 2mm;
-  margin: 2mm;
+.resistance .name {
+  text-align: left;
+  padding: 1mm;
+  padding-left: 4mm;
+}
+
+.resistance .score {
+  text-align: center;
 }
 
 #characteristics tr:nth-child(even) {
-  background: #ccc;
+  background: #eee;
 }
 #characteristics th {
   font-size: 120%;
@@ -110,15 +144,8 @@ td {
   width: 25%;
 }
 
-#secondaryAbilities {
+#secondaryAbilities caption {
   background: #ccc;
-  padding: 2mm;
-  margin: 2mm;
-}
-#secondaryAbilities>caption {
-  background: #ccc;
-  padding: 2mm;
-  margin-bottom: -4mm;
   font-size: 120%;
   font-weight: bold;
 }
@@ -148,4 +175,122 @@ td {
 #secondaryAbilities .category .score {
   text-align: center;
   width: 10mm;
+}
+
+#advantages {
+  text-align: center;
+}
+#advantages:first-line {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.advantageList {
+  background: #eee;
+  padding: 2mm;
+  margin-top: 2mm;
+}
+.advantageList th {
+  vertical-align: top;
+}
+.advantageList th:first-child {
+  background: #eee;
+  font-size: 110%;
+  text-align: left;
+  padding-left: 4mm;
+  padding-bottom: 2mm;
+  font-weight: bold;
+}
+.advantageList tr:nth-child(even) {
+  background: #ccc;
+}
+.advantageList td {
+  padding: 1mm 4mm;
+}
+.advantageList .cost {
+  text-align: center;
+  width: 10mm;
+}
+
+#psychic {
+  text-align: center;
+}
+#psychic:first-line {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+#mainPsychicInfo {
+  padding: 2mm;
+  margin-top: 2mm;
+  background: #eee;
+}
+#mainPsychicInfo td {
+  padding: 1mm;
+  padding-left: 4mm;
+}
+#mainPsychicInfo tr:nth-child(even) {
+  background: #ccc;
+}
+#mainPsychicInfo .score {
+  text-align: right;
+}
+
+.discipline {
+  padding: 2mm;
+  background: #eee;
+  margin-top: 2mm;
+}
+.discipline th:first-child {
+  padding: 2mm;
+  padding-top: 0mm;
+  font-weight: bold;
+  font-size: 110%
+}
+.discipline th {
+  font-size: 70%;
+}
+.discipline td {
+  padding: 1mm;
+}
+.discipline tr:nth-child(even) {
+  background: #ccc;
+}
+.mentalPower td:hover {
+  cursor: help;
+}
+.mentalPower .name {
+  text-align: left;
+  padding-left: 4mm;
+  width: 100%;
+}
+.mentalPower .action, .mentalPower .maintainable, .mentalPower .bonus {
+  width: 10mm;
+  text-align: center;
+}
+
+#mentalPowerPopup {
+  background: #eee;
+  padding: 2mm;
+}
+#mentalPowerPopup .name {
+  font-size: 120%;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2mm;
+}
+#mentalPowerPopup .description {
+  margin-bottom: 2mm;
+  margin-left: 3mm;
+  margin-right: 3mm;
+  font-size: 80%;
+}
+
+
+#mentalPowerPopup .effect:nth-child(even) {
+  background: #ccc;
+}
+#mentalPowerPopup .effect td {
+  padding: 1mm;
+  padding-left: 4mm;
 }

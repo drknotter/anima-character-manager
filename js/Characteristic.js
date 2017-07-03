@@ -1,12 +1,17 @@
-class Characteristic {
+class LevelInvestment {
+  constructor(data) {
+    this.levelsInvested = 0;
+    if (data.levelsInvested) {
+      this.levelsInvested = data.levelsInvested;
+    }
+  }
+}
+
+class Characteristic extends LevelInvestment {
   constructor(data, key) {
-    if (!data) { data = {}; }
+    super(data);
 
     this.base = data.base;
-    this.bonuses = [];
-    for (var i in data.bonuses) {
-      this.bonuses.push(new Bonus(data.bonuses[i]))
-    }
 
     var attrs = ['name', 'nickname', 'description'];
     for (let i in attrs) {
@@ -19,11 +24,7 @@ class Characteristic {
   }
 
   get score() {
-    var bonuses = 0;
-    for (var key in this.bonuses) {
-      bonuses += this.bonuses[key].bonus;
-    }
-    return this.base + bonuses;
+    return this.base + this.levelsInvested;
   }
 
   get modifier() {

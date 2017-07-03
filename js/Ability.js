@@ -9,17 +9,17 @@ class Ability extends DPInvestment {
     super(data);
 
     this.bonusPerDp = function() {
-      var bonusInfo = character.class[ABILITY_INFO[key].type + 'AbilityCosts'][key];
+      var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
       return bonusInfo ? bonusInfo.bonus / bonusInfo.cost : 0;
     };
 
     this.classLevelBonus = function() {
-      var innateBonus = character.class.innateBonuses[ABILITY_INFO[key].type + 'Ability'][key];
+      var innateBonus = character.class.innateBonuses[ABILITY_DATA[key].type + 'Ability'][key];
       return innateBonus ? character.level * innateBonus.bonus : 0;
     }
 
     this.characteristicBonus = function() {
-      var baseCharacteristic = ABILITY_INFO[key].baseCharacteristic;
+      var baseCharacteristic = ABILITY_DATA[key].baseCharacteristic;
       return baseCharacteristic ? character.characteristics[baseCharacteristic].modifier : 0;
     }
 
@@ -27,7 +27,7 @@ class Ability extends DPInvestment {
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {
-          return ABILITY_INFO[key][attrs[i]];
+          return ABILITY_DATA[key][attrs[i]];
         }
       });
     }
@@ -45,6 +45,10 @@ class Ability extends DPInvestment {
     return 0;
   }
 
+  otherBonuses() {
+    return 0;
+  }
+
   get name() {
     return null;
   }
@@ -54,12 +58,11 @@ class Ability extends DPInvestment {
   }
 
   get score() {
-    // TODO: add misc bonuses
-    return Math.floor(this.dpInvested * this.bonusPerDp()) + this.classLevelBonus() + this.characteristicBonus();
+    return Math.floor(this.dpInvested * this.bonusPerDp()) + this.classLevelBonus() + this.characteristicBonus() + this.otherBonuses();
   }
 }
 
-var ABILITY_INFO = {
+var ABILITY_DATA = {
   'attack':{'type':'primary','baseCharacteristic':'dex','name':'Attack','description':'No description yet!'},
   'block':{'type':'primary','baseCharacteristic':'dex','name':'Block','description':'No description yet!'},
   'dodge':{'type':'primary','baseCharacteristic':'agi','name':'Dodge','description':'No description yet!'},

@@ -1,14 +1,14 @@
-function totalDPInvested(data) {
+function totalInvested(data, Type, key) {
   if (!data) {
     return 0;
   }
 
   var sum = 0;
-  for (key in data) {
-    if (data[key] instanceof DPInvestment) {
-      sum += data[key].dpInvested;
-    } else if (data[key] instanceof Object) {
-      sum += totalDPInvested(data[key]);
+  for (var i in data) {
+    if (data[i] instanceof Type) {
+      sum += data[i][key];
+    } else if (data[i] instanceof Object) {
+      sum += totalInvested(data[i], Type, key);
     }
   }
   return sum;
@@ -17,6 +17,7 @@ function totalDPInvested(data) {
 class Character {
   constructor(data) {
     if (!data) { data = {}; }
+    var me = this;
 
     this.name = data.name;
     this.exp = data.exp;
@@ -25,23 +26,68 @@ class Character {
     this.weight = data.weight;
 
     this.characteristics = {};
-    for (var cKey in data.characteristics) {
+    for (let cKey in data.characteristics) {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
     this.classId = data.classId;
 
     this.primaryAbilities = {};
-    for (var pKey in data.primaryAbilities) {
+    for (let pKey in data.primaryAbilities) {
       this.primaryAbilities[pKey] = new Ability(data.primaryAbilities[pKey], this, pKey);
     }
-
     this.secondaryAbilities = {};
-    for (var sKey in data.secondaryAbilities) {
+    for (let sKey in data.secondaryAbilities) {
       this.secondaryAbilities[sKey] = new Ability(data.secondaryAbilities[sKey], this, sKey);
     }
 
     this.lifePointMultiple = new DPInvestment(data.lifePointMultiple);
+    Object.defineProperty(this.lifePointMultiple, 'name', {
+      get: function() {
+        return "Life Point Multiples";
+      }
+    });
+
+    this.advantages = {};
+    for (let aKey in data.advantages) {
+      this.advantages[aKey] = new Advantage(data.advantages[aKey], this, aKey);
+    }
+    this.disadvantages = {};
+    for (let aKey in data.disadvantages) {
+      this.disadvantages[aKey] = new Advantage(data.disadvantages[aKey], this, aKey);
+    }
+
+    this.mentalPowers = {};
+    for (let i in data.mentalPowers) {
+      this.mentalPowers[i] = new MentalPower(data.mentalPowers[i], this, i);
+    }
+    this.innateSlots = new PPInvestment(data.innateSlots);
+    Object.defineProperty(this.innateSlots, 'name', {
+      get: function() {
+        return "Innate Slots";
+      }
+    });
+    this.psychicPotential = new PsychicPotential(data.psychicPotential, this);
+    Object.defineProperty(this.psychicPotential, 'name', {
+      get: function() {
+        return "Psychic Potential";
+      }
+    });
+
+    // Adjust psychic points by pp invested + mental powers
+    this.primaryAbilities.psychicPoints.otherBonuses = function() {
+      var disciplines = [];
+      var ppInvestedOnMentalPowers = 0;
+      for (let i in me.mentalPowers) {
+        if (!(me.mentalPowers[i].discipline in disciplines)) {
+          ppInvestedOnMentalPowers++;
+          disciplines.push(me.mentalPowers[i].discipline);
+        }
+        ppInvestedOnMentalPowers++;
+      }
+
+      return -(totalInvested(me, PPInvestment, 'ppInvested') + ppInvestedOnMentalPowers);
+    };
 
     this.currentLifePoints = data.currentLifePoints;
     this.currentFatigue = data.currentFatigue;
@@ -67,7 +113,16 @@ class Character {
   }
 
   get DP() {
-    return 100 * this.level + 500 - totalDPInvested(this);
+    return 100 * this.level + 500 - totalInvested(this, DPInvestment, 'dpInvested');
+  }
+
+  get CP() {
+    return 3 - totalInvested(this, CreationPointInvestment, 'cpInvested');
+  }
+
+  get levelBonuses() {
+    var totalLevelsInvested = totalInvested(this, LevelInvestment, 'levelsInvested');
+    return Math.floor(this.level / 2 - totalLevelsInvested);
   }
 
   get lifePoints() {

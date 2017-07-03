@@ -1,0 +1,58 @@
+html {
+  background: #899099;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0px;
+}
+
+#content {
+  margin: auto;
+  width: 200mm;
+}
+
+table {
+  width: 100%;
+  border: none;
+  margin: 0mm;
+  padding: 0mm;
+  border-spacing: 0mm;
+}
+td {
+  padding: 0mm;
+}
+
+.spendingOptionGroup {
+  background: #eee;
+  padding: 2mm;
+}
+
+.dpInvestment {
+  margin: 4mm;
+}
+.dpInvestment:nth-child(even) {
+  background: #ccc;
+}
+
+.dpInvestment td:first-child {
+  padding: 2mm 4mm;
+}
+
+.dpInvestment .add, .dpInvestment .subtract {
+  text-align: center;
+  width: 6mm;
+}
+.dpInvestment .add>div, .dpInvestment .subtract>div {
+  margin: 1mm;
+  width: 4mm;
+  background: #ccc;
+}
+.dpInvestment .add:hover, .dpInvestment .subtract:hover {
+  cursor: pointer;
+}
+
+.dpInvestment .dpInvested {
+  width: 15mm;
+  text-align: center;
+}
