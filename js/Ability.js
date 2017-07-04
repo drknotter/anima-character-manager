@@ -123,6 +123,8 @@ var SECONDARY_ABILITIES_BY_CATEGORY = [
   {
     'name':'Athletics',
     'abilities':[
+      'acrobatics',
+      'athleticism',
       'climb',
       'jump',
       'ride',

@@ -56,3 +56,8 @@ td {
   width: 15mm;
   text-align: center;
 }
+
+.dpInvestment input {
+  width: 15mm;
+  font-size: 100%;
+}

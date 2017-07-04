@@ -99,7 +99,7 @@ $( document ).ready(function() {
   "currentFatigue":6,
 });
 
-  renderCharacter(oras);
+  renderCharacter(new Character(JSON.parse(localStorage['character.'+oras.name])));
   $('#popupBackground').click(function() {
     $('#popupBackground').hide();
   });
