@@ -1,15 +1,6 @@
-class LevelInvestment {
-  constructor(data) {
-    this.levelsInvested = 0;
-    if (data.levelsInvested) {
-      this.levelsInvested = data.levelsInvested;
-    }
-  }
-}
-
-class Characteristic extends LevelInvestment {
+class Characteristic {
   constructor(data, key) {
-    super(data);
+    this.levelsInvested = data.levelsInvested;
 
     this.base = data.base;
 
@@ -24,7 +15,8 @@ class Characteristic extends LevelInvestment {
   }
 
   get score() {
-    return this.base + this.levelsInvested;
+    var levelBonus = this.levelsInvested ? this.levelsInvested : 0;
+    return this.base + levelBonus;
   }
 
   get modifier() {

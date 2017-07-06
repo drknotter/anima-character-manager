@@ -24,8 +24,19 @@ td {
 }
 
 .spendingOptionGroup {
+  background: #ccc;
+  padding: 2mm;
+}
+.spendingOptionGroup .header {
+  padding: 1mm 6mm;
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.spendingOptionSubgroup {
   background: #eee;
   padding: 2mm;
+  margin-top: 2mm;
 }
 
 .dpInvestment {
@@ -35,29 +46,22 @@ td {
   background: #ccc;
 }
 
-.dpInvestment td:first-child {
+.dpInvestment td:first-child, .dpInvestment th:first-child {
   padding: 2mm 4mm;
-}
-
-.dpInvestment .add, .dpInvestment .subtract {
-  text-align: center;
-  width: 6mm;
-}
-.dpInvestment .add>div, .dpInvestment .subtract>div {
-  margin: 1mm;
-  width: 4mm;
-  background: #ccc;
-}
-.dpInvestment .add:hover, .dpInvestment .subtract:hover {
-  cursor: pointer;
+  text-align: left;
 }
 
 .dpInvestment .dpInvested {
-  width: 15mm;
+  width: 20mm;
+  padding: 0mm 1mm;
   text-align: center;
 }
 
 .dpInvestment input {
   width: 15mm;
   font-size: 100%;
+}
+.dpInvestment .score {
+  width: 20mm;
+  text-align: center;
 }

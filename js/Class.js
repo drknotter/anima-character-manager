@@ -12,7 +12,6 @@ class Class {
     this.description = data.description;
 
     this.archetype = data.archetype;
-    this.lifePointMultiple = new Bonus(data.lifePointMultiple);
     this.lifePoints = new Bonus(data.lifePoints);
     this.initiative = new Bonus(data.initiative);
 
@@ -26,12 +25,16 @@ class Class {
       this.secondaryAbilityCosts[key] = data.secondaryAbilityCosts[key];
     }
 
-    this.innateBonuses = {'primaryAbility':{},'secondaryAbility':{}};
-    for (var key in data.innateBonuses.primaryAbility) {
-      this.innateBonuses.primaryAbility[key] = new Bonus(data.innateBonuses.primaryAbility[key]);
+    this.otherAbilityCosts = {};
+    for (var key in data.otherAbilityCosts) {
+      this.otherAbilityCosts[key] = data.otherAbilityCosts[key];
     }
-    for (var key in data.innateBonuses.secondaryAbility) {
-      this.innateBonuses.secondaryAbility[key] = new Bonus(data.innateBonuses.secondaryAbility[key]);
+
+    this.innateBonuses = {'primaryAbility':{},'secondaryAbility':{},'otherAbility':{}};
+    for (let a in this.innateBonuses) {
+      for (let key in data.innateBonuses[a]) {
+        this.innateBonuses[a][key] = new Bonus(data.innateBonuses[a][key]);
+      }
     }
 
   }
@@ -41,8 +44,10 @@ Class.warrior = new Class({
       'name':'Warrior',
       'description':'No description yet!',
       'archetype':['fighter'],
-      'lifePointMultiple':
-          {'cost':15,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':15,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':15,'currency':'level'},
       'initiative':
@@ -142,6 +147,8 @@ Class.warrior = new Class({
           'secondaryAbility': {
               'featsOfStrength':{'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -149,8 +156,10 @@ Class.acrobaticWarrior = new Class({
       'name':'Acrobatic Warrior',
       'description':'No description yet!',
       'archetype':['fighter'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
@@ -253,6 +262,8 @@ Class.acrobaticWarrior = new Class({
               'sleightOfHand': {'cost':1,'bonus':10,'currency':'level'},
               'style': {'cost':1,'bonus':10,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -260,8 +271,10 @@ Class.paladin = new Class({
       'name':'Paladin',
       'description':'No description yet!',
       'archetype':['fighter'],
-      'lifePointMultiple':
-          {'cost':15,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':15,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':15,'currency':'level'},
       'initiative':
@@ -364,6 +377,8 @@ Class.paladin = new Class({
               'withstandPain': {'cost':1,'bonus':10,'currency':'level'},
               'style': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -371,8 +386,10 @@ Class.darkPaladin = new Class({
       'name':'Dark Paladin',
       'description':'No description yet!',
       'archetype':['fighter'],
-      'lifePointMultiple':
-          {'cost':15,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':15,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':15,'currency':'level'},
       'initiative':
@@ -476,6 +493,8 @@ Class.darkPaladin = new Class({
               'style': {'cost':1,'bonus':5,'currency':'level'},
               'persuasion': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -483,8 +502,10 @@ Class.weaponmaster = new Class({
       'name':'Weaponmaster',
       'description':'No description yet!',
       'archetype':['fighter'],
-      'lifePointMultiple':
-          {'cost':10,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':10,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':20,'currency':'level'},
       'initiative':
@@ -584,6 +605,8 @@ Class.weaponmaster = new Class({
           'secondaryAbility': {
               'featsOfStrength': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -591,8 +614,10 @@ Class.technician = new Class({
       'name':'Technician',
       'description':'No description yet!',
       'archetype':['domine'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -689,6 +714,8 @@ Class.technician = new Class({
           },
           'secondaryAbility': {
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -696,8 +723,10 @@ Class.tao = new Class({
       'name':'Tao',
       'description':'No description yet!',
       'archetype':['fighter','domine'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
@@ -794,6 +823,8 @@ Class.tao = new Class({
           'secondaryAbility': {
               'style': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -801,8 +832,10 @@ Class.ranger = new Class({
       'name':'Ranger',
       'description':'No description yet!',
       'archetype':['fighter','prowler'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
@@ -905,6 +938,8 @@ Class.ranger = new Class({
               'animals': {'cost':1,'bonus':5,'currency':'level'},
               'herbalLore': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -912,8 +947,10 @@ Class.shadow = new Class({
       'name':'Shadow',
       'description':'No description yet!',
       'archetype':['fighter','prowler'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1015,6 +1052,8 @@ Class.shadow = new Class({
               'hide': {'cost':1,'bonus':10,'currency':'level'},
               'stealth': {'cost':1,'bonus':10,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1022,8 +1061,10 @@ Class.thief = new Class({
       'name':'Thief',
       'description':'No description yet!',
       'archetype':['prowler'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1127,6 +1168,8 @@ Class.thief = new Class({
               'sleightOfHand': {'cost':1,'bonus':5,'currency':'level'},
               'theft': {'cost':1,'bonus':10,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1134,8 +1177,10 @@ Class.assassin = new Class({
       'name':'Assassin',
       'description':'No description yet!',
       'archetype':['prowler'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1239,6 +1284,8 @@ Class.assassin = new Class({
               'composure': {'cost':1,'bonus':10,'currency':'level'},
               'trapLore': {'cost':1,'bonus':10,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1246,8 +1293,10 @@ Class.wizard = new Class({
       'name':'Wizard',
       'description':'No description yet!',
       'archetype':['mystic'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1346,6 +1395,8 @@ Class.wizard = new Class({
               'magicAppraisal': {'cost':1,'bonus':10,'currency':'level'},
               'occult': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1353,8 +1404,10 @@ Class.warlock = new Class({
       'name':'Warlock',
       'description':'No description yet!',
       'archetype':['fighter','mystic'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
@@ -1455,6 +1508,8 @@ Class.warlock = new Class({
           'secondaryAbility': {
               'magicAppraisal': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1462,8 +1517,10 @@ Class.illusionist = new Class({
       'name':'Illusionist',
       'description':'No description yet!',
       'archetype':['mystic','prowler'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1567,6 +1624,8 @@ Class.illusionist = new Class({
               'theft': {'cost':1,'bonus':5,'currency':'level'},
               'persuasion': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1574,8 +1633,10 @@ Class.wizardMentalist = new Class({
       'name':'Wizard Mentalist',
       'description':'No description yet!',
       'archetype':['mystic','psychic'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1674,6 +1735,8 @@ Class.wizardMentalist = new Class({
               'magicAppraisal': {'cost':1,'bonus':10,'currency':'level'},
               'occult': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1681,8 +1744,10 @@ Class.summoner = new Class({
       'name':'Summoner',
       'description':'No description yet!',
       'archetype':['mystic'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -1785,6 +1850,8 @@ Class.summoner = new Class({
               'magicAppraisal': {'cost':1,'bonus':5,'currency':'level'},
               'occult': {'cost':1,'bonus':10,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1792,8 +1859,10 @@ Class.warriorSummoner = new Class({
       'name':'Warrior Summoner',
       'description':'No description yet!',
       'archetype':['fighter','mystic'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
@@ -1898,6 +1967,8 @@ Class.warriorSummoner = new Class({
           'secondaryAbility': {
               'occult': {'cost':1,'bonus':5,'currency':'level'},
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -1905,8 +1976,10 @@ Class.mentalist = new Class({
       'name':'Mentalist',
       'description':'No description yet!',
       'archetype':['psychic'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -2002,6 +2075,8 @@ Class.mentalist = new Class({
           },
           'secondaryAbility': {
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -2009,8 +2084,10 @@ Class.warriorMentalist = new Class({
       'name':'Warrior Mentalist',
       'description':'No description yet!',
       'archetype':['fighter','psychic'],
-      'lifePointMultiple':
-          {'cost':0,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':0,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
@@ -2109,6 +2186,8 @@ Class.warriorMentalist = new Class({
           },
           'secondaryAbility': {
           },
+          'otherAbility': {
+          },
       },
   });
 
@@ -2116,8 +2195,10 @@ Class.freelancer = new Class({
       'name':'Freelancer',
       'description':'No description yet!',
       'archetype':['novel'],
-      'lifePointMultiple':
-          {'cost':20,'bonus':1,'currency':'DP'},
+      'otherAbilityCosts': {
+        'lifePointMultiple':
+            {'cost':20,'bonus':1,'currency':'DP'},
+      },
       'lifePoints':
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
@@ -2215,6 +2296,8 @@ Class.freelancer = new Class({
           'secondaryAbility': {
               // TODO: what to do about these?
               // +10 to five different abilities per level
+          },
+          'otherAbility': {
           },
       },
   });

@@ -1,12 +1,6 @@
-class CreationPointInvestment {
-  constructor(data) {
-    this.cpInvested = data.cpInvested;
-  }
-}
-
-class Advantage extends CreationPointInvestment {
+class Advantage {
   constructor(data, character, key) {
-    super(data);
+    this.cpInvested = data.cpInvested;
 
     var attrs = ['cost', 'name', 'description', 'effects'];
     for (let i in attrs) {

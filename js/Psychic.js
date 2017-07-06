@@ -1,12 +1,6 @@
-class PPInvestment {
-  constructor(data) {
-    this.ppInvested = data.ppInvested;
-  }
-}
-
-class MentalPower extends PPInvestment {
+class MentalPower {
   constructor(data, character, key) {
-    super(data);
+    this.ppInvested = data.ppInvested;
 
     var attrs = ['name', 'discipline', 'description', 'action', 'maintainable', 'effects'];
     for (let i in attrs) {
@@ -23,9 +17,9 @@ class MentalPower extends PPInvestment {
   }
 }
 
-class PsychicPotential extends PPInvestment {
+class PsychicPotential {
   constructor(data, character) {
-    super(data);
+    this.ppInvested = data.ppInvested;
 
     var thisClosure = this;
     this.score = function() {

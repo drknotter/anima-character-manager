@@ -1,12 +1,6 @@
-class DPInvestment {
-  constructor(data) {
-    this.dpInvested = data.dpInvested;
-  }
-}
-
-class Ability extends DPInvestment {
+class Ability {
   constructor(data, character, key) {
-    super(data);
+    this.dpInvested = data.dpInvested;
 
     this.bonusPerDp = function() {
       var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
@@ -117,6 +111,7 @@ var ABILITY_DATA = {
   'music':{'type':'secondary','baseCharacteristic':'pow','category':'Creative','name':'Music','description':'No description yet!'},
   'sleightOfHand':{'type':'secondary','baseCharacteristic':'dex','category':'Creative','name':'Sleight of Hand','description':'No description yet!'},
   'forging':{'type':'secondary','baseCharacteristic':'dex','category':'Creative','name':'Forging','description':'No description yet!'},
+  'lifePointMultiple':{'type':'other','name':'Life Point Multiples','description':'No description yet!'},
 };
 
 var SECONDARY_ABILITIES_BY_CATEGORY = [

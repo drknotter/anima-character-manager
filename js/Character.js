@@ -1,14 +1,14 @@
-function totalInvested(data, Type, key) {
+function totalInvested(data, key) {
   if (!data) {
     return 0;
   }
 
   var sum = 0;
   for (var i in data) {
-    if (data[i] instanceof Type) {
-      sum += data[i][key];
+    if (i === key) {
+      sum += data[i];
     } else if (data[i] instanceof Object) {
-      sum += totalInvested(data[i], Type, key);
+      sum += totalInvested(data[i], key);
     }
   }
   return sum;
@@ -32,21 +32,13 @@ class Character {
 
     this.classId = data.classId;
 
-    this.primaryAbilities = {};
-    for (let pKey in data.primaryAbilities) {
-      this.primaryAbilities[pKey] = new Ability(data.primaryAbilities[pKey], this, pKey);
-    }
-    this.secondaryAbilities = {};
-    for (let sKey in data.secondaryAbilities) {
-      this.secondaryAbilities[sKey] = new Ability(data.secondaryAbilities[sKey], this, sKey);
-    }
-
-    this.lifePointMultiple = new DPInvestment(data.lifePointMultiple);
-    Object.defineProperty(this.lifePointMultiple, 'name', {
-      get: function() {
-        return "Life Point Multiples";
+    var abilityCategories = ['primaryAbilities', 'secondaryAbilities', 'otherAbilities'];
+    for (let a in abilityCategories) {
+      this[abilityCategories[a]] = {};
+      for (let key in data[abilityCategories[a]]) {
+        this[abilityCategories[a]][key] = new Ability(data[abilityCategories[a]][key], this, key);
       }
-    });
+    }
 
     this.advantages = {};
     for (let aKey in data.advantages) {
@@ -61,7 +53,7 @@ class Character {
     for (let i in data.mentalPowers) {
       this.mentalPowers[i] = new MentalPower(data.mentalPowers[i], this, i);
     }
-    this.innateSlots = new PPInvestment(data.innateSlots);
+    this.innateSlots = data.innateSlots;
     Object.defineProperty(this.innateSlots, 'name', {
       get: function() {
         return "Innate Slots";
@@ -86,7 +78,7 @@ class Character {
         ppInvestedOnMentalPowers++;
       }
 
-      return -(totalInvested(me, PPInvestment, 'ppInvested') + ppInvestedOnMentalPowers);
+      return -(totalInvested(me, 'ppInvested') + ppInvestedOnMentalPowers);
     };
 
     this.currentLifePoints = data.currentLifePoints;
@@ -113,15 +105,15 @@ class Character {
   }
 
   get DP() {
-    return 100 * this.level + 500 - totalInvested(this, DPInvestment, 'dpInvested');
+    return 100 * this.level + 500 - totalInvested(this, 'dpInvested');
   }
 
   get CP() {
-    return 3 - totalInvested(this, CreationPointInvestment, 'cpInvested');
+    return 3 - totalInvested(this, 'cpInvested');
   }
 
   get levelBonuses() {
-    var totalLevelsInvested = totalInvested(this, LevelInvestment, 'levelsInvested');
+    var totalLevelsInvested = totalInvested(this, 'levelsInvested');
     return Math.floor(this.level / 2 - totalLevelsInvested);
   }
 
@@ -138,7 +130,9 @@ class Character {
   }
 
   multipleLifePoints() {
-    return this.class.lifePointMultiple.bonus * Math.floor(this.lifePointMultiple.dpInvested / this.class.lifePointMultiple.cost) * this.characteristics.con.score;
+    return this.class.otherAbilityCosts.lifePointMultiple.bonus 
+        * Math.floor(this.otherAbilities.lifePointMultiple.dpInvested / this.class.otherAbilityCosts.lifePointMultiple.cost) 
+        * this.characteristics.con.score;
   }
 
   get initiative() {
