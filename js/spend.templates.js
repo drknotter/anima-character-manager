@@ -11,6 +11,7 @@ Template.spendingOptionGroup = String.raw`
 Template.spendingOptionSubgroup = String.raw`
 <table class="spendingOptionSubgroup">
 <tr class="dpInvestment"><th>{{name}}</th>
+<th class="cost">Cost/Bonus</th>
 <th class="dpInvested">DP Spent</th>
 <th class="score">Score</th>
 </tr>
@@ -20,6 +21,7 @@ Template.spendingOptionSubgroup = String.raw`
 Template.dpInvestment = String.raw`
 <tr class="dpInvestment">
 <td>{{investment.name}}</td>
+<td class="cost">{{investment.cost}}/{{investment.bonus}}</td>
 <td class="dpInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{investment.dpInvested}}"></td>
 <td class="score">{{investment.score}}</td>
 </tr>

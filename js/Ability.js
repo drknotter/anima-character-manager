@@ -7,6 +7,19 @@ class Ability {
       return bonusInfo ? bonusInfo.bonus / bonusInfo.cost : 0;
     };
 
+    Object.defineProperty(this, 'cost', {
+      get: function() {
+        var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
+        return bonusInfo.cost;
+      }
+    });
+    Object.defineProperty(this, 'bonus', {
+      get: function() {
+        var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
+        return bonusInfo.bonus;
+      }
+    });
+
     this.classLevelBonus = function() {
       var innateBonus = character.class.innateBonuses[ABILITY_DATA[key].type + 'Ability'][key];
       return innateBonus ? character.level * innateBonus.bonus : 0;
@@ -52,7 +65,7 @@ class Ability {
   }
 
   get score() {
-    return Math.floor(this.dpInvested * this.bonusPerDp()) + this.classLevelBonus() + this.characteristicBonus() + this.otherBonuses();
+    return Math.floor(this.dpInvested / this.cost) * this.bonus + this.classLevelBonus() + this.characteristicBonus() + this.otherBonuses();
   }
 }
 
@@ -61,7 +74,6 @@ var ABILITY_DATA = {
   'block':{'type':'primary','baseCharacteristic':'dex','name':'Block','description':'No description yet!'},
   'dodge':{'type':'primary','baseCharacteristic':'agi','name':'Dodge','description':'No description yet!'},
   'wearArmor':{'type':'primary','baseCharacteristic':'str','name':'Wear Armor','description':'No description yet!'},
-  'martialKnowledge':{'type':'primary','baseCharacteristic':null,'name':'Martial Knowledge','description':'No description yet!'},
   'ki':{'type':'primary','baseCharacteristic':null,'name':'Ki','description':'No description yet!'},
   'kiAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Ki Accumulation Multiple','description':'No description yet!'},
   'zeon':{'type':'primary','baseCharacteristic':null,'name':'Zeon','description':'No description yet!'},

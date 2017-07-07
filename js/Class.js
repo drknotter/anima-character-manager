@@ -14,6 +14,7 @@ class Class {
     this.archetype = data.archetype;
     this.lifePoints = new Bonus(data.lifePoints);
     this.initiative = new Bonus(data.initiative);
+    this.martialKnowledge = new Bonus(data.martialKnowledge);
 
     this.primaryAbilityCosts = {};
     for (var key in data.primaryAbilityCosts) {
@@ -52,6 +53,8 @@ Class.warrior = new Class({
           {'cost':1,'bonus':15,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':25,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -142,7 +145,6 @@ Class.warrior = new Class({
               'block': {'cost':1,'bonus':5,'currency':'level'},
               'wearArmor': {'cost':1,'bonus':5,'currency':'level'},
               'psychicPoints': {'cost':3,'bonus':1,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':25,'currency':'level'},
           },
           'secondaryAbility': {
               'featsOfStrength':{'cost':1,'bonus':5,'currency':'level'},
@@ -164,6 +166,8 @@ Class.acrobaticWarrior = new Class({
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':10,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':25,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -252,7 +256,6 @@ Class.acrobaticWarrior = new Class({
           'primaryAbility': {
               'attack': {'cost':1,'bonus':5,'currency':'level'},
               'dodge': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':25,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -279,6 +282,8 @@ Class.paladin = new Class({
           {'cost':1,'bonus':15,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -369,7 +374,6 @@ Class.paladin = new Class({
               'wearArmor': {'cost':1,'bonus':10,'currency':'level'},
               'banish': {'cost':1,'bonus':10,'currency':'level'},
               'zeon': {'cost':1,'bonus':20,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -394,6 +398,8 @@ Class.darkPaladin = new Class({
           {'cost':1,'bonus':15,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -484,7 +490,6 @@ Class.darkPaladin = new Class({
               'wearArmor': {'cost':1,'bonus':5,'currency':'level'},
               'control': {'cost':1,'bonus':10,'currency':'level'},
               'zeon': {'cost':1,'bonus':20,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -510,6 +515,8 @@ Class.weaponmaster = new Class({
           {'cost':1,'bonus':20,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':10,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -599,7 +606,6 @@ Class.weaponmaster = new Class({
               'attack': {'cost':1,'bonus':5,'currency':'level'},
               'block': {'cost':1,'bonus':5,'currency':'level'},
               'wearArmor': {'cost':1,'bonus':10,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':10,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -622,6 +628,8 @@ Class.technician = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':50,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -709,7 +717,6 @@ Class.technician = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'attack': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':50,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -731,6 +738,8 @@ Class.tao = new Class({
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':30,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -817,7 +826,6 @@ Class.tao = new Class({
       },
       'innateBonuses':{
           'primaryAbility': {
-              'martialKnowledge':{'cost':1,'bonus':30,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -840,6 +848,8 @@ Class.ranger = new Class({
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -927,7 +937,6 @@ Class.ranger = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'attack': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -955,6 +964,8 @@ Class.shadow = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':10,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':25,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1043,7 +1054,6 @@ Class.shadow = new Class({
           'primaryAbility': {
               'attack': {'cost':1,'bonus':5,'currency':'level'},
               'dodge': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':25,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1069,6 +1079,8 @@ Class.thief = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':10,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1156,7 +1168,6 @@ Class.thief = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'dodge': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1185,6 +1196,8 @@ Class.assassin = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':10,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1272,7 +1285,6 @@ Class.assassin = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'attack': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1301,6 +1313,8 @@ Class.wizard = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':10,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1388,7 +1402,6 @@ Class.wizard = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'zeon': {'cost':1,'bonus':100,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':10,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1412,6 +1425,8 @@ Class.warlock = new Class({
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1502,7 +1517,6 @@ Class.warlock = new Class({
               'block': {'cost':1,'bonus':5,'currency':'level'},
               'dodge': {'cost':1,'bonus':5,'currency':'level'},
               'zeon': {'cost':1,'bonus':20,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1525,6 +1539,8 @@ Class.illusionist = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1612,7 +1628,6 @@ Class.illusionist = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'zeon': {'cost':1,'bonus':75,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1641,6 +1656,8 @@ Class.wizardMentalist = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':10,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1728,7 +1745,6 @@ Class.wizardMentalist = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'zeon': {'cost':1,'bonus':100,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':10,'currency':'level'},
               'psychicPoints':{'cost':1,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1752,6 +1768,8 @@ Class.summoner = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':10,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1843,7 +1861,6 @@ Class.summoner = new Class({
               'control': {'cost':1,'bonus':10,'currency':'level'},
               'bind': {'cost':1,'bonus':10,'currency':'level'},
               'banish': {'cost':1,'bonus':10,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':10,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1867,6 +1884,8 @@ Class.warriorSummoner = new Class({
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1961,7 +1980,6 @@ Class.warriorSummoner = new Class({
               'control': {'cost':1,'bonus':5,'currency':'level'},
               'bind': {'cost':1,'bonus':5,'currency':'level'},
               'banish': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':3,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -1984,6 +2002,8 @@ Class.mentalist = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':10,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2070,7 +2090,6 @@ Class.mentalist = new Class({
       },
       'innateBonuses':{
           'primaryAbility': {
-              'martialKnowledge':{'cost':1,'bonus':10,'currency':'level'},
               'psychicPoints':{'cost':1,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -2092,6 +2111,8 @@ Class.warriorMentalist = new Class({
           {'cost':1,'bonus':10,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2181,7 +2202,6 @@ Class.warriorMentalist = new Class({
               'attack': {'cost':1,'bonus':5,'currency':'level'},
               'block': {'cost':1,'bonus':5,'currency':'level'},
               'dodge': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':1,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {
@@ -2203,6 +2223,8 @@ Class.freelancer = new Class({
           {'cost':1,'bonus':5,'currency':'level'},
       'initiative':
           {'cost':1,'bonus':5,'currency':'level'},
+      'martialKnowledge':
+          {'cost':1,'bonus':20,'currency':'level'},
       'primaryAbilityCosts': {
           'attack':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2290,7 +2312,6 @@ Class.freelancer = new Class({
       'innateBonuses':{
           'primaryAbility': {
               'zeon': {'cost':1,'bonus':5,'currency':'level'},
-              'martialKnowledge':{'cost':1,'bonus':20,'currency':'level'},
               'psychicPoints':{'cost':2,'bonus':1,'currency':'level'},
           },
           'secondaryAbility': {

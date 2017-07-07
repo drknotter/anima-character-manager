@@ -19,21 +19,29 @@ class Character {
     if (!data) { data = {}; }
     var me = this;
 
+    check(data.name, "Missing name!");
     this.name = data.name;
+    check(data.exp, "Missing exp!");
     this.exp = data.exp;
+    check(data.appearance, "Missing appearance!");
     this.appearance = data.appearance;
+    check(data.height, "Missing height!");
     this.height = data.height;
+    check(data.weight, "Missing weight!");
     this.weight = data.weight;
 
+    check(data.characteristics, "Missing characteristics!");
     this.characteristics = {};
     for (let cKey in data.characteristics) {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
+    check(data.classId, "Missing classId!");
     this.classId = data.classId;
 
     var abilityCategories = ['primaryAbilities', 'secondaryAbilities', 'otherAbilities'];
     for (let a in abilityCategories) {
+      check(data[abilityCategories[a]], "Missing " + abilityCategories[a] + "!");
       this[abilityCategories[a]] = {};
       for (let key in data[abilityCategories[a]]) {
         this[abilityCategories[a]][key] = new Ability(data[abilityCategories[a]][key], this, key);
@@ -81,7 +89,9 @@ class Character {
       return -(totalInvested(me, 'ppInvested') + ppInvestedOnMentalPowers);
     };
 
+    check(data.currentLifePoints, "Missing currentLifePoints!");
     this.currentLifePoints = data.currentLifePoints;
+    check(data.currentFatigue, "Missing currentFatigue!");
     this.currentFatigue = data.currentFatigue;
   }
 
@@ -140,6 +150,11 @@ class Character {
     var armorModifier = 0; // TODO: fill this in.
     var levelBonus = this.class.initiative.bonus * Math.floor(this.level / this.class.initiative.cost);
     return baseInitiative + armorModifier + levelBonus;
+  }
+
+  get martialKnowledge() {
+    // TODO: add bonuses from martial arts
+    return this.class.martialKnowledge.bonus * Math.floor(this.level / this.class.martialKnowledge.cost);
   }
 
   get movement() {

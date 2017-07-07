@@ -2,24 +2,67 @@
   <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/mustache.min.js"></script>
-    <script type="text/javascript" src="js/character.templates.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 
     <script type="text/javascript" src="js/Psychic.js"></script>
-
     <script type="text/javascript" src="js/Ability.js"></script>
     <script type="text/javascript" src="js/Class.js"></script>
     <script type="text/javascript" src="js/Characteristic.js"></script>
     <script type="text/javascript" src="js/Advantages.js"></script>
     <script type="text/javascript" src="js/Character.js"></script>
-    <script type="text/javascript" src="js/manager.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/character.css">
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        $('#importCharacter').click(function(event) {
+          $('#popupBackground').show();
+        });
+        $('#popupBackground').click(function() {
+          $('#popupBackground').hide();
+        });
+        $('#popup').click(function(event) {
+          event.stopPropagation();
+        });
+        $('#doImportCharacter').click(function(event) {
+          var characterText = $('#importTextArea').val();
+          try {
+            var character = new Character(JSON.parse(characterText));
+            var storageKey = 'character.' + character.name;
+            if (!window.localStorage[storageKey] || confirm(character.name + " exists, overwrite?")) {
+              window.localStorage[storageKey] = JSON.stringify(character);
+              window.open("manage.html?n=" + character.name, "_self");
+            }
+          } catch(err) {
+            alert("Unable to import character: " + err.message);
+          }
+        });
+
+        for (let key in window.localStorage) {
+          var match = key.match(new RegExp("^character.(.*)$"));
+          if (match) {
+            let name = match[1];
+            let character = new Character(JSON.parse(window.localStorage[key]))
+            $('#content').prepend('<div class="button">' + name + ' (Level ' + character.level + ' ' + character.class.name + ')');
+            $('#content div').first().click(function(event) {
+              window.open("manage.html?n=" + name, "_self");
+            });
+          }
+        }
+      });
+    </script>
   </head>
   <body>
-  <div id="content"></div>
+  <div id="content">
+    <div id="newCharacter" class="button">New Character</div>
+    <div id="importCharacter" class="button">Import Character</div>
+  </div>
   <div id="popupBackground">
-    <div id="popup"></div>
+    <div id="popup">
+      <textarea id="importTextArea" cols="50" rows="20"></textarea>
+      <div id="doImportCharacter" class="button">Import</div>
+    </div>
   </div>
   </body>
 </html>
