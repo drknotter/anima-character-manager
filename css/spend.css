@@ -1,36 +1,17 @@
-html {
-  background: #899099;
-  font-family: 'Roboto', sans-serif;
-}
-
-body {
-  margin: 0px;
-}
-
-#content {
-  margin: auto;
-  width: 200mm;
-}
-
-table {
-  width: 100%;
-  border: none;
-  margin: 0mm;
-  padding: 0mm;
-  border-spacing: 0mm;
-}
-td {
-  padding: 0mm;
+.box {
+  margin: 2mm;
+  padding: 2mm;
+  background: #ccc;
 }
 
 .spendingOptionGroup {
   background: #ccc;
-  padding: 2mm;
 }
-.spendingOptionGroup .header {
-  padding: 1mm 6mm;
-  font-size: 120%;
+.header {
+  padding: 1mm 5mm;
+  font-size: 110%;
   font-weight: bold;
+  text-align: left;
 }
 
 .spendingOptionSubgroup {
@@ -60,6 +41,10 @@ td {
 .dpInvestment input {
   width: 15mm;
   font-size: 100%;
+}
+.dpInvestment .cost {
+  width: 20mm;
+  text-align: center;
 }
 .dpInvestment .score {
   width: 20mm;

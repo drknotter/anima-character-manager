@@ -1,6 +1,6 @@
 var characterName = 'Oras';
 var PRIMARY_DP_SPEND_GROUPS = {
-  'combatAbilities': {
+  'combat': {
     'name': 'Combat Abilities',
     'abilities': [
       'attack',
@@ -11,7 +11,7 @@ var PRIMARY_DP_SPEND_GROUPS = {
       'kiAccumulationMultiple',
     ],
   },
-  'supernaturalAbilities': {
+  'supernatural': {
     'name': 'Supernatural Abilities',
     'abilities': [
       'zeon',
@@ -23,7 +23,7 @@ var PRIMARY_DP_SPEND_GROUPS = {
       'banish',
     ],
   },
-  'pyschicAbilities': {
+  'psychic': {
     'name': 'Psychic Abilities',
     'abilities': [
       'psychicPoints',
@@ -110,38 +110,40 @@ $( document ).ready(function() {
 function renderSpendingOptionGroups(character) {
   var DP = character.DP;
 
-  $('#content').html(Mustache.render(Template.spendingOptionGroup, {
+  appendBox($('#content'), 'dpSpendingOptionGroup', true, Mustache.render(Template.dpSpendingOptionGroupHeader, {
     'optionName': 'Development Points', 
     'total': character.DP,
     'totalId': 'Total_DP',
   }));
-  $('#content').children('.spendingOptionGroup .header .total').last();
-  
-  var spendingOptionGroup = $('#content .spendingOptionGroup').last();
+
+  var spendingOptionGroup = $('#dpSpendingOptionGroup');
+  spendingOptionGroup.attr('class', 'spendingOptionGroup');
   for (let i in PRIMARY_DP_SPEND_GROUPS) {
     var investments = [];
+    var limit = Math.floor(character.class.limits[i] * 100);
     for (let j in PRIMARY_DP_SPEND_GROUPS[i].abilities) {
       investments.push(character.primaryAbilities[PRIMARY_DP_SPEND_GROUPS[i].abilities[j]]);
     }
-    renderSpendingOptionSubgroup(character, investments, PRIMARY_DP_SPEND_GROUPS[i].name, spendingOptionGroup);
+    renderDpSpendingOptionSubgroup(character, investments, PRIMARY_DP_SPEND_GROUPS[i].name, limit, spendingOptionGroup);
   }
 
   var investments = [];
   for (let i in SECONDARY_DP_SPEND_GROUP.abilities) {
     investments.push(character.secondaryAbilities[SECONDARY_DP_SPEND_GROUP.abilities[i]]);
   }
-  renderSpendingOptionSubgroup(character, investments, SECONDARY_DP_SPEND_GROUP.name, spendingOptionGroup);
+  renderDpSpendingOptionSubgroup(character, investments, SECONDARY_DP_SPEND_GROUP.name, null, spendingOptionGroup);
 
   var investments = [];
   for (let i in OTHER_DP_SPEND_GROUP.abilities) {
     investments.push(character.otherAbilities[OTHER_DP_SPEND_GROUP.abilities[i]]);
   }
-  renderSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, spendingOptionGroup);
+  renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, null, spendingOptionGroup);
 }
 
-function renderSpendingOptionSubgroup(character, investments, subgroupName, parent) {
-  parent.append(Mustache.render(Template.spendingOptionSubgroup, {'name': subgroupName}));
+function renderDpSpendingOptionSubgroup(character, investments, subgroupName, limit, parent) {
+  parent.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = parent.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.dpInvestmentHeader, {'name': subgroupName, 'limit': limit}))
   for (let i in investments) {
     renderSpendingOption(character, investments[i], subgroup);
   }

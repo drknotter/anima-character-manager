@@ -1,23 +1,29 @@
 var Template = {};
 
-Template.spendingOptionGroup = String.raw`
-<div class="spendingOptionGroup">
+Template.dpSpendingOptionGroupHeader = String.raw`
 <div class="header">
 <span>{{optionName}}</span><span style="float:right">Remaining: <span id="{{totalId}}">{{total}}</span></span>
 </div>
+`;
+
+Template.spendingOptionGroup = String.raw`
+<div class="spendingOptionGroup">
 </div>
 `;
 
 Template.spendingOptionSubgroup = String.raw`
 <table class="spendingOptionSubgroup">
-<tr class="dpInvestment"><th>{{name}}</th>
+</table>
+`;
+
+Template.dpInvestmentHeader = String.raw`
+<tr class="dpInvestment">
+<th>{{name}} {{#limit}}(Limit {{limit}}%){{/limit}}</th>
 <th class="cost">Cost/Bonus</th>
 <th class="dpInvested">DP Spent</th>
 <th class="score">Score</th>
 </tr>
-</table>
 `;
-
 Template.dpInvestment = String.raw`
 <tr class="dpInvestment">
 <td>{{investment.name}}</td>

@@ -21,6 +21,8 @@ class Class {
       this.primaryAbilityCosts[key] = data.primaryAbilityCosts[key];
     }
 
+    this.limits = data.limits;
+
     this.secondaryAbilityCosts = {};
     for (var key in data.secondaryAbilityCosts) {
       this.secondaryAbilityCosts[key] = data.secondaryAbilityCosts[key];
@@ -85,6 +87,11 @@ Class.warrior = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -198,6 +205,11 @@ Class.acrobaticWarrior = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -315,6 +327,11 @@ Class.paladin = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -430,6 +447,11 @@ Class.darkPaladin = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -548,6 +570,11 @@ Class.weaponmaster = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -661,6 +688,11 @@ Class.technician = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -771,6 +803,11 @@ Class.tao = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -880,6 +917,11 @@ Class.ranger = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -997,6 +1039,11 @@ Class.shadow = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -1111,6 +1158,11 @@ Class.thief = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -1229,6 +1281,11 @@ Class.assassin = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -1346,6 +1403,11 @@ Class.wizard = new Class({
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.6,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -1457,6 +1519,11 @@ Class.warlock = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -1571,6 +1638,11 @@ Class.illusionist = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.6,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -1689,6 +1761,11 @@ Class.wizardMentalist = new Class({
           'psychicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.5,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -1800,6 +1877,11 @@ Class.summoner = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.6,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -1916,6 +1998,11 @@ Class.warriorSummoner = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -2035,6 +2122,11 @@ Class.mentalist = new Class({
           'psychicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
       },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.6,
+      },
       'secondaryAbilityCosts':{
           // athletics
           'acrobatics':{'cost':2,'bonus':1,'currency':'DP'},
@@ -2143,6 +2235,11 @@ Class.warriorMentalist = new Class({
           'psychicPoints':    {'cost':15,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.5,
+        'supernatural': 0.5,
+        'psychic': 0.5,
       },
       'secondaryAbilityCosts':{
           // athletics
@@ -2255,6 +2352,11 @@ Class.freelancer = new Class({
           'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
+      },
+      'limits': {
+        'combat': 0.6,
+        'supernatural': 0.6,
+        'psychic': 0.6,
       },
       'secondaryAbilityCosts':{
           // athletics

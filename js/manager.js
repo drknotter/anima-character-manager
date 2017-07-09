@@ -20,18 +20,27 @@ function updateCharacter(character) {
 
 function renderCharacter(character) {
   $('#content').html(Mustache.render(Template.character, character));
+  var column1Boxes = ['mainInfo','combat','psychic','resistances','advantages',];
+  var column2Boxes = ['characteristics','secondaryAbilities',];
 
-  $('#mainInfo').html(Mustache.render(Template.mainInfo, character));
+  appendBox($('#column1'), 'mainInfo', true, Mustache.render(Template.mainInfoHeader, character));
+  appendBox($('#column1'), 'combat', true, Mustache.render(Template.combatHeader));
+  appendBox($('#column1'), 'psychic', true, Mustache.render(Template.psychicHeader));
+  appendBox($('#column1'), 'resistances', true, 'Resistances');
+  appendBox($('#column2'), 'characteristics', true, 'Characteristics');
+  appendBox($('#column2'), 'secondaryAbilities', true, 'Secondary Abilities');
+
+  $('#mainInfo').append(Mustache.render(Template.mainInfo, character));
 
   $('#characteristics').append(Mustache.render(Template.characteristics));
-  $('#characteristics>table').append(Mustache.render(Template.characteristic, {'rowType':'th','name':'Characteristics','score':'Score','modifier':'Modifier'}));
+  $('#characteristics>table').append(Mustache.render(Template.characteristic, {'rowType':'th','name':'','score':'Score','modifier':'Modifier'}));
   for (let i in character.characteristics) {
     $('#characteristics>table').append(Mustache.render(Template.characteristic, character.characteristics[i]));
   }
 
-  $('#combat').html(Mustache.render(Template.combat, character));
+  $('#combat').append(Mustache.render(Template.combat, character));
 
-  $('#secondaryAbilities').html(Mustache.render(Template.secondaryAbilities));
+  $('#secondaryAbilities').append(Mustache.render(Template.secondaryAbilities));
   for (let i in SECONDARY_ABILITIES_BY_CATEGORY) {
     $('#secondaryAbilities>table').append(Mustache.render(Template.secondaryAbilitiesCategory, SECONDARY_ABILITIES_BY_CATEGORY[i]));
     var category = $('#secondaryAbilities .category').last();
@@ -41,8 +50,7 @@ function renderCharacter(character) {
     }
   }
 
-  $('#resistances').html(Mustache.render(Template.resistances));
-  $('#resistances>table').append(Mustache.render(Template.resistance, {'rowType':'th','name':'Resistances','score':'Score'}));
+  $('#resistances').append(Mustache.render(Template.resistances));
   for (let i in character.resistances) {
     $('#resistances>table').append(Mustache.render(Template.resistance, character.resistances[i]));
   }
@@ -91,6 +99,12 @@ function renderCharacter(character) {
   $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);
   $('#fatigue').keypress({'key':'currentFatigue', 'character': character}, updateCharacterFrom);
   $('#exp').keypress({'key':'exp', 'character': character}, updateCharacterFrom);
+
+  var blob = new Blob([JSON.stringify(character)], {type: 'application/json'});
+  $('#exportButton').attr('href', URL.createObjectURL(blob));
+  $('#exportButton').click(function(event) {
+    
+  });
 }
 
 function updateCharacterFrom(event) {

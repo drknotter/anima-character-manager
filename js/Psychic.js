@@ -143,7 +143,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 240, 'difficulty': 'Almost Impossible', 'outcome': '4 Dodge / 80 ft'},
       {'roll': 280, 'difficulty': 'Impossible', 'outcome': '6 Dodge / 150 ft'},
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '8 Dodge / 300 ft'},
-      {'roll': 440, 'difficulty': 'Zen', 'outcome': '&#8734; Dodge / &#8734; ft'},
+      {'roll': 440, 'difficulty': 'Zen', 'outcome': '&infin; Dodge / &infin; ft'},
     ],
   },
   'createChaos': {

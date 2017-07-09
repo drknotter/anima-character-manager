@@ -1,31 +1,31 @@
 var Template = {};
 
 Template.character = String.raw`
-<div id="character">
-<table>
+<table id="character">
 <tr>
   <td id="column1">
-    <div id="mainInfo" class="box"/>
-    <div id="combat" class="box"/>
-    <div id="psychic" class="box" />
-    <div id="resistances" class="box" />
-    <div id="advantages" class="box" />
   </td>
   <td id="column2">
-    <div id="characteristics" class="box" />
-    <div id="secondaryAbilities" class="box" />
   </td>
 </tr>
-</div>
+<tr>
+  <td colspan="2">
+  <a id="exportButton" download="{{name}}.json">Export</div>
+  </td>
+</tr>
+</table>
 `;
 
-Template.mainInfo = String.raw`
+Template.mainInfoHeader = String.raw`
 <table>
 <tr>
 <td id="name">{{name}}</td>
 <td id="levelAndClass">Level {{level}} {{class.name}}</td>
 </tr>
 </table>
+`;
+
+Template.mainInfo = String.raw`
 <table class="stats">
 <tr>
 <td class="stat"><span id="lifePoints" contenteditable="true">{{currentLifePoints}}</span>/{{lifePoints}}<br/>Life Points</td>
@@ -38,7 +38,7 @@ Template.mainInfo = String.raw`
 `;
 
 Template.characteristics = String.raw`
-<table/>
+<table></table>
 `;
 
 Template.characteristic = String.raw`
@@ -49,8 +49,11 @@ Template.characteristic = String.raw`
 </tr>
 `;
 
-Template.combat = String.raw`
+Template.combatHeader = String.raw`
 Combat
+`;
+
+Template.combat = String.raw`
 <table class="stats">
 <tr>
 <td class="stat"><span>{{primaryAbilities.attack.score}}</span><br/>Attack</td>
@@ -65,7 +68,7 @@ Combat
 `;
 
 Template.secondaryAbilities = String.raw`
-<table><caption>Secondary Abilities</caption></table>
+<table></table>
 `;
 
 Template.secondaryAbilitiesCategory = String.raw`
@@ -105,8 +108,10 @@ Template.advantage = String.raw`
 </tr>
 `;
 
-Template.psychic = String.raw`
+Template.psychicHeader = String.raw`
 Psychic Powers
+`;
+Template.psychic = String.raw`
 <table id="mainPsychicInfo" />
 <div id="mentalPowers" />
 `;
@@ -141,6 +146,6 @@ Template.mentalPowerEffect = String.raw`
 <tr class="effect">
 <{{rowType}}{{^rowType}}td{{/rowType}} class="roll">{{roll}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 <{{rowType}}{{^rowType}}td{{/rowType}} class="difficulty">{{difficulty}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="outcome">{{outcome}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="outcome">{{{outcome}}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
