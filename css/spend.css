@@ -20,14 +20,14 @@
   margin-top: 2mm;
 }
 
-.dpInvestment {
+.spendingOptionSubgroup tr {
   margin: 4mm;
 }
-.dpInvestment:nth-child(even) {
+.spendingOptionSubgroup tr:nth-child(even) {
   background: #ccc;
 }
 
-.dpInvestment td:first-child, .dpInvestment th:first-child {
+.spendingOptionSubgroup td:first-child, .spendingOptionSubgroup th:first-child {
   padding: 2mm 4mm;
   text-align: left;
 }
@@ -47,6 +47,24 @@
   text-align: center;
 }
 .dpInvestment .score {
+  width: 20mm;
+  text-align: center;
+}
+
+.characteristicLevelBonusInvestment .characteristicLevelBonusesInvested {
+  width: 40mm;
+  padding: 0mm 1mm;
+  text-align: center;;
+}
+.characteristicLevelBonusInvestment input {
+  width: 15mm;
+  font-size: 100%;
+}
+.characteristicLevelBonusInvestment .score {
+  width: 20mm;
+  text-align: center;
+}
+.characteristicLevelBonusInvestment .modifier {
   width: 20mm;
   text-align: center;
 }

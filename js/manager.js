@@ -100,11 +100,8 @@ function renderCharacter(character) {
   $('#fatigue').keypress({'key':'currentFatigue', 'character': character}, updateCharacterFrom);
   $('#exp').keypress({'key':'exp', 'character': character}, updateCharacterFrom);
 
-  var blob = new Blob([JSON.stringify(character)], {type: 'application/json'});
+  var blob = new Blob([JSON.stringify(character, null, 2)], {type: 'application/json'});
   $('#exportButton').attr('href', URL.createObjectURL(blob));
-  $('#exportButton').click(function(event) {
-    
-  });
 }
 
 function updateCharacterFrom(event) {

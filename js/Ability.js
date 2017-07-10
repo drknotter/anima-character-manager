@@ -1,6 +1,7 @@
 class Ability {
   constructor(data, character, key) {
     this.dpInvested = data.dpInvested;
+    this.secondaryAbilityLevelBonusesInvested = data.secondaryAbilityLevelBonusesInvested;
 
     this.bonusPerDp = function() {
       var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
@@ -10,13 +11,13 @@ class Ability {
     Object.defineProperty(this, 'cost', {
       get: function() {
         var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
-        return bonusInfo.cost;
+        return bonusInfo ? bonusInfo.cost : 0;
       }
     });
     Object.defineProperty(this, 'bonus', {
       get: function() {
         var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
-        return bonusInfo.bonus;
+        return bonusInfo ? bonusInfo.bonus : 0;
       }
     });
 
@@ -65,7 +66,8 @@ class Ability {
   }
 
   get score() {
-    return Math.floor(this.dpInvested / this.cost) * this.bonus + this.classLevelBonus() + this.characteristicBonus() + this.otherBonuses();
+    var naturalBonus = this.secondaryAbilityLevelBonusesInvested ? this.secondaryAbilityLevelBonusesInvested : 0;
+    return Math.floor(this.dpInvested / this.cost) * this.bonus + this.classLevelBonus() + (1 + naturalBonus) * this.characteristicBonus() + this.otherBonuses();
   }
 }
 
@@ -76,6 +78,7 @@ var ABILITY_DATA = {
   'wearArmor':{'type':'primary','baseCharacteristic':'str','name':'Wear Armor','description':'No description yet!'},
   'ki':{'type':'primary','baseCharacteristic':null,'name':'Ki','description':'No description yet!'},
   'kiAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Ki Accumulation Multiple','description':'No description yet!'},
+  'martialKnowledge':{'type':'primary','baseCharacteristic':null,'name':'Martial Knowledge','description':'No description yet!'},
   'zeon':{'type':'primary','baseCharacteristic':null,'name':'Zeon','description':'No description yet!'},
   'magicAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Magic Accumulation Multiple','description':'No description yet!'},
   'magicProjection':{'type':'primary','baseCharacteristic':'dex','name':'Magic Projection','description':'No description yet!'},

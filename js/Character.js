@@ -122,9 +122,14 @@ class Character {
     return 3 - totalInvested(this, 'cpInvested');
   }
 
-  get levelBonuses() {
-    var totalLevelsInvested = totalInvested(this, 'levelsInvested');
-    return Math.floor(this.level / 2 - totalLevelsInvested);
+  get characteristicLevelBonuses() {
+    var totalLevelBonusesInvested = totalInvested(this, 'characteristicLevelBonusesInvested');
+    return Math.floor(this.level / 2 - totalLevelBonusesInvested);
+  }
+
+  get secondaryAbilityLevelBonuses() {
+    var totalLevelBonusesInvested = totalInvested(this, 'secondaryAbilityLevelBonusesInvested');
+    return this.level - totalLevelBonusesInvested;
   }
 
   get lifePoints() {

@@ -1,6 +1,10 @@
 class Characteristic {
   constructor(data, key) {
-    this.levelsInvested = data.levelsInvested;
+    if (data.characteristicLevelBonusesInvested) {
+      this.characteristicLevelBonusesInvested = data.characteristicLevelBonusesInvested;
+    } else {
+      this.characteristicLevelBonusesInvested = 0;
+    }
 
     this.base = data.base;
 
@@ -15,8 +19,7 @@ class Characteristic {
   }
 
   get score() {
-    var levelBonus = this.levelsInvested ? this.levelsInvested : 0;
-    return this.base + levelBonus;
+    return this.base + this.characteristicLevelBonusesInvested;
   }
 
   get modifier() {

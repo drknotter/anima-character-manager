@@ -90,7 +90,7 @@ function gatherInvestments(data, key) {
 
   var gathered = [];
   for (let i in data) {
-    if (i == key) {
+    if (i === key) {
       gathered.push(data);
     } else if (data[i] instanceof Object) {
       var gatheredFromChild = gatherInvestments(data[i], key);
@@ -104,13 +104,22 @@ function gatherInvestments(data, key) {
 
 $( document ).ready(function() {
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
-  renderSpendingOptionGroups(character);
+  renderDpSpendingOptionGroups(character);
 });
 
-function renderSpendingOptionGroups(character) {
+function renderDpSpendingOptionGroups(character) {
+  renderDpOptionSpendingGroup(character);
+  renderCharacteristicLevelBonusSpendingGroup(character);
+}
+
+/////////////////////////
+// DP spending options //
+/////////////////////////
+
+function renderDpOptionSpendingGroup(character) {
   var DP = character.DP;
 
-  appendBox($('#content'), 'dpSpendingOptionGroup', true, Mustache.render(Template.dpSpendingOptionGroupHeader, {
+  appendBox($('#content'), 'dpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
     'optionName': 'Development Points', 
     'total': character.DP,
     'totalId': 'Total_DP',
@@ -145,11 +154,11 @@ function renderDpSpendingOptionSubgroup(character, investments, subgroupName, li
   var subgroup = parent.children('.spendingOptionSubgroup').last();
   subgroup.append(Mustache.render(Template.dpInvestmentHeader, {'name': subgroupName, 'limit': limit}))
   for (let i in investments) {
-    renderSpendingOption(character, investments[i], subgroup);
+    renderDpSpendingOption(character, investments[i], subgroup);
   }
 }
 
-function renderSpendingOption(character, investment, parent) {
+function renderDpSpendingOption(character, investment, parent) {
   var maxForInvestment = investment.dpInvested + character.DP;
   var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
   parent.append(Mustache.render(Template.dpInvestment, data));
@@ -159,6 +168,38 @@ function renderSpendingOption(character, investment, parent) {
   });
 }
 
+/////////////////////////////////////////////////
+// Characteristic level bonus spending options //
+/////////////////////////////////////////////////
+function renderCharacteristicLevelBonusSpendingGroup(character) {
+  var levelBonuses = character.characteristicLevelBonuses;
+
+  appendBox($('#content'), 'characteristicLevelBonusSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+    'optionName': 'Characteristic Level Bonuses', 
+    'total': levelBonuses,
+    'totalId': 'Total_Level_Bonuses',
+  }));
+
+  var spendingOptionGroup = $('#characteristicLevelBonusSpendingOptionGroup');
+  spendingOptionGroup.attr('class', 'spendingOptionGroup');
+
+  spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.characteristicLevelBonusInvestmentHeader));
+  for (let i in character.characteristics) {
+    var maxForInvestment = levelBonuses + character.characteristics[i].characteristicLevelBonusesInvested;
+    subgroup.append(Mustache.render(Template.characteristicLevelBonusInvestment, {'characteristic': character.characteristics[i], 'maxForInvestment': maxForInvestment}));
+    subgroup.children('.characteristicLevelBonusInvestment').last().attr('id', character.characteristics[i].name.replace(/\s/g, "_"));
+    $('.characteristicLevelBonusesInvested>input').last().change({'characteristic': character.characteristics[i], 'character': character}, function(event) {
+      changeCharacteristicLevelBonuses(event, Number(this.value));
+    });
+  }
+}
+
+//////////////////////
+// Update functions //
+//////////////////////
+
 function changeDP(event, newValue) {
   var investment = event.data.investment;
   var character = event.data.character;
@@ -167,7 +208,20 @@ function changeDP(event, newValue) {
   localStorage['character.'+character.name] = JSON.stringify(character);
 }
 
+function changeCharacteristicLevelBonuses(event, newValue) {
+  var characteristic = event.data.characteristic;
+  var character = event.data.character;
+  characteristic.characteristicLevelBonusesInvested = newValue;
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
 function updateSpendingOptions(character) {
+  updateDpSpendingOptions(character);
+  updateCharacteristicLevelBonusSpendingOptions(character);
+}
+
+function updateDpSpendingOptions(character) {
   var DP = character.DP;
   var investments = gatherInvestments(character, 'dpInvested');
 
@@ -181,3 +235,17 @@ function updateSpendingOptions(character) {
   }
 }
 
+function updateCharacteristicLevelBonusSpendingOptions(character) {
+  var characteristicLevelBonuses = character.characteristicLevelBonuses;
+  var investments = gatherInvestments(character, 'characteristicLevelBonusesInvested');
+
+  $('#Total_Level_Bonuses').html(characteristicLevelBonuses);
+
+  for (let i in investments) {
+    var maxForInvestment = investments[i].characteristicLevelBonusesInvested + characteristicLevelBonuses;
+    var investmentDOM = $('#' + investments[i].name.replace(/\s/g, "_"));
+    investmentDOM.find("input").attr({'max': maxForInvestment});
+    investmentDOM.children(".score").html(investments[i].score);
+    investmentDOM.children(".modifier").html(investments[i].modifier);
+  }
+}

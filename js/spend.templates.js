@@ -1,13 +1,8 @@
 var Template = {};
 
-Template.dpSpendingOptionGroupHeader = String.raw`
+Template.spendingOptionGroupHeader = String.raw`
 <div class="header">
 <span>{{optionName}}</span><span style="float:right">Remaining: <span id="{{totalId}}">{{total}}</span></span>
-</div>
-`;
-
-Template.spendingOptionGroup = String.raw`
-<div class="spendingOptionGroup">
 </div>
 `;
 
@@ -30,5 +25,21 @@ Template.dpInvestment = String.raw`
 <td class="cost">{{investment.cost}}/{{investment.bonus}}</td>
 <td class="dpInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{investment.dpInvested}}"></td>
 <td class="score">{{investment.score}}</td>
+</tr>
+`;
+
+Template.characteristicLevelBonusInvestmentHeader = String.raw`<tr class="characteristicLevelBonusInvestment">
+<th class="name">Characteristic</th>
+<th class="characteristicLevelBonusesInvested">Level Bonuses Spent</th>
+<th class="score">Score</th>
+<th class="modifier">Modifier</th>
+</tr>
+`;
+Template.characteristicLevelBonusInvestment = String.raw`
+<tr class="characteristicLevelBonusInvestment">
+<td class="name">{{characteristic.name}}</td>
+<td class="characteristicLevelBonusesInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{characteristic.characteristicLevelBonusesInvested}}"></td>
+<td class="score">{{characteristic.score}}</td>
+<td class="modifier">{{characteristic.modifier}}</td>
 </tr>
 `;
