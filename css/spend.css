@@ -68,3 +68,21 @@
   width: 20mm;
   text-align: center;
 }
+
+.secondaryAbilityLevelBonusInvestment .secondaryAbilityLevelBonusesInvested {
+  width: 45mm;
+  padding: 0mm 1mm;
+  text-align: center;;
+}
+.secondaryAbilityLevelBonusInvestment input {
+  width: 15mm;
+  font-size: 100%;
+}
+.secondaryAbilityLevelBonusInvestment .score {
+  width: 20mm;
+  text-align: center;
+}
+.secondaryAbilityLevelBonusInvestment .modifier {
+  width: 20mm;
+  text-align: center;
+}

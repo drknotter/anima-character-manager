@@ -110,6 +110,7 @@ $( document ).ready(function() {
 function renderDpSpendingOptionGroups(character) {
   renderDpOptionSpendingGroup(character);
   renderCharacteristicLevelBonusSpendingGroup(character);
+  renderSecondaryAbilityLevelBonusSpendingGroup(character);
 }
 
 /////////////////////////
@@ -147,6 +148,7 @@ function renderDpOptionSpendingGroup(character) {
     investments.push(character.otherAbilities[OTHER_DP_SPEND_GROUP.abilities[i]]);
   }
   renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, null, spendingOptionGroup);
+  spendingOptionGroup.toggle();
 }
 
 function renderDpSpendingOptionSubgroup(character, investments, subgroupName, limit, parent) {
@@ -162,7 +164,7 @@ function renderDpSpendingOption(character, investment, parent) {
   var maxForInvestment = investment.dpInvested + character.DP;
   var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
   parent.append(Mustache.render(Template.dpInvestment, data));
-  parent.children('.dpInvestment').last().attr('id', investment.name.replace(/\s/g, "_"));
+  parent.children('.dpInvestment').last().attr('id', investment.name.replace(/\s/g, "_") + ":DP");
   $('.dpInvested>input').last().change({'investment': investment, 'character': character}, function(event) {
     changeDP(event, Number(this.value));
   });
@@ -189,11 +191,43 @@ function renderCharacteristicLevelBonusSpendingGroup(character) {
   for (let i in character.characteristics) {
     var maxForInvestment = levelBonuses + character.characteristics[i].characteristicLevelBonusesInvested;
     subgroup.append(Mustache.render(Template.characteristicLevelBonusInvestment, {'characteristic': character.characteristics[i], 'maxForInvestment': maxForInvestment}));
-    subgroup.children('.characteristicLevelBonusInvestment').last().attr('id', character.characteristics[i].name.replace(/\s/g, "_"));
+    subgroup.children('.characteristicLevelBonusInvestment').last().attr('id', character.characteristics[i].name.replace(/\s/g, "_") + ":CB");
     $('.characteristicLevelBonusesInvested>input').last().change({'characteristic': character.characteristics[i], 'character': character}, function(event) {
       changeCharacteristicLevelBonuses(event, Number(this.value));
     });
   }
+
+  spendingOptionGroup.toggle();
+}
+
+////////////////////////////////////////////////////
+// Secondary ability level bonus spending options //
+////////////////////////////////////////////////////
+function renderSecondaryAbilityLevelBonusSpendingGroup(character) {
+  var levelBonuses = character.secondaryAbilityLevelBonuses;
+
+  appendBox($('#content'), 'secondaryAbilityLevelBonusSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+    'optionName': 'Natural Level Bonuses', 
+    'total': levelBonuses,
+    'totalId': 'Total_Natural_Bonuses',
+  }));
+
+  var spendingOptionGroup = $('#secondaryAbilityLevelBonusSpendingOptionGroup');
+  spendingOptionGroup.attr('class', 'spendingOptionGroup');
+
+  spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.secondaryAbilityLevelBonusInvestmentHeader));
+  for (let i in character.secondaryAbilities) {
+    var maxForInvestment = levelBonuses + character.secondaryAbilities[i].secondaryAbilityLevelBonusesInvested;
+    subgroup.append(Mustache.render(Template.secondaryAbilityLevelBonusInvestment, {'ability': character.secondaryAbilities[i], 'maxForInvestment': maxForInvestment}));
+    subgroup.children('.secondaryAbilityLevelBonusInvestment').last().attr('id', character.secondaryAbilities[i].name.replace(/\s/g, "_") + ":NB");
+    $('.secondaryAbilityLevelBonusesInvested>input').last().change({'ability': character.secondaryAbilities[i], 'character': character}, function(event) {
+      changeSecondaryAbilityLevelBonuses(event, Number(this.value));
+    });
+  }
+
+  spendingOptionGroup.toggle();
 }
 
 //////////////////////
@@ -216,9 +250,18 @@ function changeCharacteristicLevelBonuses(event, newValue) {
   localStorage['character.'+character.name] = JSON.stringify(character);
 }
 
+function changeSecondaryAbilityLevelBonuses(event, newValue) {
+  var ability = event.data.ability;
+  var character = event.data.character;
+  ability.secondaryAbilityLevelBonusesInvested = newValue;
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
 function updateSpendingOptions(character) {
   updateDpSpendingOptions(character);
   updateCharacteristicLevelBonusSpendingOptions(character);
+  updateSecondaryAbilityLevelBonusSpendingOptions(character);
 }
 
 function updateDpSpendingOptions(character) {
@@ -229,7 +272,7 @@ function updateDpSpendingOptions(character) {
 
   for (let i in investments) {
     var maxForInvestment = investments[i].dpInvested + character.DP;
-    var investmentDOM = $('#' + investments[i].name.replace(/\s/g, "_"));
+    var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":DP"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
     investmentDOM.children(".score").html(investments[i].score);
   }
@@ -243,9 +286,23 @@ function updateCharacteristicLevelBonusSpendingOptions(character) {
 
   for (let i in investments) {
     var maxForInvestment = investments[i].characteristicLevelBonusesInvested + characteristicLevelBonuses;
-    var investmentDOM = $('#' + investments[i].name.replace(/\s/g, "_"));
+    var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":CB"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
     investmentDOM.children(".score").html(investments[i].score);
     investmentDOM.children(".modifier").html(investments[i].modifier);
+  }
+}
+
+function updateSecondaryAbilityLevelBonusSpendingOptions(character) {
+  var secondaryAbilityLevelBonuses = character.secondaryAbilityLevelBonuses;
+  var investments = gatherInvestments(character, 'secondaryAbilityLevelBonusesInvested');
+
+  $('#Total_Natural_Bonuses').html(secondaryAbilityLevelBonuses);
+
+  for (let i in investments) {
+    var maxForInvestment = investments[i].secondaryAbilityLevelBonusesInvested + secondaryAbilityLevelBonuses;
+    var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":NB"));
+    investmentDOM.find("input").attr({'max': maxForInvestment});
+    investmentDOM.children(".score").html(investments[i].score);
   }
 }

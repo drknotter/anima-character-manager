@@ -23,7 +23,7 @@ Template.dpInvestment = String.raw`
 <tr class="dpInvestment">
 <td>{{investment.name}}</td>
 <td class="cost">{{investment.cost}}/{{investment.bonus}}</td>
-<td class="dpInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{investment.dpInvested}}"></td>
+<td class="dpInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{investment.dpInvested}}" step="{{investment.cost}}"></td>
 <td class="score">{{investment.score}}</td>
 </tr>
 `;
@@ -41,5 +41,19 @@ Template.characteristicLevelBonusInvestment = String.raw`
 <td class="characteristicLevelBonusesInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{characteristic.characteristicLevelBonusesInvested}}"></td>
 <td class="score">{{characteristic.score}}</td>
 <td class="modifier">{{characteristic.modifier}}</td>
+</tr>
+`;
+
+Template.secondaryAbilityLevelBonusInvestmentHeader = String.raw`<tr class="secondaryAbilityLevelBonusInvestment">
+<th class="name">Secondary Ability</th>
+<th class="secondaryAbilityLevelBonusesInvested">Natural Bonuses Spent</th>
+<th class="score">Score</th>
+</tr>
+`;
+Template.secondaryAbilityLevelBonusInvestment = String.raw`
+<tr class="secondaryAbilityLevelBonusInvestment">
+<td class="name">{{ability.name}}</td>
+<td class="secondaryAbilityLevelBonusesInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{ability.secondaryAbilityLevelBonusesInvested}}"></td>
+<td class="score">{{ability.score}}</td>
 </tr>
 `;

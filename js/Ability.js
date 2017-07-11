@@ -1,7 +1,22 @@
 class Ability {
   constructor(data, character, key) {
+    var attrs = ['name', 'description'];
+    for (let i in attrs) {
+      Object.defineProperty(this, attrs[i], {
+        get: function() {
+          return ABILITY_DATA[key][attrs[i]];
+        }
+      });
+    }
+
     this.dpInvested = data.dpInvested;
-    this.secondaryAbilityLevelBonusesInvested = data.secondaryAbilityLevelBonusesInvested;
+    if (ABILITY_DATA[key].type === "secondary") {
+      if (data.secondaryAbilityLevelBonusesInvested) {
+        this.secondaryAbilityLevelBonusesInvested = data.secondaryAbilityLevelBonusesInvested;
+      } else {
+        this.secondaryAbilityLevelBonusesInvested = 0;
+      }
+    }
 
     this.bonusPerDp = function() {
       var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
@@ -31,14 +46,6 @@ class Ability {
       return baseCharacteristic ? character.characteristics[baseCharacteristic].modifier : 0;
     }
 
-    var attrs = ['name', 'description'];
-    for (let i in attrs) {
-      Object.defineProperty(this, attrs[i], {
-        get: function() {
-          return ABILITY_DATA[key][attrs[i]];
-        }
-      });
-    }
   }
 
   bonusPerDp() {

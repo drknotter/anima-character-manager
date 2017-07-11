@@ -5,7 +5,7 @@ function totalInvested(data, key) {
 
   var sum = 0;
   for (var i in data) {
-    if (i === key) {
+    if (i === key && data[i]) {
       sum += data[i];
     } else if (data[i] instanceof Object) {
       sum += totalInvested(data[i], key);

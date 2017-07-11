@@ -1,0 +1,295 @@
+{
+  "name": "Oras",
+  "exp": 610,
+  "appearance": 5,
+  "height": "5'2\"",
+  "weight": "100lbs",
+  "characteristics": {
+    "str": {
+      "characteristicLevelBonusesInvested": 0,
+      "base": 4
+    },
+    "agi": {
+      "characteristicLevelBonusesInvested": 0,
+      "base": 7
+    },
+    "dex": {
+      "characteristicLevelBonusesInvested": 0,
+      "base": 9
+    },
+    "con": {
+      "characteristicLevelBonusesInvested": 0,
+      "base": 6
+    },
+    "int": {
+      "characteristicLevelBonusesInvested": 1,
+      "base": 7
+    },
+    "pow": {
+      "characteristicLevelBonusesInvested": 0,
+      "base": 7
+    },
+    "wp": {
+      "characteristicLevelBonusesInvested": 1,
+      "base": 10
+    },
+    "per": {
+      "characteristicLevelBonusesInvested": 0,
+      "base": 9
+    }
+  },
+  "classId": "mentalist",
+  "primaryAbilities": {
+    "attack": {
+      "dpInvested": 0
+    },
+    "block": {
+      "dpInvested": 0
+    },
+    "dodge": {
+      "dpInvested": 0
+    },
+    "wearArmor": {
+      "dpInvested": 0
+    },
+    "ki": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple": {
+      "dpInvested": 0
+    },
+    "zeon": {
+      "dpInvested": 0
+    },
+    "magicAccumulationMultiple": {
+      "dpInvested": 0
+    },
+    "magicProjection": {
+      "dpInvested": 0
+    },
+    "summon": {
+      "dpInvested": 0
+    },
+    "control": {
+      "dpInvested": 0
+    },
+    "bind": {
+      "dpInvested": 0
+    },
+    "banish": {
+      "dpInvested": 0
+    },
+    "psychicPoints": {
+      "dpInvested": 380
+    },
+    "psychicProjection": {
+      "dpInvested": 220
+    },
+    "martialKnowledge": {
+      "dpInvested": 0
+    }
+  },
+  "secondaryAbilities": {
+    "acrobatics": {
+      "dpInvested": 10,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "athleticism": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "climb": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "jump": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "ride": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "swim": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "intimidate": {
+      "dpInvested": 50,
+      "secondaryAbilityLevelBonusesInvested": 1
+    },
+    "leadership": {
+      "dpInvested": 10,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "persuasion": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "style": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "notice": {
+      "dpInvested": 50,
+      "secondaryAbilityLevelBonusesInvested": 1
+    },
+    "search": {
+      "dpInvested": 30,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "track": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "animals": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "appraisal": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "herbalLore": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "history": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 1
+    },
+    "magicAppraisal": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "medicine": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "memorize": {
+      "dpInvested": 40,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "navigation": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "occult": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "sciences": {
+      "dpInvested": 50,
+      "secondaryAbilityLevelBonusesInvested": 1
+    },
+    "composure": {
+      "dpInvested": 30,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "withstandPain": {
+      "dpInvested": 30,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "featsOfStrength": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "theft": {
+      "dpInvested": 20,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "disguise": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "hide": {
+      "dpInvested": 30,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "stealth": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "trapLore": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 1
+    },
+    "lockPicking": {
+      "dpInvested": 40,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "poisons": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "art": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "dance": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "music": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "sleightOfHand": {
+      "dpInvested": 0,
+      "secondaryAbilityLevelBonusesInvested": 0
+    },
+    "forging": {
+      "dpInvested": 10,
+      "secondaryAbilityLevelBonusesInvested": 0
+    }
+  },
+  "otherAbilities": {
+    "lifePointMultiple": {
+      "dpInvested": 0
+    }
+  },
+  "advantages": {
+    "amplifySustainedPower": {
+      "cpInvested": 2
+    },
+    "freeAccessToAnyPsychicDiscipline": {
+      "cpInvested": 2
+    }
+  },
+  "disadvantages": {
+    "onePowerAtATime": {
+      "cpInvested": -1
+    }
+  },
+  "mentalPowers": {
+    "createFire": {
+      "ppInvested": 0
+    },
+    "controlFire": {
+      "ppInvested": 0
+    },
+    "freeze": {
+      "ppInvested": 0
+    },
+    "iceShield": {
+      "ppInvested": 3
+    },
+    "everlastingMoment": {
+      "ppInvested": 3
+    },
+    "defensiveTeleportation": {
+      "ppInvested": 2
+    },
+    "createChaos": {
+      "ppInvested": 0
+    }
+  },
+  "innateSlots": {
+    "ppInvested": 3
+  },
+  "psychicPotential": {
+    "ppInvested": 15
+  },
+  "currentLifePoints": 110,
+  "currentFatigue": 6
+}
