@@ -111,6 +111,8 @@ function renderDpSpendingOptionGroups(character) {
   renderDpOptionSpendingGroup(character);
   renderCharacteristicLevelBonusSpendingGroup(character);
   renderSecondaryAbilityLevelBonusSpendingGroup(character);
+  renderPpSpendingGroup(character);
+  renderCpSpendingGroup(character);
 }
 
 /////////////////////////
@@ -230,6 +232,86 @@ function renderSecondaryAbilityLevelBonusSpendingGroup(character) {
   spendingOptionGroup.toggle();
 }
 
+/////////////////////////////////////
+// Creation point spending options //
+/////////////////////////////////////
+
+function renderCpSpendingGroup(character) {
+  var CP = character.CP;
+
+  appendBox($('#content'), 'cpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+    'optionName': 'Creation Points', 
+    'total': CP,
+    'totalId': 'Total_CP',
+  }));
+
+  var spendingOptionGroup = $('#cpSpendingOptionGroup');
+  spendingOptionGroup.attr('class', 'spendingOptionGroup');
+
+  spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.cpInvestmentHeader, {'name': 'Advantages'}));
+  for (let i in ADVANTAGES) {
+    renderCpSpendingOption(character, ADVANTAGES[i], subgroup);
+  }
+
+  spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.cpInvestmentHeader, {'name': 'Disadvantages'}));
+  for (let i in DISADVANTAGES) {
+    renderCpSpendingOption(character, DISADVANTAGES[i], subgroup);
+  }
+  spendingOptionGroup.toggle();
+}
+
+function renderCpSpendingOption(character, advantageKey, parent) {
+  var advantage = ADVANTAGE_DATA[advantageKey];
+  var hasAdvantage = advantageKey in character.advantages;
+  var hasDisadvantage = advantageKey in character.disadvantages;
+  var cpInvested = null;
+  
+  if (hasAdvantage) {
+    cpInvested = character.advantages[advantageKey].cpInvested;
+  }
+  if (hasDisadvantage) {
+    cpInvested = character.disadvantages[advantageKey].cpInvested;
+  }
+
+  var cost = null;
+  if (cpInvested != null) {
+    cost = cpInvested;
+  } else if (advantage.minCost == advantage.maxCost) {
+    cost = advantage.minCost;
+  } else {
+    cost = advantage.minCost + " - " + advantage.maxCost;
+  }
+
+  var data = {'name': advantage.name, 'cost': cost};
+  parent.append(Mustache.render(Template.cpInvestment, data));
+  parent.children('.cpInvestment').last().attr('id', advantage.name.replace(/\s/g, "_") + ":CP");
+  $('.obtained>input').last().attr("checked", cpInvested != null);
+  $('.obtained>input').last().change({'advantageKey': advantageKey, 'character': character}, function(event) {
+    changeCP(event, this.checked);
+  });
+}
+
+/////////////////////////
+// PP spending options //
+/////////////////////////
+
+function renderPpSpendingGroup(character) {
+  var PP = character.primaryAbilities.psychicPoints.score;
+
+  appendBox($('#content'), 'ppSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+    'optionName': 'Psychic Points', 
+    'total': PP,
+    'totalId': 'Total_PP',
+  }));
+
+  var spendingOptionGroup = $('#ppSpendingOptionGroup');
+  spendingOptionGroup.attr('class', 'spendingOptionGroup');
+}
+
 //////////////////////
 // Update functions //
 //////////////////////
@@ -254,6 +336,27 @@ function changeSecondaryAbilityLevelBonuses(event, newValue) {
   var ability = event.data.ability;
   var character = event.data.character;
   ability.secondaryAbilityLevelBonusesInvested = newValue;
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
+function changeCP(event, newValue) {
+  var advantageKey = event.data.advantageKey;
+  var advantage = ADVANTAGE_DATA[advantageKey];
+  var character = event.data.character;
+
+  var isAdvantage = advantageKey in ADVANTAGES;
+  var hasAdvantage = advantageKey in character.advantages;
+  var hasDisadvantage = advantageKey in character.disadvantages;
+
+  if (hasAdvantage) {
+    delete character.advantages[advantageKey];
+  } else if (hasDisadvantage) {
+    delete character.disadvantages[advantageKey];
+  } else {
+    character.advantages[advantageKey] = new Advantage(advantage);
+  }
+
   updateSpendingOptions(character);
   localStorage['character.'+character.name] = JSON.stringify(character);
 }

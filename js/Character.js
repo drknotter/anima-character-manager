@@ -61,18 +61,8 @@ class Character {
     for (let i in data.mentalPowers) {
       this.mentalPowers[i] = new MentalPower(data.mentalPowers[i], this, i);
     }
-    this.innateSlots = data.innateSlots;
-    Object.defineProperty(this.innateSlots, 'name', {
-      get: function() {
-        return "Innate Slots";
-      }
-    });
+    this.innateSlots = new InnateSlots(data.innateSlots);
     this.psychicPotential = new PsychicPotential(data.psychicPotential, this);
-    Object.defineProperty(this.psychicPotential, 'name', {
-      get: function() {
-        return "Psychic Potential";
-      }
-    });
 
     // Adjust psychic points by pp invested + mental powers
     this.primaryAbilities.psychicPoints.otherBonuses = function() {

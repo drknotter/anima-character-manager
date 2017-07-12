@@ -86,3 +86,17 @@
   width: 20mm;
   text-align: center;
 }
+
+.cpInvestment .cost {
+  width: 20mm;
+  text-align: center;
+}
+.cpInvestment .obtained {
+  width: 30mm;
+  padding: 0mm 1mm;
+  text-align: center;
+}
+.cpInvestment th {
+  font-size: 110%;
+  font-weight: bold;;
+}

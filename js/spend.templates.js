@@ -44,7 +44,8 @@ Template.characteristicLevelBonusInvestment = String.raw`
 </tr>
 `;
 
-Template.secondaryAbilityLevelBonusInvestmentHeader = String.raw`<tr class="secondaryAbilityLevelBonusInvestment">
+Template.secondaryAbilityLevelBonusInvestmentHeader = String.raw`
+<tr class="secondaryAbilityLevelBonusInvestment">
 <th class="name">Secondary Ability</th>
 <th class="secondaryAbilityLevelBonusesInvested">Natural Bonuses Spent</th>
 <th class="score">Score</th>
@@ -55,5 +56,19 @@ Template.secondaryAbilityLevelBonusInvestment = String.raw`
 <td class="name">{{ability.name}}</td>
 <td class="secondaryAbilityLevelBonusesInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{ability.secondaryAbilityLevelBonusesInvested}}"></td>
 <td class="score">{{ability.score}}</td>
+</tr>
+`;
+
+Template.cpInvestmentHeader = String.raw`
+<tr class="cpInvestment">
+<th class="name">{{name}}</th>
+<td class="cost">Cost</td>
+<td class="obtained">Obtained?</tr>
+`;
+Template.cpInvestment = String.raw`
+<tr class="cpInvestment">
+<td class="name">{{name}}</td>
+<td class="cost">{{cost}}</td>
+<td class="obtained"><input type="checkbox" name="foo"></td>
 </tr>
 `;

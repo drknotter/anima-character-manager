@@ -1,6 +1,6 @@
 class MentalPower {
   constructor(data, character, key) {
-    this.ppInvested = data.ppInvested;
+    this.ppInvested = data.ppInvested ? data.ppInvested : 0;
 
     var attrs = ['name', 'discipline', 'description', 'action', 'maintainable', 'effects'];
     for (let i in attrs) {
@@ -19,7 +19,7 @@ class MentalPower {
 
 class PsychicPotential {
   constructor(data, character) {
-    this.ppInvested = data.ppInvested;
+    this.ppInvested = data.ppInvested ? data.ppInvested : 0;
 
     var thisClosure = this;
     this.score = function() {
@@ -47,6 +47,16 @@ class PsychicPotential {
 
   score() {
     return 0;
+  }
+
+  get name() {
+    return "Psychic Potential";
+  }
+}
+
+class InnateSlots {
+  constructor(data) {
+    this.ppInvested = data.ppInvested ? data.ppInvested : 0;
   }
 }
 

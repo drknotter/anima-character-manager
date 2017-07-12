@@ -27,6 +27,7 @@ function renderCharacter(character) {
   appendBox($('#column1'), 'combat', true, Mustache.render(Template.combatHeader));
   appendBox($('#column1'), 'psychic', true, Mustache.render(Template.psychicHeader));
   appendBox($('#column1'), 'resistances', true, 'Resistances');
+  appendBox($('#column1'), 'advantages', true, 'Advantages and Disadvantages');
   appendBox($('#column2'), 'characteristics', true, 'Characteristics');
   appendBox($('#column2'), 'secondaryAbilities', true, 'Secondary Abilities');
 
@@ -57,12 +58,12 @@ function renderCharacter(character) {
   }
 
   $('#advantages').append(Mustache.render(Template.advantages));
-  $('#advantages>table').append(Mustache.render(Template.advantage, {'rowType':'th', 'name':'Advantages', 'cost':'Cost'}));
+  $('#advantages>table').append(Mustache.render(Template.advantage, {'rowType':'th', 'name':'Advantages', 'cpInvested':'Cost'}));
   for (let i in character.advantages) {
     $('#advantages>table').last().append(Mustache.render(Template.advantage, character.advantages[i]));
   }
   $('#advantages').append(Mustache.render(Template.disadvantages));
-  $('#advantages>table').last().append(Mustache.render(Template.advantage, {'rowType':'th', 'name':'Disadvantages', 'cost':'Benefit'}));
+  $('#advantages>table').last().append(Mustache.render(Template.advantage, {'rowType':'th', 'name':'Disadvantages', 'cpInvested':'Benefit'}));
   for (let i in character.disadvantages) {
     $('#advantages>table').last().append(Mustache.render(Template.advantage, character.disadvantages[i]));
   }

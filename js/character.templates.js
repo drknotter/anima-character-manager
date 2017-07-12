@@ -103,8 +103,7 @@ Template.resistance = String.raw`
 `;
 
 Template.advantages = String.raw`
-Advantages and Disadvantages
-<table class="advantageList"/>
+<table class="advantageList"></table>
 `;
 
 Template.disadvantages = String.raw`
@@ -114,7 +113,7 @@ Template.disadvantages = String.raw`
 Template.advantage = String.raw`
 <tr class="advantage">
 <{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="cost">{{cost}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="cost">{{cpInvested}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
 
