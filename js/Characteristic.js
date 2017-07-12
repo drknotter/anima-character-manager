@@ -38,6 +38,10 @@ class Characteristic {
     return Math.round(3/5 * (score - 5)) * 5;
   }
 
+  get percentile() {
+    return Math.floor(10 * this.score / 3);
+  }
+
   get name() {
     return null;
   }

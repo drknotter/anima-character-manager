@@ -46,6 +46,10 @@ class Ability {
       return baseCharacteristic ? character.characteristics[baseCharacteristic].modifier : 0;
     }
 
+    this.characteristicPercentile = function() {
+      var baseCharacteristic = ABILITY_DATA[key].baseCharacteristic;
+      return baseCharacteristic ? character.characteristics[baseCharacteristic].percentile : 0;
+    }
   }
 
   bonusPerDp() {
@@ -57,6 +61,10 @@ class Ability {
   }
 
   characteristicBonus() {
+    return 0;
+  }
+
+  characteristicPercentile() {
     return 0;
   }
 
@@ -75,6 +83,10 @@ class Ability {
   get score() {
     var naturalBonus = this.secondaryAbilityLevelBonusesInvested ? this.secondaryAbilityLevelBonusesInvested : 0;
     return Math.floor(this.dpInvested / this.cost) * this.bonus + this.classLevelBonus() + (1 + naturalBonus) * this.characteristicBonus() + this.otherBonuses();
+  }
+
+  get percentile() {
+    return Math.floor(this.score / 2 + this.characteristicPercentile());
   }
 }
 

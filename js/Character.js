@@ -217,11 +217,31 @@ class Character {
 
   get resistances() {
     return {
-      'disease': {'name':'Disease', 'score': this.basePresence + this.characteristics.con.modifier},
-      'magic': {'name':'Magic', 'score': this.basePresence + this.characteristics.pow.modifier},
-      'physical': {'name':'Physical', 'score': this.basePresence + this.characteristics.con.modifier},
-      'venom': {'name':'Venom', 'score': this.basePresence + this.characteristics.con.modifier},
-      'psychic': {'name':'Psychic', 'score': this.basePresence + this.characteristics.wp.modifier},
+      'disease': {
+        'name':'Disease', 
+        'score': this.basePresence + this.characteristics.con.modifier,
+        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.con.modifier),
+      },
+      'magic': {
+        'name':'Magic', 
+        'score': this.basePresence + this.characteristics.pow.modifier,
+        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.pow.modifier),
+      },
+      'physical': {
+        'name':'Physical', 
+        'score': this.basePresence + this.characteristics.con.modifier,
+        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.con.modifier),
+      },
+      'venom': {
+        'name':'Venom', 
+        'score': this.basePresence + this.characteristics.con.modifier,
+        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.con.modifier),
+      },
+      'psychic': {
+        'name':'Psychic', 
+        'score': this.basePresence + this.characteristics.wp.modifier,
+        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.wp.modifier),
+      },
     };
   }
 

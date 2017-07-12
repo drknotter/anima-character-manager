@@ -61,10 +61,15 @@
   font-weight: bold;
 }
 
-#resistances tr:nth-child(even) {
+#resistances table {
+  margin-top: 2mm;
+  padding: 2mm;
   background: #eee;
 }
-#resistances th {
+#resistances table tr:nth-child(even) {
+  background: #ccc;
+}
+#resistances table th {
   font-size: 120%;
 }
 
@@ -94,12 +99,10 @@
 
 .characteristic .score {
   text-align: center;
-  width: 25%;
 }
 
 .characteristic .modifier {
   text-align: center;
-  width: 25%;
 }
 
 #secondaryAbilities caption {
@@ -267,4 +270,8 @@
 #exportButton:hover {
   background: #aaa;
   cursor: pointer;
+}
+
+.percentile {
+  font-size: 50%;
 }

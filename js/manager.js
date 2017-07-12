@@ -51,6 +51,7 @@ function renderCharacter(character) {
   }
 
   $('#resistances').append(Mustache.render(Template.resistances));
+  $('#resistances>table').append(Mustache.render(Template.resistance, {'rowType':'th','name':'','score':'Score','percentile':''}));
   for (let i in character.resistances) {
     $('#resistances>table').append(Mustache.render(Template.resistance, character.resistances[i]));
   }

@@ -46,6 +46,7 @@ Template.characteristic = String.raw`
 <{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 <{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 <{{rowType}}{{^rowType}}td{{/rowType}} class="modifier">{{modifier}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
 
@@ -56,13 +57,13 @@ Combat
 Template.combat = String.raw`
 <table class="stats">
 <tr>
-<td class="stat"><span>{{primaryAbilities.attack.score}}</span><br/>Attack</td>
+<td class="stat"><span>{{primaryAbilities.attack.score}}<span class="percentile"> ({{primaryAbilities.attack.percentile}}%)</span></span><br/>Attack</td>
 <td class="space"/>
-<td class="stat"><span>{{primaryAbilities.block.score}}</span><br/>Block</td>
+<td class="stat"><span>{{primaryAbilities.block.score}}<span class="percentile"> ({{primaryAbilities.block.percentile}}%)</span></span><br/>Block</td>
 <td class="space"/>
-<td class="stat"><span>{{primaryAbilities.dodge.score}}</span><br/>Dodge</td>
+<td class="stat"><span>{{primaryAbilities.dodge.score}}<span class="percentile"> ({{primaryAbilities.dodge.percentile}}%)</span></span><br/>Dodge</td>
 <td class="space"/>
-<td class="stat"><span>{{movement}}ft.</span><br/>Movement</td>
+<td class="stat"><span>{{initiative}}</span><br/>Initiative</td>
 </tr>
 </table>
 `;
@@ -73,22 +74,31 @@ Template.secondaryAbilities = String.raw`
 
 Template.secondaryAbilitiesCategory = String.raw`
 <tr><td><table class="category">
-  <tr><th class="name">{{name}}</th><th class="score">Score</th></tr>
+  <tr>
+  <th class="name">{{name}}</th>
+  <th class="score">Score</th>
+  <th class="score">%</th>
+  </tr>
 </table></td></tr>
 `;
 
 Template.secondaryAbility = String.raw`
-<tr><td class="name">{{name}}</td><td class="score">{{score}}</td></tr>
+<tr>
+<td class="name">{{name}}</td>
+<td class="score">{{score}}</td>
+<td class="score">{{percentile}}%</td>
+</tr>
 `;
 
 Template.resistances = String.raw`
-<table />
+<table></table>
 `;
 
 Template.resistance = String.raw`
 <tr class="resistance">
 <{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 <{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
 
