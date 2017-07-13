@@ -102,6 +102,41 @@ function gatherInvestments(data, key) {
   return gathered;
 }
 
+function advantageCost(character, advantageKey) {
+  var advantageData = ADVANTAGE_DATA[advantageKey];
+  var hasAdvantage = advantageKey in character.advantages;
+  var hasDisadvantage = advantageKey in character.disadvantages;
+  var cpInvested = null;
+  
+  if (hasAdvantage) {
+    cpInvested = character.advantages[advantageKey].cpInvested;
+  }
+  if (hasDisadvantage) {
+    cpInvested = character.disadvantages[advantageKey].cpInvested;
+  }
+
+  var cost = null;
+  if (cpInvested != null) {
+    cost = hasAdvantage ? cpInvested : -cpInvested;
+  } else if (advantageData.minCost == advantageData.maxCost) {
+    cost = ADVANTAGES.includes(advantageKey) ? advantageData.minCost : -advantageData.minCost;
+  } else {
+    cost = (ADVANTAGES.includes(advantageKey) ? advantageData.minCost : -advantageData.maxCost) 
+        + " - " 
+        + (ADVANTAGES.includes(advantageKey) ? advantageData.maxCost : -advantageData.minCost);
+  }
+
+  return cost;
+}
+
+function hasAdvantage(character, advantageKey) {
+  return advantageKey in character.advantages || advantageKey in character.disadvantages;
+}
+
+function canAffordAdvantage(character, advantageKey) {
+  return hasAdvantage(character, advantageKey) || ADVANTAGE_DATA[advantageKey].minCost <= character.CP;
+}
+
 $( document ).ready(function() {
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
   renderDpSpendingOptionGroups(character);
@@ -250,14 +285,14 @@ function renderCpSpendingGroup(character) {
 
   spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
-  subgroup.append(Mustache.render(Template.cpInvestmentHeader, {'name': 'Advantages'}));
+  subgroup.append(Mustache.render(Template.cpInvestmentHeader, {'name': 'Advantages', 'cost': 'Cost'}));
   for (let i in ADVANTAGES) {
     renderCpSpendingOption(character, ADVANTAGES[i], subgroup);
   }
 
   spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
-  subgroup.append(Mustache.render(Template.cpInvestmentHeader, {'name': 'Disadvantages'}));
+  subgroup.append(Mustache.render(Template.cpInvestmentHeader, {'name': 'Disadvantages', 'cost': 'Benefit'}));
   for (let i in DISADVANTAGES) {
     renderCpSpendingOption(character, DISADVANTAGES[i], subgroup);
   }
@@ -266,30 +301,12 @@ function renderCpSpendingGroup(character) {
 
 function renderCpSpendingOption(character, advantageKey, parent) {
   var advantage = ADVANTAGE_DATA[advantageKey];
-  var hasAdvantage = advantageKey in character.advantages;
-  var hasDisadvantage = advantageKey in character.disadvantages;
-  var cpInvested = null;
-  
-  if (hasAdvantage) {
-    cpInvested = character.advantages[advantageKey].cpInvested;
-  }
-  if (hasDisadvantage) {
-    cpInvested = character.disadvantages[advantageKey].cpInvested;
-  }
 
-  var cost = null;
-  if (cpInvested != null) {
-    cost = cpInvested;
-  } else if (advantage.minCost == advantage.maxCost) {
-    cost = advantage.minCost;
-  } else {
-    cost = advantage.minCost + " - " + advantage.maxCost;
-  }
-
-  var data = {'name': advantage.name, 'cost': cost};
+  var data = {'name': advantage.name, 'cost': advantageCost(character, advantageKey)};
   parent.append(Mustache.render(Template.cpInvestment, data));
   parent.children('.cpInvestment').last().attr('id', advantage.name.replace(/\s/g, "_") + ":CP");
-  $('.obtained>input').last().attr("checked", cpInvested != null);
+  $('.obtained>input').last().attr("checked", hasAdvantage(character, advantageKey));
+  $('.obtained>input').last().attr("disabled", !canAffordAdvantage(character, advantageKey));
   $('.obtained>input').last().change({'advantageKey': advantageKey, 'character': character}, function(event) {
     changeCP(event, this.checked);
   });
@@ -342,10 +359,10 @@ function changeSecondaryAbilityLevelBonuses(event, newValue) {
 
 function changeCP(event, newValue) {
   var advantageKey = event.data.advantageKey;
-  var advantage = ADVANTAGE_DATA[advantageKey];
+  var advantageData = ADVANTAGE_DATA[advantageKey];
   var character = event.data.character;
 
-  var isAdvantage = advantageKey in ADVANTAGES;
+  var isAdvantage = ADVANTAGES.includes(advantageKey);
   var hasAdvantage = advantageKey in character.advantages;
   var hasDisadvantage = advantageKey in character.disadvantages;
 
@@ -354,7 +371,18 @@ function changeCP(event, newValue) {
   } else if (hasDisadvantage) {
     delete character.disadvantages[advantageKey];
   } else {
-    character.advantages[advantageKey] = new Advantage(advantage);
+    var advantage = new Advantage(advantageData);
+    if (advantageData.minCost == advantageData.maxCost) {
+      advantage.cpInvested = advantageData.minCost;
+      if (isAdvantage) {
+        character.advantages[advantageKey] = advantage;
+      } else {
+        character.disadvantages[advantageKey] = advantage;
+      }
+    } else {
+      console.log('advantage ' + advantageKey + ' has variable cost');
+    }
+    
   }
 
   updateSpendingOptions(character);
@@ -365,6 +393,7 @@ function updateSpendingOptions(character) {
   updateDpSpendingOptions(character);
   updateCharacteristicLevelBonusSpendingOptions(character);
   updateSecondaryAbilityLevelBonusSpendingOptions(character);
+  updateCpSpendingOptions(character);
 }
 
 function updateDpSpendingOptions(character) {
@@ -407,5 +436,18 @@ function updateSecondaryAbilityLevelBonusSpendingOptions(character) {
     var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":NB"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
     investmentDOM.children(".score").html(investments[i].score);
+  }
+}
+
+function updateCpSpendingOptions(character) {
+  $('#Total_CP').html(character.CP);
+
+  for (let i in ADVANTAGE_DATA) {
+    var advantageData = ADVANTAGE_DATA[i];
+    var advantageDOM = $(document.getElementById(advantageData.name.replace(/\s/g, "_") + ":CP"));
+    advantageDOM.find(".cost").html(advantageCost(character, i));
+    advantageDOM.find("input").attr({
+      "checked": hasAdvantage(character, i),
+      "disabled": !canAffordAdvantage(character, i)});
   }
 }

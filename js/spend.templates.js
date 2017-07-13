@@ -62,7 +62,7 @@ Template.secondaryAbilityLevelBonusInvestment = String.raw`
 Template.cpInvestmentHeader = String.raw`
 <tr class="cpInvestment">
 <th class="name">{{name}}</th>
-<td class="cost">Cost</td>
+<td class="cost">{{cost}}</td>
 <td class="obtained">Obtained?</tr>
 `;
 Template.cpInvestment = String.raw`

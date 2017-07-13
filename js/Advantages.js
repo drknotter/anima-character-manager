@@ -50,13 +50,22 @@ var ADVANTAGE_DATA = {
   'description': 'The psychic powers of the character do not allow him to use several abilities at once. If the character uses one power, his focus remains so intense that he cannot project others --- except those maintained unconciously.',
   'effects': 'The character can use only one psychic power per assault. The does not prevent him from continueing to use others which are maintained, as long as they began in previous assaults.'
 },
+'slowReactions': {
+  'minCost': -2,
+  'maxCost': -1,
+  'name': 'Slow Reactions',
+  'description': 'The character\'s reflexes leave him ill-prepared to respond quickly to events.',
+  'effects': 'The character applies a special penalty of -30 to his Initiative. An additional point in this Disadvantage increases the penalty to -60.',
+}
 };
 
 var ADVANTAGES = [
   'amplifySustainedPower',
   'freeAccessToAnyPsychicDiscipline',
   'accessToOnePsychicDiscipline',
+  'artifact',
 ];
 var DISADVANTAGES = [
   'onePowerAtATime',
+  'slowReactions',
 ]
