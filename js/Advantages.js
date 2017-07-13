@@ -2,7 +2,7 @@ class Advantage {
   constructor(data, character, key) {
     this.cpInvested = data.cpInvested ? data.cpInvested : 0;
 
-    var attrs = ['cost', 'name', 'description', 'effects'];
+    var attrs = ['minCost', 'maxCost', 'name', 'description', 'effects'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {

@@ -72,3 +72,10 @@ Template.cpInvestment = String.raw`
 <td class="obtained"><input type="checkbox" name="foo"></td>
 </tr>
 `;
+Template.cpInvestmentVariableChoice = String.raw`
+<div id="variableCpChoiceDialog">
+<div class="name">{{name}}</div>
+Invest <input type="number" min="{{min}}" max="{{max}}" value="{{min}}"> creation points.
+<div class="button">Invest</div>
+</div>
+`;

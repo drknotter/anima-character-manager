@@ -140,6 +140,9 @@ function canAffordAdvantage(character, advantageKey) {
 $( document ).ready(function() {
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
   renderDpSpendingOptionGroups(character);
+  $('#popup').click(function(event) {
+    event.stopPropagation();
+  });
 });
 
 function renderDpSpendingOptionGroups(character) {
@@ -368,10 +371,16 @@ function changeCP(event, newValue) {
 
   if (hasAdvantage) {
     delete character.advantages[advantageKey];
+    updateSpendingOptions(character);
+    localStorage['character.'+character.name] = JSON.stringify(character);
+
   } else if (hasDisadvantage) {
     delete character.disadvantages[advantageKey];
+    updateSpendingOptions(character);
+    localStorage['character.'+character.name] = JSON.stringify(character);
+
   } else {
-    var advantage = new Advantage(advantageData);
+    var advantage = new Advantage(advantageData, character, advantageKey);
     if (advantageData.minCost == advantageData.maxCost) {
       advantage.cpInvested = advantageData.minCost;
       if (isAdvantage) {
@@ -379,14 +388,38 @@ function changeCP(event, newValue) {
       } else {
         character.disadvantages[advantageKey] = advantage;
       }
-    } else {
-      console.log('advantage ' + advantageKey + ' has variable cost');
-    }
     
-  }
+      updateSpendingOptions(character);
+      localStorage['character.'+character.name] = JSON.stringify(character);
+    
+    } else {
+      $('#popup').html(Mustache.render(Template.cpInvestmentVariableChoice, {
+        'min': isAdvantage ? advantageData.minCost : -advantageData.maxCost,
+        'max': isAdvantage ? advantageData.maxCost : -advantageData.minCost,
+        'name': advantageData.name,
+      }));
+      $('#variableCpChoiceDialog>.button').click(function() {
+        var advantage = new Advantage(advantageData, character, )
+        if (isAdvantage) {
+          advantage.cpInvested = $('#variableCpChoiceDialog input').last().val()
+          character.advantages[advantageKey] = advantage;
+        } else {
+          advantage.cpInvested = -$('#variableCpChoiceDialog input').last().val()
+          character.disadvantages[advantageKey] = advantage;
+        }
 
-  updateSpendingOptions(character);
-  localStorage['character.'+character.name] = JSON.stringify(character);
+        updateSpendingOptions(character);
+        localStorage['character.'+character.name] = JSON.stringify(character);
+        $('#popupBackground').hide();
+      });
+      $('#popupBackground').show();
+      $('#popupBackground').on('click', function() {
+        updateSpendingOptions(character);
+        localStorage['character.'+character.name] = JSON.stringify(character);
+        $('#popupBackground').hide();
+      });
+    }
+  }
 }
 
 function updateSpendingOptions(character) {
