@@ -84,7 +84,8 @@ Class.warrior = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'banish':
               {'cost':3,'bonus':1,'currency':'DP'},
-          'psychicPoints':    {'cost':20,'bonus':1,'currency':'DP'},
+          'psychicPoints':
+              {'cost':20,'bonus':1,'currency':'DP'},
           'psychicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
       },

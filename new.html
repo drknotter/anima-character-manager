@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/mustache.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/new.templates.js"></script>
 
     <script type="text/javascript" src="js/Psychic.js"></script>
     <script type="text/javascript" src="js/Ability.js"></script>
@@ -21,7 +22,7 @@
           var classKey = this.options[this.options.selectedIndex].value;
           if (classKey in Class) {
             $('#classDescription').show();
-            $('#classDescription').html(Class[classKey].description);
+            $('#classDescription').html(Mustache.render(Template.classDescription, Class[classKey]));
           } else {
             $('#classDescription').hide();
           }

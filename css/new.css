@@ -49,7 +49,7 @@ input {
 }
 
 #characteristics {
-  width: 35%;
+  width: 30%;
 }
 .characteristic td {
   padding: 2mm;
@@ -57,7 +57,7 @@ input {
 .characteristic input {
   float: right;
   margin: 0mm;
-  width: 20mm;
+  width: 12mm;
 }
 .characteristic>td>span {
   display: inline-block;
@@ -75,4 +75,23 @@ input {
   background: #eee;
   padding: 2mm;
   margin-top: 2mm;
+}
+#classDescription .description {
+  padding-left: 2mm;
+  padding-bottom: 2mm;
+}
+#classDescription>table {
+  table-layout: fixed;
+}
+#classDescription td {
+  font-size: 80%;
+}
+#classDescription .box table td {
+  padding: 1mm 2mm;
+}
+#classDescription .box table tr:nth-child(odd) {
+  background: #eee;
+}
+td.right {
+  text-align: right;
 }
