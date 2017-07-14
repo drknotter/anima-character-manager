@@ -1,0 +1,78 @@
+h1, h3 {
+  text-align: center;
+  padding: 2mm;
+  margin: 0mm;
+}
+
+table td {
+  vertical-align: top;
+}
+
+.box {
+  background: #ccc;
+  padding: 2mm;
+  margin-bottom: 2mm;
+}
+.boxTitle {
+  background: #ccc;
+  font-size: 120%;
+  padding-bottom: 2mm;
+  font-weight: bold;
+  text-align: center;
+}
+
+.button {
+  background: #ccc;
+  text-align: center;
+  font-size: 120%;
+  font-weight: bold;
+  padding: 4mm;
+}
+.button:hover {
+  cursor: pointer;
+  background: #eee;
+}
+
+.space {
+  width: 2mm;
+}
+
+input {
+  font-size: 100%;
+  border: none;
+  margin: 0mm 2mm;
+  padding: 1mm 2mm;
+}
+
+#height, #weight {
+  width: 20mm;
+}
+
+#characteristics {
+  width: 35%;
+}
+.characteristic td {
+  padding: 2mm;
+}
+.characteristic input {
+  float: right;
+  margin: 0mm;
+  width: 20mm;
+}
+.characteristic>td>span {
+  display: inline-block;
+  padding-top: 0.75mm;
+}
+.characteristic:nth-child(odd) {
+  background: #eee;
+}
+
+#classChoice {
+  margin: 0mm;
+  width: 100%;
+}
+#classDescription {
+  background: #eee;
+  padding: 2mm;
+  margin-top: 2mm;
+}

@@ -26,6 +26,9 @@
         $('#popup').click(function(event) {
           event.stopPropagation();
         });
+        $('#newCharacter').click(function() {
+          window.open("new.html", "_self");
+        })
         $('#doImportCharacter').click(function(event) {
           var characterText = $('#importTextArea').val();
           try {

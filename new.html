@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/new.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/mustache.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script type="text/javascript" src="js/Psychic.js"></script>
+    <script type="text/javascript" src="js/Ability.js"></script>
+    <script type="text/javascript" src="js/Class.js"></script>
+    <script type="text/javascript" src="js/Characteristic.js"></script>
+    <script type="text/javascript" src="js/Advantages.js"></script>
+    <script type="text/javascript" src="js/Character.js"></script>
+
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        $('#classChoice').change(function(event) {
+          var classKey = this.options[this.options.selectedIndex].value;
+          if (classKey in Class) {
+            $('#classDescription').show();
+            $('#classDescription').html(Class[classKey].description);
+          } else {
+            $('#classDescription').hide();
+          }
+        });
+        $('#classDescription').hide();
+      });
+    </script>
+
+  </head>
+  <body>
+  <div id="content">
+    <h1>New Character</h1>
+    <table class="box">
+      <tr>
+        <td>Name: <input id="name" type="text"></td>
+        <td>Appearance: <input id="appearance" type="number" min="1" max="10" value="5"></td>
+        <td>Height: <input id="height" type="text"></td>
+        <td>Weight: <input id="weight" type="text"></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td id="characteristics">
+          <div class="box">
+            <div class="boxTitle">Base Characteristics</div>
+            <table>
+              <tr class="characteristic"><td><span>Strength </span><input id="strength" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Agility </span><input id="agility" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Dexterity </span><input id="dexterity" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Constitution </span><input id="constitution" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Intelligence </span><input id="intelligence" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Power </span><input id="power" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Willpower </span><input id="willpower" type="number" min="1"></td></tr>
+              <tr class="characteristic"><td><span>Perception </span><input id="perception" type="number" min="1"></td></tr>
+            </table>
+          </div>
+        </td>
+        <td class="space"></td>
+        <td>
+          <div class="box">
+            <div class="boxTitle">Class</div>
+            <select id="classChoice">
+              <option value="none"></option>
+              <option value="warrior">Warrior</option>
+              <option value="acrobaticWarrior">Acrobatic Warrior</option>
+              <option value="paladin">Paladin</option>
+              <option value="darkPaladin">Dark Paladin</option>
+              <option value="weaponmaster">Weaponmaster</option>
+              <option value="technician">Technician</option>
+              <option value="tao">Tao</option>
+              <option value="ranger">Ranger</option>
+              <option value="shadow">Shadow</option>
+              <option value="thief">Thief</option>
+              <option value="assassin">Assassin</option>
+              <option value="wizard">Wizard</option>
+              <option value="warlock">Warlock</option>
+              <option value="illusionist">Illusionist</option>
+              <option value="wizardMentalist">Wizard Mentalist</option>
+              <option value="summoner">Summoner</option>
+              <option value="warriorSummoner">Warrior Summoner</option>
+              <option value="mentalist">Mentalist</option>
+              <option value="warriorMentalist">Warrior Mentalist</option>
+              <option value="freelancer">Freelancer</option>
+            </select>
+            <div id="classDescription"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div class="button">Create</div>
+  </div>
+  </body>
+</html>
