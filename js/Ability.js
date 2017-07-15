@@ -9,7 +9,9 @@ class Ability {
       });
     }
 
+    check(isNumber(data.dpInvested), data.dpInvested + " is not a valid value for dpInvested for ability " + key + "!");
     this.dpInvested = data.dpInvested;
+
     if (ABILITY_DATA[key].type === "secondary") {
       if (data.secondaryAbilityLevelBonusesInvested) {
         this.secondaryAbilityLevelBonusesInvested = data.secondaryAbilityLevelBonusesInvested;
@@ -97,7 +99,6 @@ var ABILITY_DATA = {
   'wearArmor':{'type':'primary','baseCharacteristic':'str','name':'Wear Armor','description':'No description yet!'},
   'ki':{'type':'primary','baseCharacteristic':null,'name':'Ki','description':'No description yet!'},
   'kiAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Ki Accumulation Multiple','description':'No description yet!'},
-  'martialKnowledge':{'type':'primary','baseCharacteristic':null,'name':'Martial Knowledge','description':'No description yet!'},
   'zeon':{'type':'primary','baseCharacteristic':null,'name':'Zeon','description':'No description yet!'},
   'magicAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Magic Accumulation Multiple','description':'No description yet!'},
   'magicProjection':{'type':'primary','baseCharacteristic':'dex','name':'Magic Projection','description':'No description yet!'},

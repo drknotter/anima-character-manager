@@ -6,7 +6,8 @@ class Characteristic {
       this.characteristicLevelBonusesInvested = 0;
     }
 
-    this.base = data.base;
+    check(isNumber(data.base), data.base + " is not a valid base score for characteristic " + key + "!");
+    this.base = Number(data.base);
 
     var attrs = ['name', 'nickname', 'description'];
     for (let i in attrs) {

@@ -157,9 +157,9 @@ class Class {
         this.primaryAbilityCosts['attack'],
         this.primaryAbilityCosts['block'],
         this.primaryAbilityCosts['dodge'],
+        this.primaryAbilityCosts['wearArmor'],
         this.primaryAbilityCosts['ki'],
         this.primaryAbilityCosts['kiAccumulationMultiple'],
-        this.primaryAbilityCosts['wearArmor'],
       ]
     };
   }
@@ -262,7 +262,6 @@ var BONUS_NAMES = {
   'lifePointMultiple':'Life Point Multiple',
   'lifePoints':'Life Points',
   'initiative':'Initiative',
-  'martialKnowledge':'Martial Knowledge',
   'attack':'Attack',
   'block':'Block',
   'dodge':'Dodge',

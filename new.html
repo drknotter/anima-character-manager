@@ -28,6 +28,57 @@
           }
         });
         $('#classDescription').hide();
+        $('#create').click(function (event) {
+            var characterData = {};
+            characterData.name = $('#name').val();
+            characterData.exp = Number(0);
+            characterData.appearance = $('#appearance').val();
+            characterData.height = $('#height').val();
+            characterData.weight = $('#weight').val();
+
+            var allCharacteristicsPresent = true;
+            var characteristics = {};
+            characteristics.str = {'base': Number($("#strength").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.str;
+            characteristics.agi = {'base': Number($("#agility").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.agi;
+            characteristics.dex = {'base': Number($("#dexterity").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.dex;
+            characteristics.con = {'base': Number($("#constitution").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.con;
+            characteristics.int = {'base': Number($("#intelligence").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.int;
+            characteristics.pow = {'base': Number($("#power").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.pow;
+            characteristics.wp = {'base': Number($("#willpower").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.wp;
+            characteristics.per = {'base': Number($("#perception").val())};
+            allCharacteristicsPresent = allCharacteristicsPresent && characteristics.per;
+
+            if (allCharacteristicsPresent) {
+                characterData.characteristics = characteristics;
+            }
+
+            var options = $('#classChoice')[0].options;
+            characterData.classId = options[options.selectedIndex].value;
+
+            characterData.primaryAbilities = {};
+            characterData.secondaryAbilities = {};
+            characterData.otherAbilities = {};
+            for (let i in ABILITY_DATA) {
+                characterData[ABILITY_DATA[i].type+"Abilities"][i] = ABILITY_DATA[i];
+                characterData[ABILITY_DATA[i].type+"Abilities"][i].dpInvested = 0;
+            }
+
+            try {
+                var character = new Character(characterData);
+                localStorage['character.'+character.name] = JSON.stringify(character);
+                window.open("manage.html?n=" + character.name, "_self");
+            } catch (error) {
+                alert(error.message);
+            }
+            
+        });
       });
     </script>
 
@@ -92,7 +143,7 @@
         </td>
       </tr>
     </table>
-    <div class="button">Create</div>
+    <div class="button" id="create">Create</div>
   </div>
   </body>
 </html>

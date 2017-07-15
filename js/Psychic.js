@@ -1,6 +1,7 @@
 class MentalPower {
   constructor(data, character, key) {
-    this.ppInvested = data.ppInvested ? data.ppInvested : 0;
+    check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for mental power " + key + "!");
+    this.ppInvested = data.ppInvested;
 
     var attrs = ['name', 'discipline', 'description', 'action', 'maintainable', 'effects'];
     for (let i in attrs) {
@@ -19,7 +20,8 @@ class MentalPower {
 
 class PsychicPotential {
   constructor(data, character) {
-    this.ppInvested = data.ppInvested ? data.ppInvested : 0;
+    check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for psychic potential!");
+    this.ppInvested = data.ppInvested;
 
     var thisClosure = this;
     this.score = function() {
@@ -56,7 +58,8 @@ class PsychicPotential {
 
 class InnateSlots {
   constructor(data) {
-    this.ppInvested = data.ppInvested ? data.ppInvested : 0;
+    check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for innate slots!");
+    this.ppInvested = data.ppInvested;
   }
 }
 

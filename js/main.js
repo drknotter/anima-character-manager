@@ -6,6 +6,10 @@ function check(arg, msg) {
   }
 }
 
+function isNumber(n) {
+  return Number(n) === n;
+}
+
 function appendBox(parent, id, closeable, header) {
   var box = $(Mustache.render(boxTemplate, {'id': id, 'closeable': closeable}));
   var closeButton = box.find('.closeButton');

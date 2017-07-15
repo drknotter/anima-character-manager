@@ -19,15 +19,15 @@ class Character {
     if (!data) { data = {}; }
     var me = this;
 
-    check(data.name, "Missing name!");
+    check(data.name, "Missing character name!");
     this.name = data.name;
-    check(data.exp, "Missing exp!");
+    check(isNumber(data.exp), data.exp + " is not a valid value for exp!");
     this.exp = data.exp;
-    check(data.appearance, "Missing appearance!");
+    check(data.appearance, "Missing character appearance!");
     this.appearance = data.appearance;
-    check(data.height, "Missing height!");
+    check(data.height, "Missing character height!");
     this.height = data.height;
-    check(data.weight, "Missing weight!");
+    check(data.weight, "Missing character weight!");
     this.weight = data.weight;
 
     check(data.characteristics, "Missing characteristics!");
@@ -36,7 +36,7 @@ class Character {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
-    check(data.classId, "Missing classId!");
+    check(Class[data.classId], data.classId + " is not a valid class key!");
     this.classId = data.classId;
 
     var abilityCategories = ['primaryAbilities', 'secondaryAbilities', 'otherAbilities'];
@@ -61,8 +61,9 @@ class Character {
     for (let i in data.mentalPowers) {
       this.mentalPowers[i] = new MentalPower(data.mentalPowers[i], this, i);
     }
-    this.innateSlots = new InnateSlots(data.innateSlots);
-    this.psychicPotential = new PsychicPotential(data.psychicPotential, this);
+
+    this.innateSlots = new InnateSlots(data.innateSlots ? data.innateSlots : {'ppInvested': 0});
+    this.psychicPotential = new PsychicPotential(data.psychicPotential ? data.psychicPotential : {'ppInvested': 0}, this);
 
     // Adjust psychic points by pp invested + mental powers
     this.primaryAbilities.psychicPoints.otherBonuses = function() {
@@ -79,10 +80,14 @@ class Character {
       return -(totalInvested(me, 'ppInvested') + ppInvestedOnMentalPowers);
     };
 
-    check(data.currentLifePoints, "Missing currentLifePoints!");
-    this.currentLifePoints = data.currentLifePoints;
-    check(data.currentFatigue, "Missing currentFatigue!");
-    this.currentFatigue = data.currentFatigue;
+    this.currentLifePoints = this.lifePoints;
+    if (data.currentLifePoints) {
+      this.currentLifePoints = data.currentLifePoints;
+    }
+    this.currentFatigue = this.fatigue;
+    if (data.currentFatigue) {
+      this.currentFatigue = data.currentFatigue;
+    }
   }
 
   get level() {
