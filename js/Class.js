@@ -1,8 +1,9 @@
 class Bonus {
-  constructor(data) {
+  constructor(data, key) {
     this.bonus = data.bonus;
     this.cost = data.cost;
     this.currency = data.currency;
+    this.name = BONUS_NAMES[key];
   }
 }
 
@@ -12,35 +13,309 @@ class Class {
     this.description = data.description;
 
     this.archetype = data.archetype;
-    this.lifePoints = new Bonus(data.lifePoints);
-    this.initiative = new Bonus(data.initiative);
-    this.martialKnowledge = new Bonus(data.martialKnowledge);
+    this.lifePoints = new Bonus(data.lifePoints, 'lifePoints');
+    this.initiative = new Bonus(data.initiative, 'initiative');
+    this.martialKnowledge = new Bonus(data.martialKnowledge, 'martialKnowledge');
 
     this.primaryAbilityCosts = {};
     for (var key in data.primaryAbilityCosts) {
-      this.primaryAbilityCosts[key] = data.primaryAbilityCosts[key];
+      this.primaryAbilityCosts[key] = new Bonus(data.primaryAbilityCosts[key], key);
     }
 
     this.limits = data.limits;
 
     this.secondaryAbilityCosts = {};
     for (var key in data.secondaryAbilityCosts) {
-      this.secondaryAbilityCosts[key] = data.secondaryAbilityCosts[key];
+      this.secondaryAbilityCosts[key] = new Bonus(data.secondaryAbilityCosts[key], key);
     }
 
     this.otherAbilityCosts = {};
     for (var key in data.otherAbilityCosts) {
-      this.otherAbilityCosts[key] = data.otherAbilityCosts[key];
+      this.otherAbilityCosts[key] = new Bonus(data.otherAbilityCosts[key], key);
     }
 
     this.innateBonuses = {'primaryAbility':{},'secondaryAbility':{},'otherAbility':{}};
     for (let a in this.innateBonuses) {
       for (let key in data.innateBonuses[a]) {
-        this.innateBonuses[a][key] = new Bonus(data.innateBonuses[a][key]);
+        this.innateBonuses[a][key] = new Bonus(data.innateBonuses[a][key], key);
       }
     }
 
   }
+
+  get athleticsCostArray() {
+    return {
+      'name': 'Athletics',
+      'array': [
+        this.secondaryAbilityCosts['acrobatics'],
+        this.secondaryAbilityCosts['athleticism'],
+        this.secondaryAbilityCosts['climb'],
+        this.secondaryAbilityCosts['jump'],
+        this.secondaryAbilityCosts['ride'],
+        this.secondaryAbilityCosts['swim'],
+      ]
+    };
+  }
+
+  get socialCostArray() {
+    return {
+      'name': 'Social',
+      'array': [
+        this.secondaryAbilityCosts['intimidate'],
+        this.secondaryAbilityCosts['leadership'],
+        this.secondaryAbilityCosts['persuasion'],
+        this.secondaryAbilityCosts['style'],
+      ]
+    };
+  }
+
+  get perceptiveCostArray() {
+    return {
+      'name': 'Perceptive',
+      'array': [
+        this.secondaryAbilityCosts['notice'],
+        this.secondaryAbilityCosts['search'],
+        this.secondaryAbilityCosts['track'],
+      ]
+    };
+  }
+
+  get intellectualCostArray() {
+    return {
+      'name': 'Intellectual',
+      'array': [
+        this.secondaryAbilityCosts['animals'],
+        this.secondaryAbilityCosts['appraisal'],
+        this.secondaryAbilityCosts['herbalLore'],
+        this.secondaryAbilityCosts['history'],
+        this.secondaryAbilityCosts['magicAppraisal'],
+        this.secondaryAbilityCosts['medicine'],
+        this.secondaryAbilityCosts['memorize'],
+        this.secondaryAbilityCosts['navigation'],
+        this.secondaryAbilityCosts['occult'],
+        this.secondaryAbilityCosts['sciences'],
+      ]
+    };
+  }
+
+  get vigorCostArray() {
+    return {
+      'name': 'Vigor',
+      'array': [
+        this.secondaryAbilityCosts['composure'],
+        this.secondaryAbilityCosts['withstandPain'],
+        this.secondaryAbilityCosts['featsOfStrength'],
+      ]
+    };
+  }
+
+  get subterfugeCostArray() {
+    return {
+      'name': 'Subterfuge',
+      'array': [
+        this.secondaryAbilityCosts['theft'],
+        this.secondaryAbilityCosts['disguise'],
+        this.secondaryAbilityCosts['hide'],
+        this.secondaryAbilityCosts['stealth'],
+        this.secondaryAbilityCosts['trapLore'],
+        this.secondaryAbilityCosts['lockPicking'],
+        this.secondaryAbilityCosts['poisons'],
+      ]
+    };
+  }
+
+  get creativeCostArray() {
+    return {
+      'name': 'Creative',
+      'array': [
+        this.secondaryAbilityCosts['art'],
+        this.secondaryAbilityCosts['dance'],
+        this.secondaryAbilityCosts['music'],
+        this.secondaryAbilityCosts['sleightOfHand'],
+        this.secondaryAbilityCosts['forging'],
+      ]
+    };
+  }
+
+  get secondaryAbilityCostArrays() {
+    return [
+      this.athleticsCostArray,
+      this.socialCostArray,
+      this.perceptiveCostArray,
+      this.intellectualCostArray,
+      this.vigorCostArray,
+      this.subterfugeCostArray,
+      this.creativeCostArray,
+    ];
+  }
+
+  get combatArray() {
+    return {
+      'name': 'Combat',
+      'limit': Math.floor(this.limits['combat'] * 100) + '%',
+      'array': [
+        this.primaryAbilityCosts['attack'],
+        this.primaryAbilityCosts['block'],
+        this.primaryAbilityCosts['dodge'],
+        this.primaryAbilityCosts['ki'],
+        this.primaryAbilityCosts['kiAccumulationMultiple'],
+        this.primaryAbilityCosts['wearArmor'],
+      ]
+    };
+  }
+
+  get supernaturalArray() {
+    return {
+      'name': 'Supernatural',
+      'limit': Math.floor(this.limits['supernatural'] * 100) + '%',
+      'array': [
+        this.primaryAbilityCosts['zeon'],
+        this.primaryAbilityCosts['magicAccumulationMultiple'],
+        this.primaryAbilityCosts['magicProjection'],
+        this.primaryAbilityCosts['summon'],
+        this.primaryAbilityCosts['control'],
+        this.primaryAbilityCosts['bind'],
+        this.primaryAbilityCosts['banish'],
+      ]
+    };
+  }
+
+  get psychicArray() {
+    return {
+      'name': 'Psychic',
+      'limit': Math.floor(this.limits['psychic'] * 100) + '%',
+      'array': [
+        this.primaryAbilityCosts['psychicPoints'],
+        this.primaryAbilityCosts['psychicProjection'],
+      ]
+    };
+  }
+
+  get primaryAbilityCostArrays() {
+    return [
+      this.combatArray,
+      this.supernaturalArray,
+      this.psychicArray,
+    ];
+  }
+
+  get primaryBonusArray() {
+    var array = [];
+    for (let i in this.innateBonuses.primaryAbility) {
+      if (i != "psychicPoints") {
+        array.push(this.innateBonuses.primaryAbility[i]);
+      }
+    }
+    if (array.length > 0) {
+      return {
+        'name':'Primary',
+        'array': array
+      };
+    }
+    return null;
+  }
+
+  get secondaryBonusArray() {
+    var array = [];
+    for (let i in this.innateBonuses.secondaryAbility) {
+      array.push(this.innateBonuses.secondaryAbility[i]);
+    }
+    if (array.length > 0) {
+      return {
+        'name':'Secondary',
+        'array': array
+      };
+    }
+    return null;
+  }
+
+  get otherBonusArray() {
+    var array = [];
+    for (let i in this.innateBonuses.otherAbility) {
+      array.push(this.innateBonuses.otherAbility[i]);
+    }
+    if (array.length > 0) {
+      return {
+        'name':'Other',
+        'array': array
+      };
+    }
+    return null;
+  }
+
+  get innateBonusArrays() {
+    var array = [];
+    if (this.primaryBonusArray) {
+      array.push(this.primaryBonusArray);
+    }
+    if (this.secondaryBonusArray) {
+      array.push(this.secondaryBonusArray);
+    }
+    if (this.otherBonusArray) {
+      array.push(this.otherBonusArray);
+    }
+    return array;
+  }
+}
+
+var BONUS_NAMES = {
+  'lifePointMultiple':'Life Point Multiple',
+  'lifePoints':'Life Points',
+  'initiative':'Initiative',
+  'martialKnowledge':'Martial Knowledge',
+  'attack':'Attack',
+  'block':'Block',
+  'dodge':'Dodge',
+  'ki':'Ki',
+  'kiAccumulationMultiple':'Ki Accumulation Multiple',
+  'wearArmor':'Wear Armor',
+  'zeon':'Zeon',
+  'magicAccumulationMultiple':'Magic Accumulation Multiple',
+  'magicProjection':'Magic Projection',
+  'summon':'Summon',
+  'control':'Control',
+  'bind':'Bind',
+  'banish':'Banish',
+  'psychicPoints':'Psychic Points',
+  'psychicProjection':'Psychic Projection',
+  'acrobatics':'Acrobatics',
+  'athleticism':'Athleticism',
+  'climb':'Climb',
+  'jump':'Jump',
+  'ride':'Ride',
+  'swim':'Swim',
+  'intimidate':'Intimidate',
+  'leadership':'Leadership',
+  'persuasion':'Persuasion',
+  'style':'Style',
+  'notice':'Notice',
+  'search':'Search',
+  'track':'Track',
+  'animals':'Animals',
+  'appraisal':'Appraisal',
+  'herbalLore':'Herbal Lore',
+  'history':'History',
+  'magicAppraisal':'Magic Appraisal',
+  'medicine':'Medicine',
+  'memorize':'Memorize',
+  'navigation':'Navigation',
+  'occult':'Occult',
+  'sciences':'Sciences',
+  'composure':'Composure',
+  'withstandPain':'Withstand Pain',
+  'featsOfStrength':'Feats Of Strength',
+  'theft':'Theft',
+  'disguise':'Disguise',
+  'hide':'Hide',
+  'stealth':'Stealth',
+  'trapLore':'Trap Lore',
+  'lockPicking':'Lock Picking',
+  'poisons':'Poisons',
+  'art':'Art',
+  'dance':'Dance',
+  'music':'Music',
+  'sleightOfHand':'Sleight Of Hand',
+  'forging':'Forging',
 }
 
 Class.warrior = new Class({
@@ -2425,3 +2700,4 @@ Class.freelancer = new Class({
           },
       },
   });
+
