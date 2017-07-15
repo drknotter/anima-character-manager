@@ -1,4 +1,3 @@
-var characterName = 'Oras';
 var PRIMARY_DP_SPEND_GROUPS = {
   'combat': {
     'name': 'Combat Abilities',
@@ -138,6 +137,7 @@ function canAffordAdvantage(character, advantageKey) {
 }
 
 $( document ).ready(function() {
+  var characterName = getParameterByName("n");
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
   renderDpSpendingOptionGroups(character);
   $('#popup').click(function(event) {

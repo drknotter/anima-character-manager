@@ -1,6 +1,14 @@
+#content {
+  width: 150mm;
+}
+
+.space {
+  width: 2mm;
+}
+
 .button {
   text-align: center;
-  margin: 2mm 10mm;
+  margin-top: 2mm;
   padding: 4mm;
   font-size: 120%;
   font-weight: bold;

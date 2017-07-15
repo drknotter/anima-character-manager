@@ -15,6 +15,8 @@
     <script type="text/javascript" src="js/Advantages.js"></script>
     <script type="text/javascript" src="js/Character.js"></script>
 
+    <script type="text/javascript" src="js/index.templates.js"></script>
+
     <script type="text/javascript">
       $( document ).ready(function() {
         $('#importCharacter').click(function(event) {
@@ -48,9 +50,15 @@
           if (match) {
             let name = match[1];
             let character = new Character(JSON.parse(window.localStorage[key]))
-            $('#content').prepend('<div class="button">' + name + ' (Level ' + character.level + ' ' + character.class.name + ')');
-            $('#content div').first().click(function(event) {
+            $('#content>table').prepend(Mustache.render(Template.characterButton, character));
+            $('#content>table div.openCharacter').first().click(function(event) {
               window.open("manage.html?n=" + name, "_self");
+            });
+            $('#content>table div.deleteCharacter').first().click(function(event) {
+              if (confirm("Delete " + name + "? This cannot be undone!")) {
+                delete localStorage[key];
+                window.open("index.html", "_self");
+              }
             });
           }
         }
@@ -59,9 +67,11 @@
   </head>
   <body>
   <div id="content">
-    <div id="newCharacter" class="button">New Character</div>
-    <div id="importCharacter" class="button">Import Character</div>
-  </div>. 
+    <table>
+      <tr><td colSpan="3"><div id="newCharacter" class="button">New Character</div></td></tr>
+      <tr><td colSpan="3"><div id="importCharacter" class="button">Import Character</div></td></tr>
+    </table>
+  </div>
   <div id="popupBackground">
     <div id="popup">
       <textarea id="importTextArea" cols="50" rows="20"></textarea>
