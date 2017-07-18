@@ -1,6 +1,6 @@
 class Ability {
   constructor(data, character, key) {
-    var attrs = ['name', 'description'];
+    var attrs = ['name', 'description', 'baseCharacteristic'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {
@@ -20,11 +20,6 @@ class Ability {
       }
     }
 
-    this.bonusPerDp = function() {
-      var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
-      return bonusInfo ? bonusInfo.bonus / bonusInfo.cost : 0;
-    };
-
     Object.defineProperty(this, 'cost', {
       get: function() {
         var bonusInfo = character.class[ABILITY_DATA[key].type + 'AbilityCosts'][key];
@@ -38,57 +33,49 @@ class Ability {
       }
     });
 
-    this.classLevelBonus = function() {
-      var innateBonus = character.class.innateBonuses[ABILITY_DATA[key].type + 'Ability'][key];
-      return innateBonus ? character.level * innateBonus.bonus : 0;
-    }
+    Object.defineProperty(this, 'dpBonus', {
+      get: function() {
+        return Math.floor(this.dpInvested / this.cost) * this.bonus;
+      }
+    })
+    Object.defineProperty(this, 'naturalBonus', {
+      get: function() {
+        var bonusesInvested = this.secondaryAbilityLevelBonusesInvested ? this.secondaryAbilityLevelBonusesInvested : 0;
+        return bonusesInvested * this.characteristicBonus;
+      }
+    })
+    Object.defineProperty(this, 'classLevelBonus', {
+      get: function() {
+        var innateBonus = character.class.innateBonuses[ABILITY_DATA[key].type + 'Ability'][key];
+        return innateBonus ? character.level * innateBonus.bonus : 0;
+      }
+    });
+    Object.defineProperty(this, 'characteristicBonus', {
+      get: function() {
+        return this.baseCharacteristic ? character.characteristics[this.baseCharacteristic].modifier : 0;
+      }
+    });
 
-    this.characteristicBonus = function() {
-      var baseCharacteristic = ABILITY_DATA[key].baseCharacteristic;
-      return baseCharacteristic ? character.characteristics[baseCharacteristic].modifier : 0;
-    }
-
-    this.characteristicPercentile = function() {
-      var baseCharacteristic = ABILITY_DATA[key].baseCharacteristic;
-      return baseCharacteristic ? character.characteristics[baseCharacteristic].percentile : 0;
-    }
-  }
-
-  bonusPerDp() {
-    return 0;
-  }
-
-  classLevelBonus() {
-    return 0;
-  }
-
-  characteristicBonus() {
-    return 0;
-  }
-
-  characteristicPercentile() {
-    return 0;
-  }
-
-  otherBonuses() {
-    return 0;
-  }
-
-  get name() {
-    return null;
-  }
-
-  get description() {
-    return null;
+    Object.defineProperty(this, 'characteristicPercentile', {
+      get: function() {
+        return this.baseCharacteristic ? character.characteristics[this.baseCharacteristic].percentile : 0;
+      }
+    });
   }
 
   get score() {
-    var naturalBonus = this.secondaryAbilityLevelBonusesInvested ? this.secondaryAbilityLevelBonusesInvested : 0;
-    return Math.floor(this.dpInvested / this.cost) * this.bonus + this.classLevelBonus() + (1 + naturalBonus) * this.characteristicBonus() + this.otherBonuses();
+    var total = 0;
+    var names = Object.getOwnPropertyNames(this);
+    for (let key in names) {
+      if (/Bonus$/.test(names[key])) {
+        total += this[names[key]];
+      }
+    }
+    return total;
   }
 
   get percentile() {
-    return Math.floor(this.score / 2 + this.characteristicPercentile());
+    return Math.floor(this.score / 2 + this.characteristicPercentile);
   }
 }
 

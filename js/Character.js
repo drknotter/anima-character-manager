@@ -66,19 +66,23 @@ class Character {
     this.psychicPotential = new PsychicPotential(data.psychicPotential ? data.psychicPotential : {'ppInvested': 0}, this);
 
     // Adjust psychic points by pp invested + mental powers
-    this.primaryAbilities.psychicPoints.otherBonuses = function() {
-      var disciplines = [];
-      var ppInvestedOnMentalPowers = 0;
-      for (let i in me.mentalPowers) {
-        if (!(me.mentalPowers[i].discipline in disciplines)) {
+    Object.defineProperty(this.primaryAbilities.psychicPoints, 'spentBonus', {
+      get: function() {
+        var disciplines = [];
+        var ppInvestedOnMentalPowers = 0;
+        for (let i in me.mentalPowers) {
+          if (!(me.mentalPowers[i].discipline in disciplines)) {
+            ppInvestedOnMentalPowers++;
+            disciplines.push(me.mentalPowers[i].discipline);
+          }
           ppInvestedOnMentalPowers++;
-          disciplines.push(me.mentalPowers[i].discipline);
         }
-        ppInvestedOnMentalPowers++;
-      }
 
-      return -(totalInvested(me, 'ppInvested') + ppInvestedOnMentalPowers);
-    };
+        return -(totalInvested(me, 'ppInvested') + ppInvestedOnMentalPowers);
+      }
+    });
+
+    
 
     this.currentLifePoints = this.lifePoints;
     if (data.currentLifePoints) {

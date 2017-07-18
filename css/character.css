@@ -256,7 +256,7 @@
   padding-left: 4mm;
 }
 
-#exportButton {
+.bottomButton {
   margin: 0mm 2mm 2mm 2mm;
   padding: 4mm;
   background: #ccc;
@@ -267,7 +267,7 @@
   text-decoration: none;
   color: #000;
 }
-#exportButton:hover {
+.bottomButton:hover {
   background: #aaa;
   cursor: pointer;
 }

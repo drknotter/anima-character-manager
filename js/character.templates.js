@@ -10,7 +10,8 @@ Template.character = String.raw`
 </tr>
 <tr>
   <td colspan="2">
-  <a id="exportButton" download="{{name}}.json">Export</div>
+  <a id="spendButton" class="bottomButton" href="spend.html?n={{name}}">Spend</a>
+  <a id="exportButton" class="bottomButton" download="{{name}}.json">Export</a>
   </td>
 </tr>
 </table>
@@ -57,14 +58,16 @@ Combat
 Template.combat = String.raw`
 <table class="stats">
 <tr>
+<td class="stat"><span>{{initiative}}</span><br/>Initiative</td>
+<td class="space"/>
 <td class="stat"><span>{{primaryAbilities.attack.score}}<span class="percentile"> ({{primaryAbilities.attack.percentile}}%)</span></span><br/>Attack</td>
 <td class="space"/>
 <td class="stat"><span>{{primaryAbilities.block.score}}<span class="percentile"> ({{primaryAbilities.block.percentile}}%)</span></span><br/>Block</td>
 <td class="space"/>
 <td class="stat"><span>{{primaryAbilities.dodge.score}}<span class="percentile"> ({{primaryAbilities.dodge.percentile}}%)</span></span><br/>Dodge</td>
-<td class="space"/>
-<td class="stat"><span>{{initiative}}</span><br/>Initiative</td>
 </tr>
+</table>
+<table>
 </table>
 `;
 

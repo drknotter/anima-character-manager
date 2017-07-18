@@ -84,9 +84,6 @@
     },
     "psychicProjection": {
       "dpInvested": 220
-    },
-    "martialKnowledge": {
-      "dpInvested": 0
     }
   },
   "secondaryAbilities": {
@@ -272,7 +269,7 @@
       "ppInvested": 0
     },
     "iceShield": {
-      "ppInvested": 3
+      "ppInvested": 0
     },
     "everlastingMoment": {
       "ppInvested": 3
@@ -285,7 +282,7 @@
     }
   },
   "innateSlots": {
-    "ppInvested": 3
+    "ppInvested": 6
   },
   "psychicPotential": {
     "ppInvested": 15

@@ -17,10 +17,28 @@ class Characteristic {
         }
       });
     }
+
+    Object.defineProperty(this, 'baseBonus', {
+      get: function() {
+        return this.base;
+      }
+    });
+    Object.defineProperty(this, 'characteristicLevelBonus', {
+      get: function() {
+        return this.characteristicLevelBonusesInvested;
+      }
+    });
   }
 
   get score() {
-    return this.base + this.characteristicLevelBonusesInvested;
+    var total = 0;
+    var names = Object.getOwnPropertyNames(this);
+    for (let key in names) {
+      if (/Bonus$/.test(names[key])) {
+        total += this[names[key]];
+      }
+    }
+    return total;
   }
 
   get modifier() {
@@ -42,19 +60,6 @@ class Characteristic {
   get percentile() {
     return Math.floor(10 * this.score / 3);
   }
-
-  get name() {
-    return null;
-  }
-
-  get nickname() {
-    return null;
-  }
-
-  get description() {
-    return null;
-  }
-
 }
 
 var CHARACTERISTIC_INFO = {
