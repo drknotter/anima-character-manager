@@ -52,10 +52,52 @@
     "wearArmor": {
       "dpInvested": 0
     },
-    "ki": {
+    "ki_str": {
       "dpInvested": 0
     },
-    "kiAccumulationMultiple": {
+    "ki_agi": {
+      "dpInvested": 0
+    },
+    "ki_dex": {
+      "dpInvested": 0
+    },
+    "ki_con": {
+      "dpInvested": 0
+    },
+    "ki_int": {
+      "dpInvested": 0
+    },
+    "ki_pow": {
+      "dpInvested": 0
+    },
+    "ki_wp": {
+      "dpInvested": 0
+    },
+    "ki_per": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_str": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_agi": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_dex": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_con": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_int": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_pow": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_wp": {
+      "dpInvested": 0
+    },
+    "kiAccumulationMultiple_per": {
       "dpInvested": 0
     },
     "zeon": {

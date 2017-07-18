@@ -52,6 +52,11 @@ class Ability {
     });
     Object.defineProperty(this, 'characteristicBonus', {
       get: function() {
+        if (/^ki/.test(key) && this.baseCharacteristic) {
+          var under10 = this.baseCharacteristic - 10 * Math.floor(this.baseCharacteristic / 10);
+          var over10 = this.baseCharacteristic - 10;
+          return under10 + 2 * over10;
+        }
         return this.baseCharacteristic ? character.characteristics[this.baseCharacteristic].modifier : 0;
       }
     });
@@ -84,8 +89,22 @@ var ABILITY_DATA = {
   'block':{'type':'primary','baseCharacteristic':'dex','name':'Block','description':'No description yet!'},
   'dodge':{'type':'primary','baseCharacteristic':'agi','name':'Dodge','description':'No description yet!'},
   'wearArmor':{'type':'primary','baseCharacteristic':'str','name':'Wear Armor','description':'No description yet!'},
-  'ki':{'type':'primary','baseCharacteristic':null,'name':'Ki','description':'No description yet!'},
-  'kiAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Ki Accumulation Multiple','description':'No description yet!'},
+  'ki_str':{'type':'primary','baseCharacteristic':'str','name':'Ki (Str)','description':'No description yet!'},
+  'ki_agi':{'type':'primary','baseCharacteristic':'agi','name':'Ki (Agi)','description':'No description yet!'},
+  'ki_dex':{'type':'primary','baseCharacteristic':'dex','name':'Ki (Dex)','description':'No description yet!'},
+  'ki_con':{'type':'primary','baseCharacteristic':'con','name':'Ki (Con)','description':'No description yet!'},
+  'ki_int':{'type':'primary','baseCharacteristic':'int','name':'Ki (Int)','description':'No description yet!'},
+  'ki_pow':{'type':'primary','baseCharacteristic':'pow','name':'Ki (Pow)','description':'No description yet!'},
+  'ki_wp':{'type':'primary','baseCharacteristic':'wp','name':'Ki (WP)','description':'No description yet!'},
+  'ki_per':{'type':'primary','baseCharacteristic':'per','name':'Ki (Per)','description':'No description yet!'},
+  'kiAccumulationMultiple_str':{'type':'primary','baseCharacteristic':'str','name':'Ki Accumulation Multiple (Str)','description':'No description yet!'},
+  'kiAccumulationMultiple_agi':{'type':'primary','baseCharacteristic':'agi','name':'Ki Accumulation Multiple (Agi)','description':'No description yet!'},
+  'kiAccumulationMultiple_dex':{'type':'primary','baseCharacteristic':'dex','name':'Ki Accumulation Multiple (Dex)','description':'No description yet!'},
+  'kiAccumulationMultiple_con':{'type':'primary','baseCharacteristic':'con','name':'Ki Accumulation Multiple (Con)','description':'No description yet!'},
+  'kiAccumulationMultiple_int':{'type':'primary','baseCharacteristic':'int','name':'Ki Accumulation Multiple (Int)','description':'No description yet!'},
+  'kiAccumulationMultiple_pow':{'type':'primary','baseCharacteristic':'pow','name':'Ki Accumulation Multiple (Pow)','description':'No description yet!'},
+  'kiAccumulationMultiple_wp':{'type':'primary','baseCharacteristic':'wp','name':'Ki Accumulation Multiple (WP)','description':'No description yet!'},
+  'kiAccumulationMultiple_per':{'type':'primary','baseCharacteristic':'per','name':'Ki Accumulation Multiple (Per)','description':'No description yet!'},
   'zeon':{'type':'primary','baseCharacteristic':null,'name':'Zeon','description':'No description yet!'},
   'magicAccumulationMultiple':{'type':'primary','baseCharacteristic':null,'name':'Magic Accumulation Multiple','description':'No description yet!'},
   'magicProjection':{'type':'primary','baseCharacteristic':'dex','name':'Magic Projection','description':'No description yet!'},
