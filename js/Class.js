@@ -158,8 +158,8 @@ class Class {
         this.primaryAbilityCosts['block'],
         this.primaryAbilityCosts['dodge'],
         this.primaryAbilityCosts['wearArmor'],
-        this.primaryAbilityCosts['ki'],
-        this.primaryAbilityCosts['kiAccumulationMultiple'],
+        this.primaryAbilityCosts['ki_str'],
+        this.primaryAbilityCosts['kiAccumulationMultiple_str'],
       ]
     };
   }
@@ -265,8 +265,22 @@ var BONUS_NAMES = {
   'attack':'Attack',
   'block':'Block',
   'dodge':'Dodge',
-  'ki':'Ki',
-  'kiAccumulationMultiple':'Ki Accumulation Multiple',
+  'ki_str':'Ki (Str)',
+  'ki_agi':'Ki (Agi)',
+  'ki_dex':'Ki (Dex)',
+  'ki_con':'Ki (Con)',
+  'ki_int':'Ki (Int)',
+  'ki_pow':'Ki (Pow)',
+  'ki_wp':'Ki (WP)',
+  'ki_per':'Ki (Per)',
+  'kiAccumulationMultiple_str':'Ki Accumulation Multiple (Str)',
+  'kiAccumulationMultiple_agi':'Ki Accumulation Multiple (Agi)',
+  'kiAccumulationMultiple_dex':'Ki Accumulation Multiple (Dex)',
+  'kiAccumulationMultiple_con':'Ki Accumulation Multiple (Con)',
+  'kiAccumulationMultiple_int':'Ki Accumulation Multiple (Int)',
+  'kiAccumulationMultiple_pow':'Ki Accumulation Multiple (Pow)',
+  'kiAccumulationMultiple_wp':'Ki Accumulation Multiple (WP)',
+  'kiAccumulationMultiple_per':'Ki Accumulation Multiple (Per)',
   'wearArmor':'Wear Armor',
   'zeon':'Zeon',
   'magicAccumulationMultiple':'Magic Accumulation Multiple',
@@ -338,9 +352,37 @@ Class.warrior = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -457,9 +499,37 @@ Class.acrobaticWarrior = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -578,9 +648,37 @@ Class.paladin = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -699,9 +797,37 @@ Class.darkPaladin = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -821,9 +947,37 @@ Class.weaponmaster = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':3,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':30,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':1,'bonus':1,'currency':'DP'},
@@ -939,9 +1093,37 @@ Class.technician = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':1,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':1,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':10,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':10,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1054,9 +1236,37 @@ Class.tao = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':15,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':15,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1169,9 +1379,37 @@ Class.ranger = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':25,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1290,9 +1528,37 @@ Class.shadow = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1410,9 +1676,37 @@ Class.thief = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':25,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1532,9 +1826,37 @@ Class.assassin = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':25,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1654,9 +1976,37 @@ Class.wizard = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':3,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':30,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1771,9 +2121,37 @@ Class.warlock = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':25,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -1890,9 +2268,37 @@ Class.illusionist = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':25,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2012,9 +2418,37 @@ Class.wizardMentalist = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':3,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':30,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2129,9 +2563,37 @@ Class.summoner = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':3,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':30,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2250,9 +2712,37 @@ Class.warriorSummoner = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2373,9 +2863,37 @@ Class.mentalist = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':3,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':3,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':30,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':30,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2487,9 +3005,37 @@ Class.warriorMentalist = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':25,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':25,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2604,9 +3150,37 @@ Class.freelancer = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'dodge':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'ki':
+          'ki_str':
               {'cost':2,'bonus':1,'currency':'DP'},
-          'kiAccumulationMultiple':
+          'ki_agi':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_dex':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_con':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_int':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_pow':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_wp':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'ki_per':
+              {'cost':2,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_str':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_agi':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_dex':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_con':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_int':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_pow':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_wp':
+              {'cost':20,'bonus':1,'currency':'DP'},
+          'kiAccumulationMultiple_per':
               {'cost':20,'bonus':1,'currency':'DP'},
           'wearArmor':
               {'cost':2,'bonus':1,'currency':'DP'},

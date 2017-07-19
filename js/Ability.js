@@ -52,9 +52,23 @@ class Ability {
     });
     Object.defineProperty(this, 'characteristicBonus', {
       get: function() {
+        if (/^kiAccumulation/.test(key) && this.baseCharacteristic) {
+          var characteristicScore = character.characteristics[this.baseCharacteristic].score;
+          if (characteristicScore < 10) {
+            return 1;
+          }
+          if (characteristicScore < 13) {
+            return 2;
+          }
+          if (characteristicScore < 16) {
+            return 3;
+          }
+          return 4;
+        }
         if (/^ki/.test(key) && this.baseCharacteristic) {
-          var under10 = this.baseCharacteristic - 10 * Math.floor(this.baseCharacteristic / 10);
-          var over10 = this.baseCharacteristic - 10;
+          var characteristicScore = character.characteristics[this.baseCharacteristic].score;
+          var under10 = Math.min(characteristicScore, 10);
+          var over10 = Math.max(characteristicScore - 10, 0);
           return under10 + 2 * over10;
         }
         return this.baseCharacteristic ? character.characteristics[this.baseCharacteristic].modifier : 0;
