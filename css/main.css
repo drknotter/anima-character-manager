@@ -9,18 +9,18 @@ body {
 
 #content {
   margin: auto;
-  width: 200mm;
+  width: 800px;
 }
 
 table {
   width: 100%;
   border: none;
-  margin: 0mm;
-  padding: 0mm;
-  border-spacing: 0mm;
+  margin: 0px;
+  padding: 0px;
+  border-spacing: 0px;
 }
 td {
-  padding: 0mm;
+  padding: 0px;
 }
 
 #popupBackground {
@@ -47,7 +47,7 @@ td {
   text-align: center;
   font-size: 110%;
   font-weight: bold;
-  padding: 1mm;
+  padding: 4px;
 }
 
 .closeButton:hover {
