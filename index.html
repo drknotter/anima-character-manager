@@ -48,18 +48,23 @@
         for (let key in window.localStorage) {
           var match = key.match(new RegExp("^character.(.*)$"));
           if (match) {
-            let name = match[1];
-            let character = new Character(JSON.parse(window.localStorage[key]))
-            $('#content>table').prepend(Mustache.render(Template.characterButton, character));
-            $('#content>table div.openCharacter').first().click(function(event) {
-              window.open("manage.html?n=" + name, "_self");
-            });
-            $('#content>table div.deleteCharacter').first().click(function(event) {
-              if (confirm("Delete " + name + "? This cannot be undone!")) {
-                delete localStorage[key];
-                window.open("index.html", "_self");
-              }
-            });
+            try {
+              let name = match[1];
+              let character = new Character(JSON.parse(window.localStorage[key]))
+
+              $('#content>table').prepend(Mustache.render(Template.characterButton, character));
+              $('#content>table div.openCharacter').first().click(function(event) {
+                window.open("manage.html?n=" + name, "_self");
+              });
+              $('#content>table div.deleteCharacter').first().click(function(event) {
+                if (confirm("Delete " + name + "? This cannot be undone!")) {
+                  delete localStorage[key];
+                  window.open("index.html", "_self");
+                }
+              });
+            } catch(err) {
+              alert("Unable to read character " + name + "!");
+            }
           }
         }
       });
