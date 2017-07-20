@@ -8,45 +8,45 @@
 }
 
 .box {
-  margin: 8px;
-  padding: 8px;
+  margin: 0.5rem;
+  padding: 0.5rem;
   background: #ccc;
 }
 #column1 .box {
-  margin-right: 4px;
+  margin-right: 0.25rem;
 }
 #column2 .box {
-  margin-left: 4px;
+  margin-left: 0.25rem;
 }
 
 #name {
   font-size: 200%;
   vertical-align: top;
   line-height: 85%;
-  padding: 8px;
+  padding: 0.5rem;
 }
 
 #levelAndClass {
   vertical-align: top;
   text-align: right;
   font-size: 120%;
-  padding-right: 8px;
-  padding-top: 8px;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 #mainInfo .stats, #combat .stats {
   table-layout: fixed;
-  padding-top: 6px;
+  padding-top: 0.325rem;
 }
 #mainInfo .stat, #combat .stat {
   text-align: center;
   background: #eee;
-  padding: 8px;
+  padding: 0.5rem;
   font-size: 80%;
   width: auto;
 }
 #mainInfo .space, #combat .space {
-  width: 8px;
+  width: 0.5rem;
 }
 #mainInfo .stat>span, #combat .stat>span {
   font-size: 200%;
@@ -62,8 +62,8 @@
 }
 
 #resistances table {
-  margin-top: 8px;
-  padding: 8px;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
   background: #eee;
 }
 #resistances table tr:nth-child(even) {
@@ -75,8 +75,8 @@
 
 .resistance .name {
   text-align: left;
-  padding: 4px;
-  padding-left: 16px;
+  padding: 0.25rem;
+  padding-left: 1rem;
 }
 
 .resistance .score {
@@ -93,12 +93,13 @@
 .characteristic .name {
   text-align: left;
   width: 50%;
-  padding: 4px;
-  padding-left: 16px;
+  padding: 0.25rem;
+  padding-left: 1rem;
 }
 
 .characteristic .score {
   text-align: center;
+  padding-right: 0.5rem;
 }
 
 .characteristic .modifier {
@@ -113,8 +114,8 @@
 
 #secondaryAbilities .category {
   background: #eee;
-  padding: 8px;
-  margin-top: 8px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 #secondaryAbilities .category th {
   vertical-align: top;
@@ -123,19 +124,19 @@
   background: #eee;
   font-size: 110%;
   text-align: left;
-  padding-left: 16px;
-  padding-bottom: 8px;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
   font-weight: bold;
 }
 #secondaryAbilities .category tr:nth-child(even) {
   background: #ccc;
 }
 #secondaryAbilities .category td {
-  padding: 4px 16px;
+  padding: 0.25rem 1rem;
 }
 #secondaryAbilities .category .score {
   text-align: center;
-  width: 40px;
+  width: 2.5rem;
 }
 
 #advantages {
@@ -148,8 +149,8 @@
 
 .advantageList {
   background: #eee;
-  padding: 8px;
-  margin-top: 8px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 .advantageList th {
   vertical-align: top;
@@ -158,19 +159,19 @@
   background: #eee;
   font-size: 110%;
   text-align: left;
-  padding-left: 16px;
-  padding-bottom: 8px;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
   font-weight: bold;
 }
 .advantageList tr:nth-child(even) {
   background: #ccc;
 }
 .advantageList td {
-  padding: 4px 16px;
+  padding: 0.25rem 1rem;
 }
 .advantageList .cost {
   text-align: center;
-  width: 40px;
+  width: 2.5rem;
 }
 
 #psychic {
@@ -182,13 +183,13 @@
 }
 
 #mainPsychicInfo {
-  padding: 8px;
-  margin-top: 8px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
   background: #eee;
 }
 #mainPsychicInfo td {
-  padding: 4px;
-  padding-left: 16px;
+  padding: 0.25rem;
+  padding-left: 1rem;
 }
 #mainPsychicInfo tr:nth-child(even) {
   background: #ccc;
@@ -198,13 +199,13 @@
 }
 
 .discipline {
-  padding: 8px;
+  padding: 0.5rem;
   background: #eee;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 }
 .discipline th:first-child {
-  padding: 8px;
-  padding-top: 0px;
+  padding: 0.5rem;
+  padding-top: 0rem;
   font-weight: bold;
   font-size: 110%
 }
@@ -212,7 +213,7 @@
   font-size: 70%;
 }
 .discipline td {
-  padding: 4px;
+  padding: 0.25rem;
 }
 .discipline tr:nth-child(even) {
   background: #ccc;
@@ -222,28 +223,28 @@
 }
 .mentalPower .name {
   text-align: left;
-  padding-left: 16px;
+  padding-left: 1rem;
   width: 100%;
 }
 .mentalPower .action, .mentalPower .maintainable, .mentalPower .bonus {
-  width: 40px;
+  width: 2.5rem;
   text-align: center;
 }
 
 #mentalPowerPopup {
   background: #eee;
-  padding: 8px;
+  padding: 0.5rem;
 }
 #mentalPowerPopup .name {
   font-size: 120%;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 #mentalPowerPopup .description {
-  margin-bottom: 8px;
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-bottom: 0.5rem;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
   font-size: 80%;
 }
 
@@ -252,13 +253,13 @@
   background: #ccc;
 }
 #mentalPowerPopup .effect td {
-  padding: 4px;
-  padding-left: 16px;
+  padding: 0.25rem;
+  padding-left: 1rem;
 }
 
 .bottomButton {
-  margin: 0px 8px 8px 8px;
-  padding: 16px;
+  margin: 0rem 0.5rem 0.5rem 0.5rem;
+  padding: 1rem;
   background: #ccc;
   text-align: center;
   font-size: 120%;
