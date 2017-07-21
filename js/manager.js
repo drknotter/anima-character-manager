@@ -1,3 +1,5 @@
+var sections = [];
+
 function getName() {
   var match = location.search.match(new RegExp("[?&]n=([^&]+)(&|$)"));
   return match && decodeURIComponent(match[1].replace(/\+/g, " "));
@@ -20,16 +22,28 @@ function updateCharacter(character) {
 
 function renderCharacter(character) {
   $('#content').html(Mustache.render(Template.character, character));
-  var column1Boxes = ['mainInfo','combat','psychic','resistances','advantages',];
-  var column2Boxes = ['characteristics','secondaryAbilities',];
 
-  appendBox($('#column1'), 'mainInfo', true, Mustache.render(Template.mainInfoHeader, character));
-  appendBox($('#column1'), 'combat', true, Mustache.render(Template.combatHeader));
-  appendBox($('#column1'), 'psychic', true, Mustache.render(Template.psychicHeader));
-  appendBox($('#column1'), 'resistances', true, 'Resistances');
-  appendBox($('#column1'), 'advantages', true, 'Advantages and Disadvantages');
-  appendBox($('#column2'), 'characteristics', true, 'Characteristics');
-  appendBox($('#column2'), 'secondaryAbilities', true, 'Secondary Abilities');
+  var contentWidth = $('#content').width();
+  var columnCount = Math.floor(contentWidth / remToPx(20));
+
+  $('#controlButtons').attr('colspan', columnCount);
+  for (let i=0; i<columnCount; i++) {
+    let column = $('<td></td>');
+    column.attr({'id': 'column' + i, 'class': 'column'});
+    $('#character tr:eq(0)').append(column);
+  }
+
+  sections.push({'id': 'mainInfo', 'closeable': true, 'header': Mustache.render(Template.mainInfoHeader, character)});
+  sections.push({'id': 'characteristics', 'closeable': true, 'header': 'Characteristics'});
+  sections.push({'id': 'secondaryAbilities', 'closeable': true, 'header': 'Secondary Abilities'});
+  sections.push({'id': 'combat', 'closeable': true, 'header': Mustache.render(Template.combatHeader)});
+  sections.push({'id': 'psychic', 'closeable': true, 'header': Mustache.render(Template.psychicHeader)});
+  sections.push({'id': 'resistances', 'closeable': true, 'header': 'Resistances'});
+  sections.push({'id': 'advantages', 'closeable': true, 'header': 'Advantages and Disadvantages'});
+
+  for (let i in sections) {
+    appendBox($('#column0'), sections[i].id, sections[i].closeable, sections[i].header);
+  }
 
   $('#mainInfo').append(Mustache.render(Template.mainInfo, character));
 
@@ -104,6 +118,19 @@ function renderCharacter(character) {
 
   var blob = new Blob([JSON.stringify(character, null, 2)], {type: 'application/json'});
   $('#exportButton').attr('href', URL.createObjectURL(blob));
+
+  var heights = Array.apply(null, Array(columnCount)).map(Number.prototype.valueOf,0);
+  var currentColumn = 0;
+  var nextColumn = (currentColumn + 1) % columnCount;
+  for (let i in sections) {
+    let box = $('#'+sections[i].id).closest('.box');
+    $('#column'+currentColumn).append(box);
+    heights[currentColumn] += box.height();
+    if (heights[currentColumn] > heights[nextColumn]) {
+      currentColumn = nextColumn;
+      nextColumn = (currentColumn + 1) % columnCount;
+    }
+  }
 }
 
 function updateCharacterFrom(event) {

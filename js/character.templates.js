@@ -3,13 +3,9 @@ var Template = {};
 Template.character = String.raw`
 <table id="character">
 <tr>
-  <td id="column1">
-  </td>
-  <td id="column2">
-  </td>
 </tr>
 <tr>
-  <td colspan="2">
+  <td id="controlButtons">
   <a id="spendButton" class="bottomButton" href="spend.html?n={{name}}">Spend</a>
   <a id="exportButton" class="bottomButton" download="{{name}}.json">Export</a>
   </td>

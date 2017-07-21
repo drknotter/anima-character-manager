@@ -30,4 +30,13 @@ function appendBox(parent, id, closeable, header) {
       $('#'+id).toggle(200);
     });
   }
+  return box;
+}
+
+function getRootElementFontSizePx( ) {
+  return parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+function remToPx(value) {
+    return value * getRootElementFontSizePx();
 }

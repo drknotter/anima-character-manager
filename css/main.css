@@ -18,8 +18,8 @@ body {
 }
 
 #content {
-  margin: auto;
-  max-width: 50rem;
+  padding: 0rem 10rem;
+  min-width: 25rem;
 }
 
 table {
