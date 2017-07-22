@@ -1,15 +1,16 @@
 #content {
-  width: 150mm;
+  padding: 0rem 0.5rem;
+  max-width: 30em;
 }
 
 .space {
-  width: 2mm;
+  width: 0.5rem;
 }
 
 .button {
   text-align: center;
-  margin-top: 2mm;
-  padding: 4mm;
+  margin-top: 0.5rem;
+  padding: 1rem;
   font-size: 120%;
   font-weight: bold;
   background: #ccc;

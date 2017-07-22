@@ -1,7 +1,10 @@
+#content {
+  max-width: 50rem;
+}
 h1, h3 {
   text-align: center;
-  padding: 2mm;
-  margin: 0mm;
+  padding: 0.5rem;
+  margin: 0rem;
 }
 
 table td {
@@ -10,13 +13,13 @@ table td {
 
 .box {
   background: #ccc;
-  padding: 2mm;
-  margin-bottom: 2mm;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .boxTitle {
   background: #ccc;
   font-size: 120%;
-  padding-bottom: 2mm;
+  padding-bottom: 0.5rem;
   font-weight: bold;
   text-align: center;
 }
@@ -26,7 +29,7 @@ table td {
   text-align: center;
   font-size: 120%;
   font-weight: bold;
-  padding: 4mm;
+  padding: 1rem;
 }
 .button:hover {
   cursor: pointer;
@@ -34,51 +37,51 @@ table td {
 }
 
 .space {
-  width: 2mm;
+  width: 0.5rem;
 }
 
 input {
   font-size: 100%;
   border: none;
-  margin: 0mm 2mm;
-  padding: 1mm 2mm;
+  margin: 0rem 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 #height, #weight {
-  width: 20mm;
+  width: 5rem;
 }
 
 #characteristics {
   width: 30%;
 }
 .characteristic td {
-  padding: 2mm;
+  padding: 0.5rem;
 }
 .characteristic input {
   float: right;
-  margin: 0mm;
+  margin: 0rem;
   width: 12mm;
 }
 .characteristic>td>span {
   display: inline-block;
-  padding-top: 0.75mm;
+  padding-top: 0.1875rem;
 }
 .characteristic:nth-child(odd) {
   background: #eee;
 }
 
 #classChoice {
-  margin: 0mm;
+  margin: 0rem;
   width: 100%;
 }
 #classDescription {
   background: #eee;
-  padding: 2mm;
-  margin-top: 2mm;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 #classDescription .description {
-  padding-left: 2mm;
-  padding-bottom: 2mm;
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
   font-style: italic;
 }
 #classDescription>table {
@@ -88,7 +91,7 @@ input {
   font-size: 80%;
 }
 #classDescription .box table td {
-  padding: 1mm 2mm;
+  padding: 0.25rem 0.5rem;
 }
 #classDescription .box table tr:nth-child(odd) {
   background: #eee;
@@ -98,15 +101,15 @@ td.right {
 }
 
 .abilityGroup {
-  padding: 1mm;
+  padding: 0.25rem;
   background: #ddd;
 }
 .abilityGroup caption {
-  padding: 1mm 2mm;
+  padding: 0.25rem 0.5rem;
   text-align: left;
   font-size: 90%;
   font-weight: bold;
 }
 .abilityGroup .right {
-  width: 19mm;
+  width: 4.75rem;
 }

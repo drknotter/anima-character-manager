@@ -1,6 +1,6 @@
 .box {
-  margin: 2mm;
-  padding: 2mm;
+  margin: 0.5rem;
+  padding: 0.5rem;
   background: #ccc;
 }
 
@@ -8,7 +8,7 @@
   background: #ccc;
 }
 .header {
-  padding: 1mm 5mm;
+  padding: 0.25rem 1.25rem;
   font-size: 110%;
   font-weight: bold;
   text-align: left;
@@ -16,84 +16,84 @@
 
 .spendingOptionSubgroup {
   background: #eee;
-  padding: 2mm;
-  margin-top: 2mm;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .spendingOptionSubgroup tr {
-  margin: 4mm;
+  margin: 1rem;
 }
 .spendingOptionSubgroup tr:nth-child(even) {
   background: #ccc;
 }
 
 .spendingOptionSubgroup td:first-child, .spendingOptionSubgroup th:first-child {
-  padding: 2mm 4mm;
+  padding: 0.5rem 1rem;
   text-align: left;
 }
 
 .dpInvestment .dpInvested {
-  width: 20mm;
-  padding: 0mm 1mm;
+  width: 5rem;
+  padding: 0rem 0.25rem;
   text-align: center;
 }
 
 .dpInvestment input {
-  width: 15mm;
+  width: 3.75rem;
   font-size: 100%;
 }
 .dpInvestment .cost {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 .dpInvestment .score {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 
 .characteristicLevelBonusInvestment .characteristicLevelBonusesInvested {
-  width: 40mm;
-  padding: 0mm 1mm;
+  width: 10rem;
+  padding: 0rem 0.25rem;
   text-align: center;;
 }
 .characteristicLevelBonusInvestment input {
-  width: 15mm;
+  width: 3.75rem;
   font-size: 100%;
 }
 .characteristicLevelBonusInvestment .score {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 .characteristicLevelBonusInvestment .modifier {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 
 .secondaryAbilityLevelBonusInvestment .secondaryAbilityLevelBonusesInvested {
-  width: 45mm;
-  padding: 0mm 1mm;
+  width: 11.25rem;
+  padding: 0rem 0.25rem;
   text-align: center;;
 }
 .secondaryAbilityLevelBonusInvestment input {
-  width: 15mm;
+  width: 3.75rem;
   font-size: 100%;
 }
 .secondaryAbilityLevelBonusInvestment .score {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 .secondaryAbilityLevelBonusInvestment .modifier {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 
 .cpInvestment .cost {
-  width: 20mm;
+  width: 5rem;
   text-align: center;
 }
 .cpInvestment .obtained {
-  width: 30mm;
-  padding: 0mm 1mm;
+  width: 7.5rem;
+  padding: 0rem 0.25rem;
   text-align: center;
 }
 .cpInvestment th {
@@ -103,10 +103,10 @@
 
 #variableCpChoiceDialog {
   background: #eee;
-  padding: 2mm;
+  padding: 0.5rem;
 }
 #variableCpChoiceDialog .name {
-  padding: 2mm;
+  padding: 0.5rem;
   text-align: center;
   font-size: 120%;
   font-weight: bold;
@@ -115,8 +115,8 @@
   font-size: 100%;
 }
 #variableCpChoiceDialog .button {
-  margin: 2mm;
-  padding: 2mm;
+  margin: 0.5rem;
+  padding: 0.5rem;
   background: #ccc;
   text-align: center;
   font-size: 120%;
