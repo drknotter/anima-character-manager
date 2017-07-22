@@ -54,7 +54,7 @@
               let name = match[1];
               let character = new Character(JSON.parse(window.localStorage[key]))
 
-              $('#content>table').prepend(Mustache.render(Template.characterButton, character));
+              $('#content>table>tbody').prepend(Mustache.render(Template.characterButton, character));
               $('#content>table div.openCharacter').first().click(function(event) {
                 window.open("manage.html?n=" + name, "_self");
               });
