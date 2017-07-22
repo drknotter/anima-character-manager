@@ -23,16 +23,6 @@ function updateCharacter(character) {
 function renderCharacter(character) {
   $('#content').html(Mustache.render(Template.character, character));
 
-  var contentWidth = $('#content').width();
-  var columnCount = Math.floor(contentWidth / remToPx(20));
-
-  $('#controlButtons').attr('colspan', columnCount);
-  for (let i=0; i<columnCount; i++) {
-    let column = $('<td></td>');
-    column.attr({'id': 'column' + i, 'class': 'column'});
-    $('#character tr:eq(0)').append(column);
-  }
-
   sections.push({'id': 'mainInfo', 'closeable': true, 'header': Mustache.render(Template.mainInfoHeader, character)});
   sections.push({'id': 'characteristics', 'closeable': true, 'header': 'Characteristics'});
   sections.push({'id': 'secondaryAbilities', 'closeable': true, 'header': 'Secondary Abilities'});
@@ -119,18 +109,8 @@ function renderCharacter(character) {
   var blob = new Blob([JSON.stringify(character, null, 2)], {type: 'application/json'});
   $('#exportButton').attr('href', URL.createObjectURL(blob));
 
-  var heights = Array.apply(null, Array(columnCount)).map(Number.prototype.valueOf,0);
-  var currentColumn = 0;
-  var nextColumn = (currentColumn + 1) % columnCount;
-  for (let i in sections) {
-    let box = $('#'+sections[i].id).closest('.box');
-    $('#column'+currentColumn).append(box);
-    heights[currentColumn] += box.height();
-    if (heights[currentColumn] > heights[nextColumn]) {
-      currentColumn = nextColumn;
-      nextColumn = (currentColumn + 1) % columnCount;
-    }
-  }
+  handleResize();
+  $(window).resize(handleResize);
 }
 
 function updateCharacterFrom(event) {
@@ -148,3 +128,38 @@ function updateCharacterFrom(event) {
   return event.which != 13;
 }
 
+function handleResize() {
+  for (let i in sections) {
+    let box = $('#'+sections[i].id).closest('.box');
+    $('#column0').append(box);
+  }
+
+  var contentWidth = $('#content').width();
+  var columnCount = Math.floor(contentWidth / remToPx(20));
+  console.log('contentWidth: ' + contentWidth + ', remToPx(20): ' + remToPx(20));
+  var currentColumnCount = $('#character>td.column').length;
+
+  for (let i=currentColumnCount; i<columnCount; i++) {
+    let column = $('<td></td>');
+    column.attr({'id': 'column' + i, 'class': 'column'});
+    $('#character').append(column);
+  }
+  for (let i=columnCount; i<currentColumnCount; i++) {
+    $('#column'+i).remove();
+  }
+
+  $('#controlButtons').attr('colspan', columnCount);
+
+  var heights = Array.apply(null, Array(columnCount)).map(Number.prototype.valueOf,0);
+  var currentColumn = 0;
+  var nextColumn = (currentColumn + 1) % columnCount;
+  for (let i in sections) {
+    let box = $('#'+sections[i].id).closest('.box');
+    $('#column'+currentColumn).append(box);
+    heights[currentColumn] += box.height();
+    if (heights[currentColumn] > heights[nextColumn]) {
+      currentColumn = nextColumn;
+      nextColumn = (currentColumn + 1) % columnCount;
+    }
+  }
+}

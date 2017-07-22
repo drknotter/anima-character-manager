@@ -1,9 +1,15 @@
-#character {
+#content>table {
   table-layout: fixed;
 }
 
 .column {
   vertical-align: top;
+}
+.column:first-child {
+  padding-left: 0.25rem;
+}
+.column:last-child {
+  padding-right: 0.25rem;
 }
 
 .box {

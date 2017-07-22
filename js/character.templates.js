@@ -1,8 +1,9 @@
 var Template = {};
 
 Template.character = String.raw`
-<table id="character">
-<tr>
+<table>
+<tr id="character">
+  <td id="column0" class="column"></td>
 </tr>
 <tr>
   <td id="controlButtons">
