@@ -1,4 +1,5 @@
 var sections = [];
+var lastContentWidth = 0;
 
 function getName() {
   var match = location.search.match(new RegExp("[?&]n=([^&]+)(&|$)"));
@@ -129,12 +130,17 @@ function updateCharacterFrom(event) {
 }
 
 function handleResize() {
+  var contentWidth = $('#content').width();
+  if (contentWidth == lastContentWidth) {
+    return;
+  }
+
   for (let i in sections) {
     let box = $('#'+sections[i].id).closest('.box');
     $('#column0').append(box);
+    $('#'+sections[i].id).show();
   }
 
-  var contentWidth = $('#content').width();
   var columnCount = Math.floor(contentWidth / remToPx(20));
   var currentColumnCount = $('#character>td.column').length;
 
@@ -161,4 +167,6 @@ function handleResize() {
       nextColumn = (currentColumn + 1) % columnCount;
     }
   }
+
+  lastContentWidth = contentWidth;
 }
