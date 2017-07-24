@@ -92,6 +92,9 @@ class Character {
     if (data.currentFatigue) {
       this.currentFatigue = data.currentFatigue;
     }
+
+    this.wealth = data.wealth ? data.wealth : 0;
+    check(isNumber(this.wealth), this.wealth + " is not a valid value for wealth!");
   }
 
   get level() {
@@ -119,6 +122,13 @@ class Character {
 
   get CP() {
     return 3 - totalInvested(this, 'cpInvested');
+  }
+
+  get wealthData() {
+    var gp = Math.floor(this.wealth);
+    var sp = Math.floor((this.wealth - gp) * 100);
+    var cp = Math.round((this.wealth - gp - sp / 100) * 1000);
+    return {'gp':gp,'sp':sp,'cp':cp};
   }
 
   get characteristicLevelBonuses() {

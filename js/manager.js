@@ -136,7 +136,6 @@ function handleResize() {
 
   var contentWidth = $('#content').width();
   var columnCount = Math.floor(contentWidth / remToPx(20));
-  console.log('contentWidth: ' + contentWidth + ', remToPx(20): ' + remToPx(20));
   var currentColumnCount = $('#character>td.column').length;
 
   for (let i=currentColumnCount; i<columnCount; i++) {
