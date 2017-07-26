@@ -69,7 +69,7 @@ Template.cpInvestment = String.raw`
 <tr class="cpInvestment">
 <td class="name">{{name}}</td>
 <td class="cost">{{cost}}</td>
-<td class="obtained"><input type="checkbox" name="foo"></td>
+<td class="obtained"><input type="checkbox"></td>
 </tr>
 `;
 Template.cpInvestmentVariableChoice = String.raw`

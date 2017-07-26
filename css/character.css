@@ -274,3 +274,32 @@
 .percentile {
   font-size: 50%;
 }
+
+#equipmentList {
+  background: #eee;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+#equipmentList th {
+  vertical-align: top;
+}
+#equipmentList th:first-child {
+  background: #eee;
+  font-size: 110%;
+  text-align: left;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+}
+#equipmentList tr:nth-child(even) {
+  background: #ccc;
+}
+#equipmentList td {
+  padding: 0.25rem 1rem;
+}
+#equipmentList .name {
+  text-align: left;
+}
+#equipmentList .equipped {
+  text-align: center;
+}

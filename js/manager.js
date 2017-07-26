@@ -18,12 +18,14 @@ $( document ).ready(function() {
 
 function updateCharacter(character) {
   window.localStorage['character.'+character.name] = JSON.stringify(character);
+  lastContentWidth = 0;
   renderCharacter(character);
 }
 
 function renderCharacter(character) {
   $('#content').html(Mustache.render(Template.character, character));
 
+  sections = [];
   sections.push({'id': 'mainInfo', 'closeable': true, 'header': Mustache.render(Template.mainInfoHeader, character)});
   sections.push({'id': 'characteristics', 'closeable': true, 'header': 'Characteristics'});
   sections.push({'id': 'secondaryAbilities', 'closeable': true, 'header': 'Secondary Abilities'});
@@ -31,6 +33,7 @@ function renderCharacter(character) {
   sections.push({'id': 'psychic', 'closeable': true, 'header': Mustache.render(Template.psychicHeader)});
   sections.push({'id': 'resistances', 'closeable': true, 'header': 'Resistances'});
   sections.push({'id': 'advantages', 'closeable': true, 'header': 'Advantages and Disadvantages'});
+  sections.push({'id': 'equipment', 'closeable': true, 'header': 'Equipment'});
 
   for (let i in sections) {
     appendBox($('#column0'), sections[i].id, sections[i].closeable, sections[i].header);
@@ -101,6 +104,20 @@ function renderCharacter(character) {
         $('#popupBackground').show();
       })
     }
+  }
+
+  $('#equipment').append(Mustache.render(Template.equipmentList));
+  for (let i in character.equipment) {
+    $('#equipmentList>tbody').append(Mustache.render(Template.equipment, character.equipment[i]));
+    $('#equipmentList .equipped>input').last().attr('checked', character.equipment[i].equipped);
+    $('#equipmentList .equipped>input').last().change(function() {
+      if ($(this).is(':checked')) {
+        character.equipment[i].equip();
+      } else {
+        character.equipment[i].unequip();
+      }
+      updateCharacter(character);
+    });
   }
 
   $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);

@@ -24,31 +24,39 @@ class PsychicPotential {
     this.ppInvested = data.ppInvested;
 
     var thisClosure = this;
-    this.score = function() {
-      var base = 0;
-      if (character.characteristics.wp.score > 14) {
-        base = 20 * (character.characteristics.wp.score - 15) + 120;
-      } else if (character.characteristics.wp.score > 4) {
-        base = 10 * (character.characteristics.wp.score - 5) + 10;
+    Object.defineProperty(this, 'baseBonus', {
+      get: function() {
+        var base = 0;
+        if (character.characteristics.wp.score > 14) {
+          base = 20 * (character.characteristics.wp.score - 15) + 120;
+        } else if (character.characteristics.wp.score > 4) {
+          base = 10 * (character.characteristics.wp.score - 5) + 10;
+        }
+        return base;
       }
-
-      var ppInvestedAddition = 0;
-      var tally = 1;
-      while (tally * (tally - 1) / 2 < thisClosure.ppInvested) {
-        tally++;
-        ppInvestedAddition += 10;
+    });
+    Object.defineProperty(this, 'ppInvestedBonus', {
+      get: function() {
+        var ppInvestedAddition = 0;
+        var tally = 1;
+        while (tally * (tally - 1) / 2 < thisClosure.ppInvested) {
+          tally++;
+          ppInvestedAddition += 10;
+        }
+        return ppInvestedAddition;
       }
+    });
+  }
 
-      return base + ppInvestedAddition + thisClosure.otherBonuses();
+  get score() {
+    var total = 0;
+    var names = Object.getOwnPropertyNames(this);
+    for (let key in names) {
+      if (/Bonus$/.test(names[key])) {
+        total += this[names[key]];
+      }
     }
-  }
-
-  otherBonuses() {
-    return 0;
-  }
-
-  score() {
-    return 0;
+    return total;
   }
 
   get name() {

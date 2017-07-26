@@ -36,6 +36,17 @@ class Character {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
+    Object.defineProperty(this, 'resistances', {
+      value: {
+        'disease': new Resistance(this, 'Disease', 'con'),
+        'magic': new Resistance(this, 'Magic', 'pow'),
+        'physical': new Resistance(this, 'Physical', 'con'),
+        'venom': new Resistance(this, 'Venom', 'con'),
+        'psychic': new Resistance(this, 'Psychic', 'wp'),
+      },
+      enumerable: false
+    })
+
     check(Class[data.classId], data.classId + " is not a valid class key!");
     this.classId = data.classId;
 
@@ -82,8 +93,6 @@ class Character {
       }
     });
 
-    
-
     this.currentLifePoints = this.lifePoints;
     if (data.currentLifePoints) {
       this.currentLifePoints = data.currentLifePoints;
@@ -95,6 +104,11 @@ class Character {
 
     this.wealth = data.wealth ? data.wealth : 0;
     check(isNumber(this.wealth), this.wealth + " is not a valid value for wealth!");
+
+    this.equipment = {};
+    for (let i in data.equipment) {
+      this.equipment[i] = new Equipment(data.equipment[i], this, i);
+    }
   }
 
   get level() {
@@ -224,38 +238,39 @@ class Character {
     return 25 + this.level * 5;
   }
 
-  get resistances() {
-    return {
-      'disease': {
-        'name':'Disease', 
-        'score': this.basePresence + this.characteristics.con.modifier,
-        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.con.modifier),
-      },
-      'magic': {
-        'name':'Magic', 
-        'score': this.basePresence + this.characteristics.pow.modifier,
-        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.pow.modifier),
-      },
-      'physical': {
-        'name':'Physical', 
-        'score': this.basePresence + this.characteristics.con.modifier,
-        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.con.modifier),
-      },
-      'venom': {
-        'name':'Venom', 
-        'score': this.basePresence + this.characteristics.con.modifier,
-        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.con.modifier),
-      },
-      'psychic': {
-        'name':'Psychic', 
-        'score': this.basePresence + this.characteristics.wp.modifier,
-        'percentile': Math.floor(this.basePresence / 1.5 + this.characteristics.wp.modifier),
-      },
-    };
-  }
-
   get class() {
     return Class[this.classId];
   }
 }
 
+class Resistance {
+  constructor(character, name, characteristic) {
+    this.name = name;
+
+    Object.defineProperty(this, 'basePresenceBonus', {
+      get: function() {
+        return character.basePresence;
+      }
+    });
+    Object.defineProperty(this, 'characteristicModifierBonus', {
+      get: function() {
+        return character.characteristics[characteristic].modifier;
+      }
+    });
+  }
+
+  get score() {
+    var total = 0;
+    var names = Object.getOwnPropertyNames(this);
+    for (let key in names) {
+      if (/Bonus$/.test(names[key])) {
+        total += this[names[key]];
+      }
+    }
+    return total;
+  }
+
+  get percentile() {
+    return Math.floor(this.score - this.basePresenceBonus / 3);
+  }
+}

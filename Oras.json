@@ -330,5 +330,35 @@
     "ppInvested": 15
   },
   "currentLifePoints": 110,
-  "currentFatigue": 6
+  "currentFatigue": 6,
+  "wealth": 0,
+  "equipment": {
+    "psychicMatrixCrystal": {
+      "name": "Psychic Matrix Crystal",
+      "description": "No description yet!",
+      "equipped": true,
+      "equippedBonuses": [
+        {
+          "keyChain": [
+            "psychicPotential"
+          ],
+          "bonus": 20
+        }
+      ]
+    },
+    "magicResistancePendant": {
+      "name": "Magic Resistance Pendant",
+      "description": "No description yet!",
+      "equipped": true,
+      "equippedBonuses": [
+        {
+          "keyChain": [
+            "resistances",
+            "magic"
+          ],
+          "bonus": 30
+        }
+      ]
+    }
+  }
 }

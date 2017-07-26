@@ -158,3 +158,13 @@ Template.mentalPowerEffect = String.raw`
 <{{rowType}}{{^rowType}}td{{/rowType}} class="outcome">{{{outcome}}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
+
+Template.equipmentList = String.raw`
+<table id="equipmentList">
+<tr><th class="name">Name</th><th class="equipped">Equipped?</th></tr>
+</table>
+`;
+
+Template.equipment = String.raw`
+<tr><td class="name">{{name}}</td><td class="equipped"><input type="checkbox"></td></tr>
+`;
