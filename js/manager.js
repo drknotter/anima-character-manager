@@ -107,17 +107,19 @@ function renderCharacter(character) {
   }
 
   $('#equipment').append(Mustache.render(Template.equipmentList));
-  for (let i in character.equipment) {
-    $('#equipmentList>tbody').append(Mustache.render(Template.equipment, character.equipment[i]));
-    $('#equipmentList .equipped>input').last().attr('checked', character.equipment[i].equipped);
-    $('#equipmentList .equipped>input').last().change(function() {
-      if ($(this).is(':checked')) {
-        character.equipment[i].equip();
-      } else {
-        character.equipment[i].unequip();
-      }
-      updateCharacter(character);
-    });
+  for (let type in character.equipment) {
+    for (let i in character.equipment[type]) {
+      $('#equipmentList>tbody').append(Mustache.render(Template.equipment, character.equipment[type][i]));
+      $('#equipmentList .equipped>input').last().attr('checked', character.equipment[type][i].equipped);
+      $('#equipmentList .equipped>input').last().change(function() {
+        if ($(this).is(':checked')) {
+          character.equipment[type][i].equip();
+        } else {
+          character.equipment[type][i].unequip();
+        }
+        updateCharacter(character);
+      });
+    }
   }
 
   $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);

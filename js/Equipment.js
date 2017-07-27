@@ -10,7 +10,6 @@ class EquipmentBonus {
 
 class Equipment {
   constructor(data, character, key) {
-    var me = this;
     check(data.name, "Missing name for equiment " + key + "!");
     this.name = data.name;
     this.description = data.description;
@@ -36,43 +35,81 @@ class Equipment {
     }
 
     this.equip = function() {
-      this.equipped = true;
-      for (let b in this.equippedBonuses) {
-        let property = character;
-        for (let k in this.equippedBonuses[b].keyChain) {
-          property = property[this.equippedBonuses[b].keyChain[k]];
-          if (!property) {
-            return;
-          }
-        }
-
-        Object.defineProperty(property, key + "Bonus", {
-          get: function() {
-            return me.equippedBonuses[b].bonus;
-          },
-          configurable: true
-        });
-      }
+      this.equipCharacter(character, key);
     };
 
     this.unequip = function() {
-      this.equipped = false;
-      for (let b in this.equippedBonuses) {
-        let property = character;
-        for (let k in this.equippedBonuses[b].keyChain) {
-          property = property[this.equippedBonuses[b].keyChain[k]];
-          if (!property) {
-            return;
-          }
-        }
-
-        delete property[key + "Bonus"];
-      }
+      this.unequipCharacter(character, key);
     };
 
     if (this.equipped) {
       this.equip();
     }
   }
+
+  equipCharacter(character, key) {
+    var me = this;
+    this.equipped = true;
+    for (let b in this.equippedBonuses) {
+      let property = character;
+      for (let k in this.equippedBonuses[b].keyChain) {
+        property = property[this.equippedBonuses[b].keyChain[k]];
+        if (!property) {
+          return;
+        }
+      }
+
+      Object.defineProperty(property, key + "Bonus", {
+        get: function() {
+          return me.equippedBonuses[b].bonus;
+        },
+        configurable: true
+      });
+    }
+  }
+
+  unequipCharacter(character, key) {
+    this.equipped = false;
+    for (let b in this.equippedBonuses) {
+      let property = character;
+      for (let k in this.equippedBonuses[b].keyChain) {
+        property = property[this.equippedBonuses[b].keyChain[k]];
+        if (!property) {
+          return;
+        }
+      }
+
+      delete property[key + "Bonus"];
+    }
+  }
 }
 
+class Armor extends Equipment {
+  constructor(data, character, key) {
+    super(data, character, key);
+
+    check(isNumber(data.armorRequirement), data.armorRequirement + " is not a valid armor requirement for " + key + "!");
+    this.armorRequirement = data.armorRequirement;
+
+    check(isNumber(data.naturalPenalty), data.naturalPenalty + " is not a valid natural penalty for " + key + "!");
+    this.naturalPenalty = data.naturalPenalty;
+    check(isNumber(data.perceptionPenalty), data.perceptionPenalty + " is not a valid perceptionPenalty for " + key + "!");
+    this.perceptionPenalty = data.perceptionPenalty;
+    check(isNumber(data.movementRestriction), data.movementRestriction + " is not a valid movement restriction for " + key + "!");
+    this.movementRestriction = data.movementRestriction;
+
+    check(isNumber(data.fortitude), data.fortitude + " is not a valid fortitude for " + key + "!");
+    this.fortitude = data.fortitude;
+    check(isNumber(data.presence), data.presence + " is not a valid presence for " + key + "!");
+    this.presence = data.presence;
+
+    check(data.protections, "Armor is missing protections!");
+    this.protections = {};
+
+    var types = ['cut','impact','thrust','heat','electricity','cold','energy'];
+    for (let t in types) {
+      check(isNumber(data.protections[types[t]]), data.protections[types[t]] + " is not a valid armor protection type!");
+      this.protections[types[t]] = data.protections[types[t]];
+    }
+  }
+}

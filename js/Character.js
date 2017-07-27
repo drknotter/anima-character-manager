@@ -47,6 +47,19 @@ class Character {
       enumerable: false
     })
 
+    Object.defineProperty(this, 'armorType', {
+      value: {
+        'cut': new ArmorType(this, 'Cut', 'cut'),
+        'impact': new ArmorType(this, 'Impact', 'impact'),
+        'thrust': new ArmorType(this, 'Thrust', 'thrust'),
+        'heat': new ArmorType(this, 'Heat', 'heat'),
+        'electricity': new ArmorType(this, 'Electricity', 'electricity'),
+        'cold': new ArmorType(this, 'Cold', 'cold'),
+        'energy': new ArmorType(this, 'Energy', 'energy')
+      },
+      enumerable: false
+    })
+
     check(Class[data.classId], data.classId + " is not a valid class key!");
     this.classId = data.classId;
 
@@ -105,9 +118,18 @@ class Character {
     this.wealth = data.wealth ? data.wealth : 0;
     check(isNumber(this.wealth), this.wealth + " is not a valid value for wealth!");
 
-    this.equipment = {};
-    for (let i in data.equipment) {
-      this.equipment[i] = new Equipment(data.equipment[i], this, i);
+    this.equipment = {
+      'items':{},
+      'armors':{},
+      'weapons':{}
+    };
+    if (data.equipment) {
+      for (let i in data.equipment.items) {
+        this.equipment.items[i] = new Equipment(data.equipment.items[i], this, i);
+      }
+      for (let i in data.equipment.armors) {
+        this.equipment.armors[i] = new Armor(data.equipment.armors[i], this, i);
+      }
     }
   }
 
@@ -175,7 +197,12 @@ class Character {
 
   get initiative() {
     var baseInitiative = 20 + this.characteristics.dex.modifier + this.characteristics.agi.modifier;
-    var armorModifier = 0; // TODO: fill this in.
+    var armorModifier = 0;
+    for (let i in this.equipment.armors) {
+      if (this.equipment.armors[i].equipped) {
+        armorModifier -= Math.max(this.equipment.armors[i].naturalPenalty - (this.primaryAbilities.wearArmor.score - this.equipment.armors[i].armorRequirement), 0);
+      }
+    }
     var levelBonus = this.class.initiative.bonus * Math.floor(this.level / this.class.initiative.cost);
     return baseInitiative + armorModifier + levelBonus;
   }
@@ -272,5 +299,45 @@ class Resistance {
 
   get percentile() {
     return Math.floor(this.score - this.basePresenceBonus / 3);
+  }
+}
+
+class ArmorType {
+  constructor(character, name, key) {
+    this.name = name;
+
+    Object.defineProperty(this, 'armorBonus', {
+      get: function() {
+
+        var bonuses = []
+        for (let i in character.equipment.armors) {
+          if (character.equipment.armors[i].equipped) {
+            bonuses.push(character.equipment.armors[i].protections[key]);
+          }
+        }
+        bonuses.sort(function(a,b){return a-b;});
+
+        var total = 0;
+        for (let i=0; i<bonuses.length; i++) {
+          if (i == 0) {
+            total += bonuses[i];
+          } else {
+            total += Math.floor(bonuses[i] / 2);
+          }
+        }
+        return total;
+      }
+    })
+  }
+
+  get score() {
+    var total = 0;
+    var names = Object.getOwnPropertyNames(this);
+    for (let key in names) {
+      if (/Bonus$/.test(names[key])) {
+        total += this[names[key]];
+      }
+    }
+    return total;
   }
 }
