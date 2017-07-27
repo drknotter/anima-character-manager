@@ -26,7 +26,7 @@ Template.mainInfoHeader = String.raw`
 Template.mainInfo = String.raw`
 <table class="stats">
 <tr>
-<td class="stat"><span id="lifePoints" contenteditable="true">{{currentLifePoints}}</span>/{{lifePoints}}<br/>Life Points</td>
+<td class="stat"><span id="lifePoints" contenteditable="true">{{currentLifePoints}}</span>/{{lifePoints.score}}<br/>Life Points</td>
 <td class="space"/>
 <td class="stat"><span id="fatigue" contenteditable="true">{{currentFatigue}}</span>/{{fatigue}}<br/>Fatigue</td>
 <td class="space"/>
@@ -55,7 +55,7 @@ Combat
 Template.combat = String.raw`
 <table class="stats">
 <tr>
-<td class="stat"><span>{{initiative}}</span><br/>Initiative</td>
+<td class="stat"><span>{{initiative.score}}</span><br/>Initiative</td>
 <td class="space"/>
 <td class="stat"><span>{{primaryAbilities.attack.score}}<span class="percentile"> ({{primaryAbilities.attack.percentile}}%)</span></span><br/>Attack</td>
 <td class="space"/>

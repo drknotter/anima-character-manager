@@ -36,6 +36,21 @@ class Character {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
+    Object.defineProperty(this, 'lifePoints', {
+      value: new LifePoints(this),
+      enumerable: false
+    })
+
+    Object.defineProperty(this, 'initiative', {
+      value: new Initiative(this),
+      enumerable: false
+    })
+
+    Object.defineProperty(this, 'movement', {
+      value: new Movement(this),
+      enumerable: false
+    })
+
     Object.defineProperty(this, 'resistances', {
       value: {
         'disease': new Resistance(this, 'Disease', 'con'),
@@ -177,84 +192,9 @@ class Character {
     return this.level - totalLevelBonusesInvested;
   }
 
-  get lifePoints() {
-    return this.baseLifePoints() + this.classLevelLifePoints() + this.multipleLifePoints();
-  }
-
-  baseLifePoints() {
-    return 20 + this.characteristics.con.score * 10 + this.characteristics.con.modifier;
-  }
-
-  classLevelLifePoints() {
-    return this.class.lifePoints.bonus * Math.floor(this.level / this.class.lifePoints.cost);
-  }
-
-  multipleLifePoints() {
-    return this.class.otherAbilityCosts.lifePointMultiple.bonus 
-        * Math.floor(this.otherAbilities.lifePointMultiple.dpInvested / this.class.otherAbilityCosts.lifePointMultiple.cost) 
-        * this.characteristics.con.score;
-  }
-
-  get initiative() {
-    var baseInitiative = 20 + this.characteristics.dex.modifier + this.characteristics.agi.modifier;
-    var armorModifier = 0;
-    for (let i in this.equipment.armors) {
-      if (this.equipment.armors[i].equipped) {
-        armorModifier -= Math.max(this.equipment.armors[i].naturalPenalty - (this.primaryAbilities.wearArmor.score - this.equipment.armors[i].armorRequirement), 0);
-      }
-    }
-    var levelBonus = this.class.initiative.bonus * Math.floor(this.level / this.class.initiative.cost);
-    return baseInitiative + armorModifier + levelBonus;
-  }
-
   get martialKnowledge() {
     // TODO: add bonuses from martial arts
     return this.class.martialKnowledge.bonus * Math.floor(this.level / this.class.martialKnowledge.cost);
-  }
-
-  get movement() {
-    var agi = this.characteristics.agi.score;
-    if (agi <= 1) {
-      return 3;
-    } else if (agi == 2) {
-      return 15;
-    } else if (agi == 3) {
-      return 25;
-    } else if (agi == 4) {
-      return 50;
-    } else if (agi == 5) {
-      return 65;
-    } else if (agi == 6) {
-      return 70;
-    } else if (agi == 7) {
-      return 80;
-    } else if (agi == 8) {
-      return 90;
-    } else if (agi == 9) {
-      return 105;
-    } else if (agi == 10) {
-      return 115;
-    } else if (agi == 11) {
-      return 130;
-    } else if (agi == 12) {
-      return 160;
-    } else if (agi == 13) {
-      return 250;
-    } else if (agi == 14) {
-      return 500;
-    } else if (agi == 15) {
-      return 800;
-    } else if (agi == 16) {
-      return 1500;
-    } else if (agi == 17) {
-      return 3000;
-    } else if (agi == 18) {
-      return 15840;
-    } else if (agi == 19) {
-      return 79200;
-    } else {
-      return Infinity;
-    }
   }
 
   get fatigue() {
@@ -270,8 +210,107 @@ class Character {
   }
 }
 
-class Resistance {
+class LifePoints extends Scoreable {
+  constructor(character) {
+    super();
+    Object.defineProperty(this, 'baseBonus', {
+      get: function() {
+        return 20 + character.characteristics.con.score * 10 + character.characteristics.con.modifier;
+      }
+    })
+
+    Object.defineProperty(this, 'classLevelBonus', {
+      get: function() {
+        return character.class.lifePoints.bonus * Math.floor(character.level / character.class.lifePoints.cost);
+      }
+    })
+
+    Object.defineProperty(this, 'multipleBonus', {
+      get: function() {
+        return character.class.otherAbilityCosts.lifePointMultiple.bonus 
+          * Math.floor(character.otherAbilities.lifePointMultiple.dpInvested / character.class.otherAbilityCosts.lifePointMultiple.cost) 
+          * character.characteristics.con.score;
+      }
+    })
+  }
+}
+
+class Initiative extends Scoreable {
+  constructor(character) {
+    super();
+    Object.defineProperty(this, 'baseBonus', {
+      get: function() {
+        return 20 + character.characteristics.dex.modifier + character.characteristics.agi.modifier;
+      }
+    });
+    Object.defineProperty(this, 'levelBonus', {
+      get: function() {
+        return character.class.initiative.bonus * Math.floor(character.level / character.class.initiative.cost);
+      }
+    });
+  }
+}
+
+class Movement extends Scoreable {
+  constructor(character) {
+    super();
+
+    Object.defineProperty(this, 'agiBonus', {
+      get: function() {
+        return character.characteristics.agi.score;
+      }
+    });
+  }
+
+  get score() {
+    var value = super.score;
+    if (value <= 1) {
+      return 3;
+    } else if (value == 2) {
+      return 15;
+    } else if (value == 3) {
+      return 25;
+    } else if (value == 4) {
+      return 50;
+    } else if (value == 5) {
+      return 65;
+    } else if (value == 6) {
+      return 70;
+    } else if (value == 7) {
+      return 80;
+    } else if (value == 8) {
+      return 90;
+    } else if (value == 9) {
+      return 105;
+    } else if (value == 10) {
+      return 115;
+    } else if (value == 11) {
+      return 130;
+    } else if (value == 12) {
+      return 160;
+    } else if (value == 13) {
+      return 250;
+    } else if (value == 14) {
+      return 500;
+    } else if (value == 15) {
+      return 800;
+    } else if (value == 16) {
+      return 1500;
+    } else if (value == 17) {
+      return 3000;
+    } else if (value == 18) {
+      return 15840;
+    } else if (value == 19) {
+      return 79200;
+    } else {
+      return Infinity;
+    }
+  }
+}
+
+class Resistance extends Scoreable {
   constructor(character, name, characteristic) {
+    super();
     this.name = name;
 
     Object.defineProperty(this, 'basePresenceBonus', {
@@ -286,24 +325,14 @@ class Resistance {
     });
   }
 
-  get score() {
-    var total = 0;
-    var names = Object.getOwnPropertyNames(this);
-    for (let key in names) {
-      if (/Bonus$/.test(names[key])) {
-        total += this[names[key]];
-      }
-    }
-    return total;
-  }
-
   get percentile() {
     return Math.floor(this.score - this.basePresenceBonus / 3);
   }
 }
 
-class ArmorType {
+class ArmorType extends Scoreable {
   constructor(character, name, key) {
+    super();
     this.name = name;
 
     Object.defineProperty(this, 'armorBonus', {
@@ -328,16 +357,5 @@ class ArmorType {
         return total;
       }
     })
-  }
-
-  get score() {
-    var total = 0;
-    var names = Object.getOwnPropertyNames(this);
-    for (let key in names) {
-      if (/Bonus$/.test(names[key])) {
-        total += this[names[key]];
-      }
-    }
-    return total;
   }
 }

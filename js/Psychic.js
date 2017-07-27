@@ -18,8 +18,9 @@ class MentalPower {
   }
 }
 
-class PsychicPotential {
+class PsychicPotential extends Scoreable {
   constructor(data, character) {
+    super();
     check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for psychic potential!");
     this.ppInvested = data.ppInvested;
 
@@ -46,17 +47,6 @@ class PsychicPotential {
         return ppInvestedAddition;
       }
     });
-  }
-
-  get score() {
-    var total = 0;
-    var names = Object.getOwnPropertyNames(this);
-    for (let key in names) {
-      if (/Bonus$/.test(names[key])) {
-        total += this[names[key]];
-      }
-    }
-    return total;
   }
 
   get name() {

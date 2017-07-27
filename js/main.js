@@ -40,3 +40,16 @@ function getRootElementFontSizePx( ) {
 function remToPx(value) {
     return value * getRootElementFontSizePx();
 }
+
+class Scoreable {
+  get score() {
+    var total = 0;
+    var names = Object.getOwnPropertyNames(this);
+    for (let key in names) {
+      if (/Bonus$/.test(names[key])) {
+        total += this[names[key]];
+      }
+    }
+    return total;
+  }
+}

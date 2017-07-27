@@ -1,5 +1,6 @@
-class Ability {
+class Ability extends Scoreable {
   constructor(data, character, key) {
+    super();
     var attrs = ['name', 'description', 'baseCharacteristic'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
@@ -80,17 +81,6 @@ class Ability {
         return this.baseCharacteristic ? character.characteristics[this.baseCharacteristic].percentile : 0;
       }
     });
-  }
-
-  get score() {
-    var total = 0;
-    var names = Object.getOwnPropertyNames(this);
-    for (let key in names) {
-      if (/Bonus$/.test(names[key])) {
-        total += this[names[key]];
-      }
-    }
-    return total;
   }
 
   get percentile() {

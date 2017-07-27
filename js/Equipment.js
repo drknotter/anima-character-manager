@@ -112,4 +112,29 @@ class Armor extends Equipment {
       this.protections[types[t]] = data.protections[types[t]];
     }
   }
+
+  equipCharacter(character, key) {
+    super.equipCharacter(character, key);
+
+    var me = this;
+    Object.defineProperty(character.initiative, key + "Bonus", {
+      get: function() {
+        return Math.min(-(me.naturalPenalty - (character.primaryAbilities.wearArmor.score - me.armorRequirement)), 0);
+      },
+      configurable: true
+    });
+    Object.defineProperty(character.movement, key + "Bonus", {
+      get: function() {
+        return Math.min(-(me.movementRestriction - Math.floor((character.primaryAbilities.wearArmor.score - me.armorRequirement) / 50)), 0);
+      },
+      configurable: true
+    });
+  }
+
+  unequipCharacter(character, key) {
+    super.unequipCharacter(character, key);
+
+    delete character.initiative[key + "Bonus"];
+    delete character.movement[key + "Bonus"];
+  }
 }

@@ -1,5 +1,6 @@
-class Characteristic {
+class Characteristic extends Scoreable {
   constructor(data, key) {
+    super();
     if (data.characteristicLevelBonusesInvested) {
       this.characteristicLevelBonusesInvested = data.characteristicLevelBonusesInvested;
     } else {
@@ -28,17 +29,6 @@ class Characteristic {
         return this.characteristicLevelBonusesInvested;
       }
     });
-  }
-
-  get score() {
-    var total = 0;
-    var names = Object.getOwnPropertyNames(this);
-    for (let key in names) {
-      if (/Bonus$/.test(names[key])) {
-        total += this[names[key]];
-      }
-    }
-    return total;
   }
 
   get modifier() {
