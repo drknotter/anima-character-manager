@@ -29,8 +29,8 @@ function renderCharacter(character) {
   sections.push({'id': 'mainInfo', 'closeable': true, 'header': Mustache.render(Template.mainInfoHeader, character)});
   sections.push({'id': 'characteristics', 'closeable': true, 'header': 'Characteristics'});
   sections.push({'id': 'secondaryAbilities', 'closeable': true, 'header': 'Secondary Abilities'});
-  sections.push({'id': 'combat', 'closeable': true, 'header': Mustache.render(Template.combatHeader)});
-  sections.push({'id': 'psychic', 'closeable': true, 'header': Mustache.render(Template.psychicHeader)});
+  sections.push({'id': 'combat', 'closeable': true, 'header': 'Combat'});
+  sections.push({'id': 'psychic', 'closeable': true, 'header': 'Psychic Powers'});
   sections.push({'id': 'resistances', 'closeable': true, 'header': 'Resistances'});
   sections.push({'id': 'advantages', 'closeable': true, 'header': 'Advantages and Disadvantages'});
   sections.push({'id': 'equipment', 'closeable': true, 'header': 'Equipment'});
@@ -110,8 +110,16 @@ function renderCharacter(character) {
   for (let type in character.equipment) {
     for (let i in character.equipment[type]) {
       $('#equipmentList>tbody').append(Mustache.render(Template.equipment, character.equipment[type][i]));
-      $('#equipmentList .equipped>input').last().attr('checked', character.equipment[type][i].equipped);
-      $('#equipmentList .equipped>input').last().change(function() {
+      var equipmentDOM = $('#equipmentList .equipment').last();
+      equipmentDOM.attr('id', i);
+      equipmentDOM.click(function(event) {
+        $('#popup').html(Mustache.render(Template.equipmentPopup, character.equipment[type][i]));
+        $('#popupBackground').show();
+      });
+
+      var equippedDOM = $('#equipmentList .equipped>input').last();
+      equippedDOM.attr({'checked': character.equipment[type][i].equipped});
+      equippedDOM.change(function() {
         if ($(this).is(':checked')) {
           character.equipment[type][i].equip();
         } else {

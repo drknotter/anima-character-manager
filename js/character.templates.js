@@ -48,10 +48,6 @@ Template.characteristic = String.raw`
 </tr>
 `;
 
-Template.combatHeader = String.raw`
-Combat
-`;
-
 Template.combat = String.raw`
 <table class="stats">
 <tr>
@@ -64,7 +60,15 @@ Template.combat = String.raw`
 <td class="stat"><span>{{primaryAbilities.dodge.score}}<span class="percentile"> ({{primaryAbilities.dodge.percentile}}%)</span></span><br/>Dodge</td>
 </tr>
 </table>
-<table>
+<table id="armorTypes">
+<tr><th>Armor Type</th><th>Score</th></tr>
+<tr><td>{{armorType.cut.name}}</td><td class="score">{{armorType.cut.score}}</td></tr>
+<tr><td>{{armorType.impact.name}}</td><td class="score">{{armorType.impact.score}}</td></tr>
+<tr><td>{{armorType.thrust.name}}</td><td class="score">{{armorType.thrust.score}}</td></tr>
+<tr><td>{{armorType.heat.name}}</td><td class="score">{{armorType.heat.score}}</td></tr>
+<tr><td>{{armorType.electricity.name}}</td><td class="score">{{armorType.electricity.score}}</td></tr>
+<tr><td>{{armorType.cold.name}}</td><td class="score">{{armorType.cold.score}}</td></tr>
+<tr><td>{{armorType.energy.name}}</td><td class="score">{{armorType.energy.score}}</td></tr>
 </table>
 `;
 
@@ -117,9 +121,6 @@ Template.advantage = String.raw`
 </tr>
 `;
 
-Template.psychicHeader = String.raw`
-Psychic Powers
-`;
 Template.psychic = String.raw`
 <table id="mainPsychicInfo" />
 <div id="mentalPowers" />
@@ -143,7 +144,7 @@ Template.mentalPower = String.raw`
 `;
 
 Template.mentalPowerPopup = String.raw`
-<div id="mentalPowerPopup">
+<div id="mentalPowerPopup" class="popup">
 <div class="name">{{name}}</div>
 <div class="description">{{description}}</div>
 <table class="effects">
@@ -166,5 +167,21 @@ Template.equipmentList = String.raw`
 `;
 
 Template.equipment = String.raw`
-<tr><td class="name">{{name}}</td><td class="equipped"><input type="checkbox"></td></tr>
+<tr class="equipment"><td class="name">{{name}}</td><td class="equipped"><input type="checkbox"></td></tr>
 `;
+
+Template.equipmentPopup = String.raw`
+<div id="equipmentPopup" class="popup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<table class="mainStats">
+<tr><th>Cost</th><th>Weight</th><th>Availability</th></tr>
+<tr>
+<td>{{costData.gp}}GP, {{costData.sp}}SP, {{costData.cp}}CP</td>
+<td>{{weight}} lbs</td>
+<td>{{availability}}</td>
+</tr>
+</table>
+</div>
+`;
+

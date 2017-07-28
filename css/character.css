@@ -32,21 +32,21 @@
   padding-top: 0.5rem;
 }
 
-#mainInfo .stats, #combat .stats {
+.stats {
   table-layout: fixed;
-  padding-top: 0.325rem;
+  padding-top: 0.5rem;
 }
-#mainInfo .stat, #combat .stat {
+.stat {
   text-align: center;
   background: #eee;
   padding: 0.5rem;
   font-size: 80%;
   width: auto;
 }
-#mainInfo .space, #combat .space {
+.space {
   width: 0.5rem;
 }
-#mainInfo .stat>span, #combat .stat>span {
+.stat>span {
   font-size: 200%;
   text-align: right;
 }
@@ -229,17 +229,17 @@
   text-align: center;
 }
 
-#mentalPowerPopup {
-  background: #eee;
+.popup {
+  background: #ccc;
   padding: 0.5rem;
 }
-#mentalPowerPopup .name {
+#mentalPowerPopup .name, #equipmentPopup .name {
   font-size: 120%;
   font-weight: bold;
   text-align: center;
   margin-bottom: 0.5rem;
 }
-#mentalPowerPopup .description {
+#mentalPowerPopup .description, #equipmentPopup .description {
   margin-bottom: 0.5rem;
   margin-left: 0.75rem;
   margin-right: 0.75rem;
@@ -302,4 +302,46 @@
 }
 #equipmentList .equipped {
   text-align: center;
+}
+
+#armorTypes {
+  background: #eee;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+#armorTypes th {
+  vertical-align: top;
+}
+#armorTypes th:first-child {
+  background: #eee;
+  font-size: 110%;
+  text-align: left;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+}
+#armorTypes tr:nth-child(even) {
+  background: #ccc;
+}
+#armorTypes td {
+  padding: 0.25rem 1rem;
+}
+#armorTypes .score {
+  text-align: center;
+  width: 2.5rem;
+}
+
+.equipment:hover {
+  cursor: help;
+}
+
+#equipmentPopup {
+  min-width: 20rem;
+}
+#equipmentPopup .mainStats {
+  background: #eee;
+  padding: 0.5rem;
+}
+#equipmentPopup .mainStats td {
+text-align: center;
 }

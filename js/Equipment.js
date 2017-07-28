@@ -82,6 +82,13 @@ class Equipment {
       delete property[key + "Bonus"];
     }
   }
+
+  get costData() {
+    var gp = Math.floor(this.cost);
+    var sp = Math.floor((this.cost - gp) * 100);
+    var cp = Math.round((this.cost - gp - sp / 100) * 1000);
+    return {'gp':gp,'sp':sp,'cp':cp};
+  }
 }
 
 class Armor extends Equipment {
