@@ -114,6 +114,7 @@ function renderCharacter(character) {
       equipmentDOM.attr('id', i);
       equipmentDOM.click(function(event) {
         $('#popup').html(Mustache.render(Template.equipmentPopup, character.equipment[type][i]));
+        $('#equipmentPopup').append(Mustache.render(Template.armorDetails, character.equipment[type][i]));
         $('#popupBackground').show();
       });
 

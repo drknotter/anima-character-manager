@@ -343,5 +343,23 @@
   padding: 0.5rem;
 }
 #equipmentPopup .mainStats td {
-text-align: center;
+  text-align: center;
+}
+
+#equipmentPopup .armorDetails {
+  background: #eee;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+
+#equipmentPopup .armorDetails td, #equipmentPopup .armorDetails th {
+  text-align: left;
+  padding: 0.25rem;
+}
+#equipmentPopup .armorDetails td:last-child, #equipmentPopup .armorDetails th:last-child {
+  text-align: center;
+  width: 4rem;
+}
+#equipmentPopup .armorDetails tr:nth-child(even) {
+  background: #ccc;
 }

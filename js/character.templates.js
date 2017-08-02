@@ -185,3 +185,15 @@ Template.equipmentPopup = String.raw`
 </div>
 `;
 
+Template.armorDetails = String.raw`
+<table class="armorDetails">
+<tr><th>Armor Type</th><th>Bonus</th><tr>
+<tr><td>Cut</td><td>{{protections.cut}}</td></tr>
+<tr><td>Impact</td><td>{{protections.impact}}</td></tr>
+<tr><td>Thrust</td><td>{{protections.thrust}}</td></tr>
+<tr><td>Heat</td><td>{{protections.heat}}</td></tr>
+<tr><td>Electricity</td><td>{{protections.electricity}}</td></tr>
+<tr><td>Cold</td><td>{{protections.cold}}</td></tr>
+<tr><td>Energy</td><td>{{protections.energy}}</td></tr>
+</table>
+`;
