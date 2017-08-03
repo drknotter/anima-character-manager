@@ -342,6 +342,7 @@
         "availability": "C",
         "fortitude": 12,
         "presence": 25,
+        "qualityBonus": 0,
         "equipped": true,
         "equippedBonuses": [
           {
@@ -361,6 +362,7 @@
         "availability": "C",
         "fortitude": 12,
         "presence": 25,
+        "qualityBonus": 0,
         "equipped": true,
         "equippedBonuses": [
           {
@@ -381,6 +383,7 @@
         "availability": "C",
         "fortitude": 12,
         "presence": 25,
+        "qualityBonus": 0,
         "equipped": false,
         "equippedBonuses": [
           {
@@ -401,6 +404,9 @@
         "cost": 0,
         "weight": 0,
         "availability": "C",
+        "fortitude": 12,
+        "presence": 25,
+        "qualityBonus": 0,
         "equipped": true,
         "equippedBonuses": [],
         "possesionBonuses": [],
@@ -408,8 +414,6 @@
         "naturalPenalty": 0,
         "perceptionPenalty": 0,
         "movementRestriction": 0,
-        "fortitude": 12,
-        "presence": 25,
         "protections": {
           "cut": 1,
           "impact": 0,
