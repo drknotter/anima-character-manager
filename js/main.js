@@ -42,6 +42,14 @@ function remToPx(value) {
 }
 
 class Scoreable {
+  constructor(name) {
+    Object.defineProperty(this, 'name', {
+      get: function() {
+        return name;
+      }
+    });
+  }
+
   get score() {
     var total = 0;
     var names = Object.getOwnPropertyNames(this);

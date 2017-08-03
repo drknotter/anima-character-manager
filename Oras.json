@@ -340,6 +340,8 @@
         "cost": 0,
         "weight": 0,
         "availability": "C",
+        "fortitude": 12,
+        "presence": 25,
         "equipped": true,
         "equippedBonuses": [
           {
@@ -357,6 +359,8 @@
         "cost": 0,
         "weight": 0,
         "availability": "C",
+        "fortitude": 12,
+        "presence": 25,
         "equipped": true,
         "equippedBonuses": [
           {
@@ -375,6 +379,8 @@
         "cost": 0,
         "weight": 0,
         "availability": "C",
+        "fortitude": 12,
+        "presence": 25,
         "equipped": false,
         "equippedBonuses": [
           {

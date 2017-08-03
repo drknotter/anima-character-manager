@@ -248,7 +248,7 @@
 
 
 #mentalPowerPopup .effect:nth-child(even) {
-  background: #ccc;
+  background: #eee;
 }
 #mentalPowerPopup .effect td {
   padding: 0.25rem;
@@ -335,15 +335,14 @@
   cursor: help;
 }
 
-#equipmentPopup {
-  min-width: 20rem;
-}
 #equipmentPopup .mainStats {
   background: #eee;
   padding: 0.5rem;
+  margin-top: 0.5rem;
 }
-#equipmentPopup .mainStats td {
+#equipmentPopup .mainStats td, #equipmentPopup .mainStats th {
   text-align: center;
+  padding: 0rem 0.5rem;
 }
 
 #equipmentPopup .armorDetails {

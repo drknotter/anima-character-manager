@@ -20,7 +20,7 @@ class MentalPower {
 
 class PsychicPotential extends Scoreable {
   constructor(data, character) {
-    super();
+    super('Psychic Potential');
     check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for psychic potential!");
     this.ppInvested = data.ppInvested;
 

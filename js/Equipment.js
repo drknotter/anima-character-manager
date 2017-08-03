@@ -1,3 +1,19 @@
+function gatherScoreables(data, keychain) {
+  if (!data) {
+    return [];
+  }
+
+  var out = []
+  if (data instanceof Scoreable) {
+    out = out.concat([{'keychain': keychain, 'scoreable': data}]);
+  } else if (typeof data !== "string") {
+    for (let i in data) {
+      out = out.concat(gatherScoreables(data[i], keychain.concat(i)));
+    }
+  }
+  return out;
+}
+
 class EquipmentBonus {
   constructor(data) {
     check(Array.isArray(data.keyChain), data.keyChain + " is not a valid key chain for an equipment bonus!");
@@ -5,6 +21,36 @@ class EquipmentBonus {
 
     check(isNumber(data.bonus), data.bonus + " is not a valid bonus for an equipment bonus!");
     this.bonus = data.bonus;
+  }
+
+  apply(character, key) {
+    var me = this;
+    let property = character;
+    for (let k in this.keyChain) {
+      property = property[this.keyChain[k]];
+      if (!property) {
+        return;
+      }
+    }
+
+    Object.defineProperty(property, key + "Bonus", {
+      get: function() {
+        return me.bonus;
+      },
+      configurable: true
+    });
+  }
+
+  unapply(character, key) {
+    let property = character;
+    for (let k in this.keyChain) {
+      property = property[this.keyChain[k]];
+      if (!property) {
+        return;
+      }
+    }
+
+    delete property[key + "Bonus"];
   }
 }
 
@@ -20,6 +66,14 @@ class Equipment {
     check(isNumber(this.weight), this.weight + " is not a valid weight for equipment!");
     this.availability = data.availability ? data.availability : "C";
     check(["R","U","C"].indexOf(this.availability) >= 0, this.availability + " is not a valid availability for equipment!");
+
+    check(isNumber(data.fortitude), data.fortitude + " is not a valid fortitude for " + key + "!");
+    this.fortitude = data.fortitude;
+    check(isNumber(data.presence), data.presence + " is not a valid presence for " + key + "!");
+    this.presence = data.presence;
+
+    this.qualityBonus = data.qualityBonus ? data.qualityBonus : 0;
+    check(isNumber(this.qualityBonus), this.qualityBonus + " is not a valid quality bonus for " + key + "!");
 
     this.equipped = data.equipped ? data.equipped : false;
     check(typeof(this.equipped) === "boolean", this.equipped + " is not a valid value for equipped!");
@@ -48,38 +102,16 @@ class Equipment {
   }
 
   equipCharacter(character, key) {
-    var me = this;
     this.equipped = true;
     for (let b in this.equippedBonuses) {
-      let property = character;
-      for (let k in this.equippedBonuses[b].keyChain) {
-        property = property[this.equippedBonuses[b].keyChain[k]];
-        if (!property) {
-          return;
-        }
-      }
-
-      Object.defineProperty(property, key + "Bonus", {
-        get: function() {
-          return me.equippedBonuses[b].bonus;
-        },
-        configurable: true
-      });
+      this.equippedBonuses[b].apply(character, key);
     }
   }
 
   unequipCharacter(character, key) {
     this.equipped = false;
     for (let b in this.equippedBonuses) {
-      let property = character;
-      for (let k in this.equippedBonuses[b].keyChain) {
-        property = property[this.equippedBonuses[b].keyChain[k]];
-        if (!property) {
-          return;
-        }
-      }
-
-      delete property[key + "Bonus"];
+      this.equippedBonuses[b].unapply(character, key);
     }
   }
 
@@ -104,11 +136,6 @@ class Armor extends Equipment {
     this.perceptionPenalty = data.perceptionPenalty;
     check(isNumber(data.movementRestriction), data.movementRestriction + " is not a valid movement restriction for " + key + "!");
     this.movementRestriction = data.movementRestriction;
-
-    check(isNumber(data.fortitude), data.fortitude + " is not a valid fortitude for " + key + "!");
-    this.fortitude = data.fortitude;
-    check(isNumber(data.presence), data.presence + " is not a valid presence for " + key + "!");
-    this.presence = data.presence;
 
     check(data.protections, "Armor is missing protections!");
     this.protections = {};
@@ -143,5 +170,35 @@ class Armor extends Equipment {
 
     delete character.initiative[key + "Bonus"];
     delete character.movement[key + "Bonus"];
+  }
+}
+
+class Weapon extends Equipment {
+  constructor(data, character, key) {
+    super(data, character, key);
+
+    check(isNumber(data.damage), data.damage + " is not a valid value for damage for " + key + "!");
+    this.damage = data.damage;
+    check(isNumber(data.speed), data.speed + " is not a valid value for speed for " + key + "!");
+    this.speed = data.speed;
+    check(isNumber(data.requiredStrength), data.requiredStrength + " is not a valid value for required strength for " + key + "!");
+    this.requiredStrength = data.requiredStrength;
+
+    check(!data.primaryAttackType || typeof data.primaryAttackType === 'string', data.primaryAttackType + " is not a valid value for primary attack type for " + key + "!");
+    this.primaryAttackType = data.primaryAttackType;
+    check(!data.secondaryAttackType || typeof data.secondaryAttackType === 'string', data.secondaryAttackType + " is not a valid value for secondary attack type for " + key + "!");
+    this.secondaryAttackType = data.secondaryAttackType;
+    check(!data.weaponType || typeof data.weaponType === 'string', data.weaponType + " is not a valid value for weapon type for " + key + "!");
+    this.weaponType = data.weaponType;
+    check(!data.special || typeof data.special === 'string', data.special + " is not a valid value for special for " + key + "!");
+    this.special = data.special;
+    check(!data.twoHanded || typeof data.twoHanded === 'boolean', data.twoHanded + " is not a valid value for two-handedness for " + key + "!");
+    this.twoHanded = data.twoHanded ? data.twoHanded : false;
+
+    Object.defineProperty(this, 'finalDamage', {
+      get: function() {
+        return this.damage + (this.twoHanded ? 2 : 1) * character.characteristics.str.modifier;
+      }
+    });
   }
 }

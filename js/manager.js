@@ -114,13 +114,16 @@ function renderCharacter(character) {
       equipmentDOM.attr('id', i);
       equipmentDOM.click(function(event) {
         $('#popup').html(Mustache.render(Template.equipmentPopup, character.equipment[type][i]));
-        $('#equipmentPopup').append(Mustache.render(Template.armorDetails, character.equipment[type][i]));
+        if (type === "armors") {
+          $('#equipmentPopup').append(Mustache.render(Template.armorDetails, character.equipment[type][i]));
+        }
         $('#popupBackground').show();
       });
 
       var equippedDOM = $('#equipmentList .equipped>input').last();
       equippedDOM.attr({'checked': character.equipment[type][i].equipped});
-      equippedDOM.change(function() {
+      equippedDOM.click(function(event) {
+        event.stopPropagation();
         if ($(this).is(':checked')) {
           character.equipment[type][i].equip();
         } else {
@@ -184,16 +187,17 @@ function handleResize() {
   $('#controlButtons').attr('colspan', columnCount);
 
   var heights = Array.apply(null, Array(columnCount)).map(Number.prototype.valueOf,0);
-  var currentColumn = 0;
-  var nextColumn = (currentColumn + 1) % columnCount;
   for (let i in sections) {
     let box = $('#'+sections[i].id).closest('.box');
-    $('#column'+currentColumn).append(box);
-    heights[currentColumn] += box.height();
-    if (heights[currentColumn] > heights[nextColumn]) {
-      currentColumn = nextColumn;
-      nextColumn = (currentColumn + 1) % columnCount;
+
+    let minIndex = 0;
+    for (let j in heights) {
+      if (heights[j] < heights[minIndex]) {
+        minIndex = j;
+      }
     }
+    $('#column'+minIndex).append(box);
+    heights[minIndex] += box.height();
   }
 
   lastContentWidth = contentWidth;

@@ -1,6 +1,6 @@
 class Characteristic extends Scoreable {
   constructor(data, key) {
-    super();
+    super(CHARACTERISTIC_INFO[key]['name']);
     if (data.characteristicLevelBonusesInvested) {
       this.characteristicLevelBonusesInvested = data.characteristicLevelBonusesInvested;
     } else {
@@ -10,7 +10,7 @@ class Characteristic extends Scoreable {
     check(isNumber(data.base), data.base + " is not a valid base score for characteristic " + key + "!");
     this.base = Number(data.base);
 
-    var attrs = ['name', 'nickname', 'description'];
+    var attrs = ['nickname', 'description'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {

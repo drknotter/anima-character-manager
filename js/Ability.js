@@ -1,7 +1,7 @@
 class Ability extends Scoreable {
   constructor(data, character, key) {
-    super();
-    var attrs = ['name', 'description', 'baseCharacteristic'];
+    super(ABILITY_DATA[key]['name']);
+    var attrs = ['description', 'baseCharacteristic'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {

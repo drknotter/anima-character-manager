@@ -175,17 +175,25 @@ Template.equipmentPopup = String.raw`
 <div class="name">{{name}}</div>
 <div class="description">{{description}}</div>
 <table class="mainStats">
-<tr><th>Cost</th><th>Weight</th><th>Availability</th></tr>
+<tr><th>Cost</th><th>Weight</th><th>Availability</th><th>Fortitude</th><th>Presence</th></tr>
 <tr>
 <td>{{costData.gp}}GP, {{costData.sp}}SP, {{costData.cp}}CP</td>
 <td>{{weight}} lbs</td>
 <td>{{availability}}</td>
+<td>{{fortitude}}</td>
+<td>{{fortitude}}</td>
 </tr>
 </table>
 </div>
 `;
 
 Template.armorDetails = String.raw`
+<table class="armorDetails">
+<tr><th>Armor Requirement</th><td>{{armorRequirement}}</td></tr>
+<tr><th>Natural Penalty</th><td>{{naturalPenalty}}</td></tr>
+<tr><th>Perception Penalty</th><td>{{perceptionPenalty}}</td></tr>
+<tr><th>Movement Restriction</th><td>{{movementRestriction}}</td></tr>
+</table>
 <table class="armorDetails">
 <tr><th>Armor Type</th><th>Bonus</th><tr>
 <tr><td>Cut</td><td>{{protections.cut}}</td></tr>

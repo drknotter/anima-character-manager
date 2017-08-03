@@ -212,7 +212,7 @@ class Character {
 
 class LifePoints extends Scoreable {
   constructor(character) {
-    super();
+    super('Life Points');
     Object.defineProperty(this, 'baseBonus', {
       get: function() {
         return 20 + character.characteristics.con.score * 10 + character.characteristics.con.modifier;
@@ -223,7 +223,7 @@ class LifePoints extends Scoreable {
       get: function() {
         return character.class.lifePoints.bonus * Math.floor(character.level / character.class.lifePoints.cost);
       }
-    })
+    });
 
     Object.defineProperty(this, 'multipleBonus', {
       get: function() {
@@ -231,13 +231,13 @@ class LifePoints extends Scoreable {
           * Math.floor(character.otherAbilities.lifePointMultiple.dpInvested / character.class.otherAbilityCosts.lifePointMultiple.cost) 
           * character.characteristics.con.score;
       }
-    })
+    });
   }
 }
 
 class Initiative extends Scoreable {
   constructor(character) {
-    super();
+    super('Initiative');
     Object.defineProperty(this, 'baseBonus', {
       get: function() {
         return 20 + character.characteristics.dex.modifier + character.characteristics.agi.modifier;
@@ -248,12 +248,23 @@ class Initiative extends Scoreable {
         return character.class.initiative.bonus * Math.floor(character.level / character.class.initiative.cost);
       }
     });
+    Object.defineProperty(this, 'weaponBonus', {
+      get: function() {
+        var minSpeed = Infinity;
+        for (let i in equipment.weapons) {
+          if (equipment.weapons[i].equipped) {
+            minSpeed = Math.min(minSpeed, equipment.weapons[i].speed);
+          }
+        }
+        return minSpeed < Infinity ? minSpeed : 0;
+      }
+    });
   }
 }
 
 class Movement extends Scoreable {
   constructor(character) {
-    super();
+    super('Movement');
 
     Object.defineProperty(this, 'agiBonus', {
       get: function() {
@@ -310,8 +321,7 @@ class Movement extends Scoreable {
 
 class Resistance extends Scoreable {
   constructor(character, name, characteristic) {
-    super();
-    this.name = name;
+    super(name);
 
     Object.defineProperty(this, 'basePresenceBonus', {
       get: function() {
@@ -332,8 +342,7 @@ class Resistance extends Scoreable {
 
 class ArmorType extends Scoreable {
   constructor(character, name, key) {
-    super();
-    this.name = name;
+    super(name);
 
     Object.defineProperty(this, 'armorBonus', {
       get: function() {
