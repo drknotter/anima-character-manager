@@ -153,13 +153,13 @@ function canAffordAdvantage(character, advantageKey) {
 $( document ).ready(function() {
   var characterName = getParameterByName("n");
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
-  renderDpSpendingOptionGroups(character);
+  renderSpendingOptionGroups(character);
   $('#popup').click(function(event) {
     event.stopPropagation();
   });
 });
 
-function renderDpSpendingOptionGroups(character) {
+function renderSpendingOptionGroups(character) {
   renderDpOptionSpendingGroup(character);
   renderCharacteristicLevelBonusSpendingGroup(character);
   renderSecondaryAbilityLevelBonusSpendingGroup(character);

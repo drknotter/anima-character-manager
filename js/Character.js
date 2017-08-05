@@ -145,6 +145,9 @@ class Character {
       for (let i in data.equipment.armors) {
         this.equipment.armors[i] = new Armor(data.equipment.armors[i], this, i);
       }
+      for (let i in data.equipment.weapons) {
+        this.equipment.weapons[i] = new Weapon(data.equipment.weapons[i], this, i);
+      }
     }
   }
 
@@ -251,9 +254,9 @@ class Initiative extends Scoreable {
     Object.defineProperty(this, 'weaponBonus', {
       get: function() {
         var minSpeed = Infinity;
-        for (let i in equipment.weapons) {
-          if (equipment.weapons[i].equipped) {
-            minSpeed = Math.min(minSpeed, equipment.weapons[i].speed);
+        for (let i in character.equipment.weapons) {
+          if (character.equipment.weapons[i].equipped) {
+            minSpeed = Math.min(minSpeed, character.equipment.weapons[i].speed);
           }
         }
         return minSpeed < Infinity ? minSpeed : 0;

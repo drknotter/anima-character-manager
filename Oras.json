@@ -425,6 +425,24 @@
         }
       }
     },
-    "weapons": {}
+    "weapons": {
+      "stilleto": {
+        "name": "Stilleto",
+        "description": "No description yet!",
+        "cost": 0,
+        "weight": 0,
+        "availability": "C",
+        "fortitude": 12,
+        "presence": 15,
+        "qualityBonus": 0,
+        "equipped": false,
+        "damage": 25,
+        "speed": 20,
+        "requiredStrength": 3,
+        "primaryAttackType": "Thrust",
+        "weaponType": "Short Arm",
+        "special": "Throwable, Precision"
+      }
+    }
   }
 }

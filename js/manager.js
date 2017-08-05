@@ -116,11 +116,13 @@ function renderCharacter(character) {
         $('#popup').html(Mustache.render(Template.equipmentPopup, character.equipment[type][i]));
         if (type === "armors") {
           $('#equipmentPopup').append(Mustache.render(Template.armorDetails, character.equipment[type][i]));
+        } else if (type === "weapons") {
+          $('#equipmentPopup').append(Mustache.render(Template.weaponDetails, character.equipment[type][i]));
         }
         $('#popupBackground').show();
       });
 
-      var equippedDOM = $('#equipmentList .equipped>input').last();
+      var equippedDOM = $('#equipmentList .equip>input').last();
       equippedDOM.attr({'checked': character.equipment[type][i].equipped});
       equippedDOM.click(function(event) {
         event.stopPropagation();

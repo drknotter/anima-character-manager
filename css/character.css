@@ -279,6 +279,7 @@
   background: #eee;
   padding: 0.5rem;
   margin-top: 0.5rem;
+  table-layout: fixed;
 }
 #equipmentList th {
   vertical-align: top;
@@ -294,14 +295,28 @@
 #equipmentList tr:nth-child(even) {
   background: #ccc;
 }
-#equipmentList td {
-  padding: 0.25rem 1rem;
-}
 #equipmentList .name {
   text-align: left;
+  padding: 0.5rem 1rem;
 }
-#equipmentList .equipped {
+
+.equipment td.action, .equipment th.action {
+  width: 1.5rem;
+  padding-right: 0.5rem;
+}
+.equipment div.action {
+  width: 100%;
+  height: 1.5rem;
   text-align: center;
+  display: table;
+  background: #aaa;
+}
+.equipment div.action:hover {
+  background: #bbe;
+}
+.equipment div.action>span {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #armorTypes {
@@ -345,20 +360,19 @@
   padding: 0rem 0.5rem;
 }
 
-#equipmentPopup .armorDetails {
+#equipmentPopup .details {
   background: #eee;
   margin-top: 0.5rem;
   padding: 0.5rem;
 }
 
-#equipmentPopup .armorDetails td, #equipmentPopup .armorDetails th {
+#equipmentPopup .details td, #equipmentPopup .details th {
   text-align: left;
   padding: 0.25rem;
 }
-#equipmentPopup .armorDetails td:last-child, #equipmentPopup .armorDetails th:last-child {
+#equipmentPopup .details td:last-child, #equipmentPopup .details th:last-child {
   text-align: center;
-  width: 4rem;
 }
-#equipmentPopup .armorDetails tr:nth-child(even) {
+#equipmentPopup .details tr:nth-child(even) {
   background: #ccc;
 }

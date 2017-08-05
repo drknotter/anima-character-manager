@@ -31,6 +31,8 @@ Template.mainInfo = String.raw`
 <td class="stat"><span id="fatigue" contenteditable="true">{{currentFatigue}}</span>/{{fatigue}}<br/>Fatigue</td>
 <td class="space"/>
 <td class="stat"><span id="exp" contenteditable="true">{{exp}}</span>/{{toNextLevel}}<br/>Experience</td>
+<td class="space"/>
+<td class="stat">{{wealthData.gp}}GP, {{wealthData.sp}}SP, {{wealthData.cp}}CP<br/>Wealth</td>
 </tr>
 </table>
 `;
@@ -162,12 +164,21 @@ Template.mentalPowerEffect = String.raw`
 
 Template.equipmentList = String.raw`
 <table id="equipmentList">
-<tr><th class="name">Name</th><th class="equipped">Equipped?</th></tr>
+<tr class="equipment"><th class="name">Name</th>
+<th class="action"></th>
+<th class="action"></th>
+<th class="action"></th>
+</tr>
 </table>
 `;
 
 Template.equipment = String.raw`
-<tr class="equipment"><td class="name">{{name}}</td><td class="equipped"><input type="checkbox"></td></tr>
+<tr class="equipment">
+<td class="name">{{name}}</td>
+<td class="action"><div class="action equip"><span>{{#equipped}}U{{/equipped}}{{^equipped}}E{{/equipped}}</span></div></td>
+<td class="action"><div class="action sell"><span>S</span></div></td>
+<td class="action"><div class="action discard"><span>D</span></div></td>
+</tr>
 `;
 
 Template.equipmentPopup = String.raw`
@@ -181,20 +192,20 @@ Template.equipmentPopup = String.raw`
 <td>{{weight}} lbs</td>
 <td>{{availability}}</td>
 <td>{{fortitude}}</td>
-<td>{{fortitude}}</td>
+<td>{{presence}}</td>
 </tr>
 </table>
 </div>
 `;
 
 Template.armorDetails = String.raw`
-<table class="armorDetails">
+<table class="details">
 <tr><th>Armor Requirement</th><td>{{armorRequirement}}</td></tr>
 <tr><th>Natural Penalty</th><td>{{naturalPenalty}}</td></tr>
 <tr><th>Perception Penalty</th><td>{{perceptionPenalty}}</td></tr>
 <tr><th>Movement Restriction</th><td>{{movementRestriction}}</td></tr>
 </table>
-<table class="armorDetails">
+<table class="details">
 <tr><th>Armor Type</th><th>Bonus</th><tr>
 <tr><td>Cut</td><td>{{protections.cut}}</td></tr>
 <tr><td>Impact</td><td>{{protections.impact}}</td></tr>
@@ -203,5 +214,22 @@ Template.armorDetails = String.raw`
 <tr><td>Electricity</td><td>{{protections.electricity}}</td></tr>
 <tr><td>Cold</td><td>{{protections.cold}}</td></tr>
 <tr><td>Energy</td><td>{{protections.energy}}</td></tr>
+</table>
+`;
+
+Template.weaponDetails = String.raw`
+<table class="mainStats">
+<tr><th>Damage</th><th>Speed</th><th>Required Strength</th></tr>
+<tr>
+<td>{{finalDamage}}</td>
+<td>{{speed}}</td>
+<td>{{requiredStrength}}</td>
+</table>
+<table class="details">
+<tr><th>Primary Attack Type</th><td>{{primaryAttackType}}</td></tr>
+<tr><th>Secondary Attack Type</th><td>{{secondaryAttackType}}</td></tr>
+<tr><th>Weapon Type</th><td>{{weaponType}}</td></tr>
+<tr><th>Special</th><td>{{special}}</td></tr>
+<tr><th>Two Handed?</th><td>{{#twoHanded}}Yes{{/twoHanded}}{{^twoHanded}}No{{/twoHanded}}</td></tr>
 </table>
 `;
