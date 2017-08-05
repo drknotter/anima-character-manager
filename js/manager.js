@@ -109,32 +109,55 @@ function renderCharacter(character) {
   $('#equipment').append(Mustache.render(Template.equipmentList));
   for (let type in character.equipment) {
     for (let i in character.equipment[type]) {
-      $('#equipmentList>tbody').append(Mustache.render(Template.equipment, character.equipment[type][i]));
+      let item = character.equipment[type][i];
+      $('#equipmentList>tbody').append(Mustache.render(Template.equipment, item));
       var equipmentDOM = $('#equipmentList .equipment').last();
       equipmentDOM.attr('id', i);
       equipmentDOM.click(function(event) {
-        $('#popup').html(Mustache.render(Template.equipmentPopup, character.equipment[type][i]));
+        $('#popup').html(Mustache.render(Template.equipmentPopup, item));
         if (type === "armors") {
-          $('#equipmentPopup').append(Mustache.render(Template.armorDetails, character.equipment[type][i]));
+          $('#equipmentPopup').append(Mustache.render(Template.armorDetails, item));
         } else if (type === "weapons") {
-          $('#equipmentPopup').append(Mustache.render(Template.weaponDetails, character.equipment[type][i]));
+          $('#equipmentPopup').append(Mustache.render(Template.weaponDetails, item));
         }
         $('#popupBackground').show();
       });
 
-      var equippedDOM = $('#equipmentList .equip>input').last();
-      equippedDOM.attr({'checked': character.equipment[type][i].equipped});
-      equippedDOM.click(function(event) {
+      var dom = $('#equipmentList .equip').last();
+      dom.click(function(event) {
         event.stopPropagation();
-        if ($(this).is(':checked')) {
-          character.equipment[type][i].equip();
+        if (!item.equipped) {
+          item.equip();
         } else {
-          character.equipment[type][i].unequip();
+          item.unequip();
         }
         updateCharacter(character);
       });
+
+      dom = $('#equipmentList .sell').last();
+      dom.click(function(event) {
+        event.stopPropagation();
+        if (confirm("Are you sure you want to sell " + item.name + " for " + item.costData.gp + "GP, " + item.costData.sp + "SP, " + item.costData.cp + "CP?")) {
+          character.wealth += item.cost;
+          delete character.equipment[type][i];
+          updateCharacter(character);
+        }
+      });
+
+      dom = $('#equipmentList .discard').last();
+      dom.click(function(event) {
+        event.stopPropagation();
+        if (confirm("Are you sure you want to discard " + item.name + "?")) {
+          delete character.equipment[type][i];
+          updateCharacter(character);
+        }
+      });
     }
   }
+  $('#newEquipment').click(function(event) {
+    $('#popup').html(Mustache.render(Template.newEquipmentPopup));
+    $('#popupBackground').show();
+  });
 
   $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);
   $('#fatigue').keypress({'key':'currentFatigue', 'character': character}, updateCharacterFrom);

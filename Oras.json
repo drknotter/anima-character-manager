@@ -429,7 +429,7 @@
       "stilleto": {
         "name": "Stilleto",
         "description": "No description yet!",
-        "cost": 0,
+        "cost": 1,
         "weight": 0,
         "availability": "C",
         "fortitude": 12,
