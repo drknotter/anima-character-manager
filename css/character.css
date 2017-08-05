@@ -232,6 +232,7 @@
 .popup {
   background: #ccc;
   padding: 0.5rem;
+  min-width: 20rem;
 }
 #mentalPowerPopup .name, #equipmentPopup .name {
   font-size: 120%;
