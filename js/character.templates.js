@@ -171,7 +171,7 @@ Template.equipmentList = String.raw`
 <th class="action"></th>
 </tr>
 </table>
-<div id="newEquipment">Add New Item</div>
+<a id="newEquipment" href="new_equipment.html?n={{name}}">Add New Item</a>
 `;
 
 Template.equipment = String.raw`

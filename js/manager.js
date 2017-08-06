@@ -106,7 +106,7 @@ function renderCharacter(character) {
     }
   }
 
-  $('#equipment').append(Mustache.render(Template.equipmentList));
+  $('#equipment').append(Mustache.render(Template.equipmentList, character));
   for (let type in character.equipment) {
     for (let i in character.equipment[type]) {
       let item = character.equipment[type][i];
@@ -154,10 +154,6 @@ function renderCharacter(character) {
       });
     }
   }
-  $('#newEquipment').click(function(event) {
-    $('#popup').html(Mustache.render(Template.newEquipmentPopup));
-    $('#popupBackground').show();
-  });
 
   $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);
   $('#fatigue').keypress({'key':'currentFatigue', 'character': character}, updateCharacterFrom);

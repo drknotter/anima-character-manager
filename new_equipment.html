@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/mustache.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    
+    <script type="text/javascript" src="js/new_equipment.templates.js"></script>
+
+    <script type="text/javascript" src="js/Equipment.js"></script>
+    <script type="text/javascript" src="js/Psychic.js"></script>
+    <script type="text/javascript" src="js/Ability.js"></script>
+    <script type="text/javascript" src="js/Class.js"></script>
+    <script type="text/javascript" src="js/Characteristic.js"></script>
+    <script type="text/javascript" src="js/Advantages.js"></script>
+    <script type="text/javascript" src="js/Character.js"></script>
+    <script type="text/javascript" src="js/new_equipment.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/new_equipment.css">
+  </head>
+  <body>
+  <div id="content">
+    <h1>Create New Equipment</h1>
+    <table>
+      <tr><th>Name</th><td><input id="newEquipmentName" type="text"></td></tr>
+      <tr><th>Description</th><td><textarea id="newEquipmentDescription" rows="4"></textarea></td></tr>
+      <tr><th>Cost</th><td><table id="cost"><tr><td><input id="newEquipmentGp"> GP</td><td><input id="newEquipmentSp"> SP</td><td><input id="newEquipmentCp"> CP</td></tr></table></td></tr>
+      <tr><th>Weight</th><td><input id="newEquipmentWeight" type="text"></td></tr>
+      <tr><th>Availability</th>
+        <td>
+          <select id="newEquipmentAvailability">
+            <option value="C">Common</option>
+            <option value="U">Uncommon</option>
+            <option value="R">Rare</option>
+          </select>
+        </td></tr>
+      <tr><th>Fortitude</th><td><input id="newEquipmentFortitude" type="number" min="0"></td></tr>
+      <tr><th>Presence</th><td><input id="newEquipmentPresence" type="number" min="0"></td></tr>
+      <tr><td colspan="2">
+        <div id="equippedBonusGroup" class="bonusGroup">
+          <div class="title">Equipped Bonuses</div>
+          <table id="equippedBonuses">
+          </table>
+          <div id="addEquippedBonus" class="addBonus">Add Bonus</div>
+        </div>
+      </td></tr>
+      <tr><td colspan="2">
+        <div id="possessionBonusGroup" class="bonusGroup">
+          <div class="title">Possession Bonuses</div>
+          <table id="possessionBonuses">
+          </table>
+          <div id="addPossessionBonus" class="addBonus">Add Bonus</div>
+        </div>
+      </td></tr>
+      <tr><th>Equipment Type</th>
+        <td>
+          <select id="newEquipmentType">
+            <option value="items">Item</option>
+            <option value="armors">Armor</option>
+            <option value="weapons">Weapon</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <div id="addEquipment">Add Equipment to Inventory</div>
+  </div>
+  <div id="popupBackground">
+    <div id="popup"></div>
+  </div>
+  </body>
+</html>

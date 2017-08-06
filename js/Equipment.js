@@ -5,7 +5,7 @@ function gatherScoreables(data, keychain) {
 
   var out = []
   if (data instanceof Scoreable) {
-    out = out.concat([{'keychain': keychain, 'scoreable': data}]);
+    out = out.concat([{'keychain': keychain.join('|'), 'name': data.name}]);
   } else if (typeof data !== "string") {
     for (let i in data) {
       out = out.concat(gatherScoreables(data[i], keychain.concat(i)));
@@ -56,7 +56,7 @@ class EquipmentBonus {
 
 class Equipment {
   constructor(data, character, key) {
-    check(data.name, "Missing name for equiment " + key + "!");
+    check(data.name, "Missing name for equiment with key " + key + "!");
     this.name = data.name;
     this.description = data.description;
     
@@ -67,13 +67,13 @@ class Equipment {
     this.availability = data.availability ? data.availability : "C";
     check(["R","U","C"].indexOf(this.availability) >= 0, this.availability + " is not a valid availability for equipment!");
 
-    check(isNumber(data.fortitude), data.fortitude + " is not a valid fortitude for " + key + "!");
+    check(isNumber(data.fortitude), data.fortitude + " is not a valid fortitude for " + this.name + "!");
     this.fortitude = data.fortitude;
-    check(isNumber(data.presence), data.presence + " is not a valid presence for " + key + "!");
+    check(isNumber(data.presence), data.presence + " is not a valid presence for " + this.name + "!");
     this.presence = data.presence;
 
     this.qualityBonus = data.qualityBonus ? data.qualityBonus : 0;
-    check(isNumber(this.qualityBonus), this.qualityBonus + " is not a valid quality bonus for " + key + "!");
+    check(isNumber(this.qualityBonus), this.qualityBonus + " is not a valid quality bonus for " + this.name + "!");
 
     this.equipped = data.equipped ? data.equipped : false;
     check(typeof(this.equipped) === "boolean", this.equipped + " is not a valid value for equipped!");
@@ -127,14 +127,14 @@ class Armor extends Equipment {
   constructor(data, character, key) {
     super(data, character, key);
 
-    check(isNumber(data.armorRequirement), data.armorRequirement + " is not a valid armor requirement for " + key + "!");
+    check(isNumber(data.armorRequirement), data.armorRequirement + " is not a valid armor requirement for " + this.name + "!");
     this.armorRequirement = data.armorRequirement;
 
-    check(isNumber(data.naturalPenalty), data.naturalPenalty + " is not a valid natural penalty for " + key + "!");
+    check(isNumber(data.naturalPenalty), data.naturalPenalty + " is not a valid natural penalty for " + this.name + "!");
     this.naturalPenalty = data.naturalPenalty;
-    check(isNumber(data.perceptionPenalty), data.perceptionPenalty + " is not a valid perceptionPenalty for " + key + "!");
+    check(isNumber(data.perceptionPenalty), data.perceptionPenalty + " is not a valid perceptionPenalty for " + this.name + "!");
     this.perceptionPenalty = data.perceptionPenalty;
-    check(isNumber(data.movementRestriction), data.movementRestriction + " is not a valid movement restriction for " + key + "!");
+    check(isNumber(data.movementRestriction), data.movementRestriction + " is not a valid movement restriction for " + this.name + "!");
     this.movementRestriction = data.movementRestriction;
 
     check(data.protections, "Armor is missing protections!");
@@ -177,22 +177,22 @@ class Weapon extends Equipment {
   constructor(data, character, key) {
     super(data, character, key);
 
-    check(isNumber(data.damage), data.damage + " is not a valid value for damage for " + key + "!");
+    check(isNumber(data.damage), data.damage + " is not a valid value for damage for " + this.name + "!");
     this.damage = data.damage;
-    check(isNumber(data.speed), data.speed + " is not a valid value for speed for " + key + "!");
+    check(isNumber(data.speed), data.speed + " is not a valid value for speed for " + this.name + "!");
     this.speed = data.speed;
-    check(isNumber(data.requiredStrength), data.requiredStrength + " is not a valid value for required strength for " + key + "!");
+    check(isNumber(data.requiredStrength), data.requiredStrength + " is not a valid value for required strength for " + this.name + "!");
     this.requiredStrength = data.requiredStrength;
 
-    check(!data.primaryAttackType || typeof data.primaryAttackType === 'string', data.primaryAttackType + " is not a valid value for primary attack type for " + key + "!");
+    check(!data.primaryAttackType || typeof data.primaryAttackType === 'string', data.primaryAttackType + " is not a valid value for primary attack type for " + this.name + "!");
     this.primaryAttackType = data.primaryAttackType;
-    check(!data.secondaryAttackType || typeof data.secondaryAttackType === 'string', data.secondaryAttackType + " is not a valid value for secondary attack type for " + key + "!");
+    check(!data.secondaryAttackType || typeof data.secondaryAttackType === 'string', data.secondaryAttackType + " is not a valid value for secondary attack type for " + this.name + "!");
     this.secondaryAttackType = data.secondaryAttackType;
-    check(!data.weaponType || typeof data.weaponType === 'string', data.weaponType + " is not a valid value for weapon type for " + key + "!");
+    check(!data.weaponType || typeof data.weaponType === 'string', data.weaponType + " is not a valid value for weapon type for " + this.name + "!");
     this.weaponType = data.weaponType;
-    check(!data.special || typeof data.special === 'string', data.special + " is not a valid value for special for " + key + "!");
+    check(!data.special || typeof data.special === 'string', data.special + " is not a valid value for special for " + this.name + "!");
     this.special = data.special;
-    check(!data.twoHanded || typeof data.twoHanded === 'boolean', data.twoHanded + " is not a valid value for two-handedness for " + key + "!");
+    check(!data.twoHanded || typeof data.twoHanded === 'boolean', data.twoHanded + " is not a valid value for two-handedness for " + this.name + "!");
     this.twoHanded = data.twoHanded ? data.twoHanded : false;
 
     Object.defineProperty(this, 'finalDamage', {

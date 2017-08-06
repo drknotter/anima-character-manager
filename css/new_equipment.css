@@ -1,0 +1,85 @@
+#content {
+  margin: 0rem 1rem;
+  background: #ccc;
+  padding: 0.25rem 0.5rem;
+}
+#content h1 {
+  text-align: center;
+  font-size: 120%;
+}
+#content>table th {
+  padding: 0.5rem;
+  text-align: left;
+  width: 6rem;
+}
+#content>table td {
+  padding: 0.5rem;
+}
+#content>table tr:nth-child(even) {
+  background: #ddd;
+}
+#content input, #content textarea, #content select {
+  resize: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  margin: 0rem;
+  padding: 0.25rem;
+}
+input#newEquipmentGp, input#newEquipmentSp, input#newEquipmentCp {
+  width: 2rem;
+}
+
+table#cost td {
+  padding: 0rem;
+}
+
+.bonusGroup .title {
+  text-align: left;
+  font-weight: bold;
+}
+
+.bonusGroup .addBonus {
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: #aaa;
+}
+
+.bonusGroup .addBonus:hover {
+  background: #cce;
+  cursor: pointer;
+}
+
+.bonusGroup table {
+  padding: 0.25rem;
+  margin-top: 0.5rem;
+  background: #eee;
+}
+
+.space {
+  width: 0.5rem;
+}
+.bonus .remove {
+  text-align: center;
+  padding: 0.25rem;
+  background: #aaa;
+}
+.bonus .remove:hover {
+  background: #cce;
+  cursor: pointer;
+}
+
+#addEquipment {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem;
+  background: #aaa;
+}
+#addEquipment:hover {
+  background: #cce;
+  cursor: pointer;
+}
