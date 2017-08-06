@@ -334,15 +334,15 @@
   "wealth": 0,
   "equipment": {
     "items": {
-      "psychicMatrixCrystal": {
-        "name": "Psychic Matrix Crystal",
-        "description": "No description yet!",
+      "41fcd86a-70ea-b3cb-a684-e5115b6f3636": {
+        "name": "Psychic Crystal",
+        "description": "An unassuming crystal of exceptional clarity and cut. Fits comfortably in the palm of the hand. Enables the psychic to create \"sticky fire\": Create Fire does not need to be maintained in order to create persistent fire.",
         "cost": 0,
-        "weight": 0,
-        "availability": "C",
-        "fortitude": 12,
-        "presence": 25,
-        "qualityBonus": 0,
+        "weight": 1,
+        "availability": "R",
+        "fortitude": 20,
+        "presence": 100,
+        "qualityBonus": 10,
         "equipped": true,
         "equippedBonuses": [
           {
@@ -354,15 +354,15 @@
         ],
         "possesionBonuses": []
       },
-      "antiMagicPendant": {
-        "name": "Anti-magic Pendant",
-        "description": "No description yet!",
+      "72d5e9c5-36d5-32af-cca5-b8dd16c802d6": {
+        "name": "Anti-Magic Pendant",
+        "description": "A simple pendant which grants the user a bonus against magical attacks.",
         "cost": 0,
-        "weight": 0,
-        "availability": "C",
-        "fortitude": 12,
-        "presence": 25,
-        "qualityBonus": 0,
+        "weight": 1,
+        "availability": "R",
+        "fortitude": 30,
+        "presence": 150,
+        "qualityBonus": 15,
         "equipped": true,
         "equippedBonuses": [
           {
@@ -375,34 +375,34 @@
         ],
         "possesionBonuses": []
       },
-      "antiDemonPendant": {
-        "name": "Anti-demon Pendant",
-        "description": "No description yet!",
+      "ac870fb6-4b90-f367-1a16-9d0bfd5bca15": {
+        "name": "Anti-Demon Pendant",
+        "description": "A simple pendant which grants the wearer a bonus against energy attacks.",
         "cost": 0,
-        "weight": 0,
+        "weight": 1,
         "availability": "C",
-        "fortitude": 12,
-        "presence": 25,
-        "qualityBonus": 0,
+        "fortitude": 30,
+        "presence": 150,
+        "qualityBonus": 15,
         "equipped": false,
         "equippedBonuses": [
           {
             "keyChain": [
-              "resistances",
-              "magic"
+              "armorType",
+              "energy"
             ],
-            "bonus": 30
+            "bonus": 3
           }
         ],
         "possesionBonuses": []
       }
     },
     "armors": {
-      "leather": {
-        "name": "Leather Armor",
-        "description": "No description yet!",
+      "dff3bafd-0296-8f67-98cc-9c348d91d5c2": {
+        "name": "Leather Vest",
+        "description": "A simple leather vest, providing minimal protection.",
         "cost": 0,
-        "weight": 0,
+        "weight": 7,
         "availability": "C",
         "fortitude": 12,
         "presence": 25,
@@ -426,22 +426,26 @@
       }
     },
     "weapons": {
-      "stilleto": {
-        "name": "Stilleto",
-        "description": "No description yet!",
-        "cost": 1,
-        "weight": 0,
+      "738f989b-0328-8206-b9fc-13196f21ed8a": {
+        "name": "Stiletto",
+        "description": "A simple dagger.",
+        "cost": 0,
+        "weight": 1,
         "availability": "C",
-        "fortitude": 12,
+        "fortitude": 8,
         "presence": 15,
         "qualityBonus": 0,
-        "equipped": false,
+        "equipped": true,
+        "equippedBonuses": [],
+        "possesionBonuses": [],
         "damage": 25,
         "speed": 20,
         "requiredStrength": 3,
         "primaryAttackType": "Thrust",
+        "secondaryAttackType": "",
         "weaponType": "Short Arm",
-        "special": "Throwable, Precision"
+        "special": "Throwable, Precision",
+        "twoHanded": false
       }
     }
   }

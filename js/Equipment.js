@@ -7,8 +7,13 @@ function gatherScoreables(data, keychain) {
   if (data instanceof Scoreable) {
     out = out.concat([{'keychain': keychain.join('|'), 'name': data.name}]);
   } else if (typeof data !== "string") {
-    for (let i in data) {
-      out = out.concat(gatherScoreables(data[i], keychain.concat(i)));
+    var names = Object.getOwnPropertyNames(data);
+    for (let i in names) {
+      if (names[i] === "constructor" || names[i] === "length" || names === "prototype") {
+        continue;
+      }
+      console.log(names[i]);
+      out = out.concat(gatherScoreables(data[names[i]], keychain.concat(names[i])));
     }
   }
   return out;

@@ -12,9 +12,9 @@ Template.bonus = String.raw`
 </tr>
 `;
 
-Template.armorOptions = String.raw`
+Template.armorsOptions = String.raw`
 <table id="extraOptions">
-  <tr><th>Armor Requirement</th><td><input id="armorRequiprement" type="number" min="0"></td></tr>
+  <tr><th>Armor Requirement</th><td><input id="armorRequirement" type="number" min="0"></td></tr>
   <tr><th>Natural Penalty</th><td><input id="naturalPenalty" type="number" min="0"></td></tr>
   <tr><th>Perception Penalty</th><td><input id="perceptionPenalty" type="number" min="0"></td></tr>
   <tr><th>Movement Restriction</th><td><input id="movementRestriction" type="number" min="0"></td></tr>
@@ -28,15 +28,15 @@ Template.armorOptions = String.raw`
 </table>
 `;
 
-Template.weaponOptions = String.raw`
+Template.weaponsOptions = String.raw`
 <table id="extraOptions">
   <tr><th>Damage</th><td><input id="damage" type="number" min="0"></td></tr>
   <tr><th>Speed</th><td><input id="speed" type="number" min="0"></td></tr>
   <tr><th>Required Strength</th><td><input id="requiredStrength" type="number" min="0"></td></tr>
-  <tr><th>Primary Attack Type</th><td><input id="primaryAttackType" type="text" min="0"></td></tr>
-  <tr><th>Secondary Attack Type</th><td><input id="secondaryAttackType" type="text" min="0"></td></tr>
-  <tr><th>Weapon Type</th><td><input id="weaponType" type="text" min="0"></td></tr>
-  <tr><th>Special</th><td><input id="special" type="text" min="0"></td></tr>
+  <tr><th>Primary Attack Type</th><td><input id="primaryAttackType" type="text"></td></tr>
+  <tr><th>Secondary Attack Type</th><td><input id="secondaryAttackType" type="text"></td></tr>
+  <tr><th>Weapon Type</th><td><input id="weaponType" type="text"></td></tr>
+  <tr><th>Special</th><td><input id="special" type="text"></td></tr>
   <tr><th>Two Handed?</th>
     <td>
       <select id="twoHanded">

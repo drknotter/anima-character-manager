@@ -14,18 +14,18 @@ $( document ).ready(function() {
   $('#newEquipmentType').change(function(event) {
     $('#extraOptions').remove();
     var template = this.options[this.options.selectedIndex].value;
-    if (template === "armor" || template === "weapon") {
+    if (template === "armors" || template === "weapons") {
       $('#content').append(Mustache.render(Template[template+'Options']));
     }
   });
   $('#addEquippedBonus').click(function(event) {
-    $('#equippedBonuses').append(Mustache.render(Template.bonus, gatherScoreables(character, [])));
+    $('#equippedBonuses').append(Mustache.render(Template.bonus, gatherScoreables(character, []).sort(function(a,b) {return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);})));
     $('#equippedBonuses .remove').last().click(function(event) {
       $(this).closest('tr').remove();
     });
   });
   $('#addPossessionBonus').click(function(event) {
-    $('#possessionBonuses').append(Mustache.render(Template.bonus, gatherScoreables(character, [])));
+    $('#possessionBonuses').append(Mustache.render(Template.bonus, gatherScoreables(character, []).sort(function(a,b) {return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);})));
     $('#possessionBonuses .remove').last().click(function(event) {
       $(this).closest('tr').remove();
     });
@@ -42,9 +42,10 @@ $( document ).ready(function() {
     data.cost = gp + sp * 0.01 + cp * 0.001;
 
     data.weight = Number($('#newEquipmentWeight').val());
-    data.availability = Number($('#newEquipmentAvailability').val());
+    data.availability = $('#newEquipmentAvailability').val();
     data.fortitude = Number($('#newEquipmentFortitude').val());
     data.presence = Number($('#newEquipmentPresence').val());
+    data.qualityBonus = Number($('#newEquipmentQualityBonus').val());
 
     data.equippedBonuses = [];
     var bonuses = $('#equippedBonusGroup .bonus');
@@ -71,10 +72,43 @@ $( document ).ready(function() {
     }
 
     var type = $('#newEquipmentType').val();
+    if (type === "weapons") {
+      data.damage = Number($('#damage').val());
+      data.speed = Number($('#speed').val());
+      data.requiredStrength = Number($('#requiredStrength').val());
+      data.primaryAttackType = $('#primaryAttackType').val();
+      data.secondaryAttackType = $('#secondaryAttackType').val();
+      data.weaponType = $('#weaponType').val();
+      data.special = $('#special').val();
+      data.twoHanded = $('#special').val() == 'true';
+
+    } else if (type === "armors") {
+      data.armorRequirement = Number($('#armorRequirement').val());
+      data.naturalPenalty = Number($('#naturalPenalty').val());
+      data.perceptionPenalty = Number($('#perceptionPenalty').val());
+      data.movementRestriction = Number($('#movementRestriction').val());
+
+      data.protections = {};
+      data.protections.cut = Number($('#cut').val());
+      data.protections.impact = Number($('#impact').val());
+      data.protections.thrust = Number($('#thrust').val());
+      data.protections.heat = Number($('#heat').val());
+      data.protections.electricity = Number($('#electricity').val());
+      data.protections.cold = Number($('#cold').val());
+      data.protections.energy = Number($('#energy').val());
+    }
 
     var key = guid();
     try {
-      var equipment = new Equipment(data, character, key);
+      var equipment;
+      if (type === "weapons") {
+        equipment = new Weapon(data, character, key);
+      } else if (type === "armors") {
+        equipment = new Armor(data, character, key);
+      } else {
+        equipment = new Equipment(data, character, key);
+      }
+
       character.equipment[type][key] = equipment;
       localStorage['character.'+character.name] = JSON.stringify(character);
       window.open("manage.html?n=" + character.name, "_self");
