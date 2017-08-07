@@ -169,6 +169,7 @@ Template.equipmentList = String.raw`
 <th class="action"></th>
 <th class="action"></th>
 <th class="action"></th>
+<th class="action"></th>
 </tr>
 </table>
 <a id="newEquipment" href="new_equipment.html?n={{name}}">Add New Item</a>
@@ -180,6 +181,7 @@ Template.equipment = String.raw`
 <td class="action"><div class="action equip"><span>{{#equipped}}U{{/equipped}}{{^equipped}}E{{/equipped}}</span></div></td>
 <td class="action"><div class="action sell"><span>S</span></div></td>
 <td class="action"><div class="action discard"><span>D</span></div></td>
+<td class="action"><div class="action edit"><span>&#x270E;</span></div></td>
 </tr>
 `;
 
@@ -234,18 +236,4 @@ Template.weaponDetails = String.raw`
 <tr><th>Special</th><td>{{special}}</td></tr>
 <tr><th>Two Handed?</th><td>{{#twoHanded}}Yes{{/twoHanded}}{{^twoHanded}}No{{/twoHanded}}</td></tr>
 </table>
-`;
-
-Template.newEquipmentPopup = String.raw`
-<div id="newEquipmentPopup" class="popup">
-<table>
-<tr><th>Name</th><td><input id="newEquipmentName" type="text"></td></tr>
-<tr><th>Description</th><td><textarea id="newEquipmentDescription" rows="4"></textarea></td></tr>
-<tr><th>Cost</th><td><table><tr><td><input id="newEquipmentGp">GP</td><td><input id="newEquipmentSp">SP</td><td><input id="newEquipmentCp">CP</td></tr></table></td></tr>
-<tr><th>Weight</th><td><input id="newEquipmentName" type="text"></td></tr>
-<tr><th>Availability</th><td><input id="newEquipmentName" type="text"></td></tr>
-<tr><th>Fortitude</th><td><input id="newEquipmentName" type="text"></td></tr>
-<tr><th>Presence</th><td><input id="newEquipmentName" type="text"></td></tr>
-</table>
-</div>
 `;

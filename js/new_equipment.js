@@ -10,25 +10,21 @@ function guid() {
 
 $( document ).ready(function() {
   var character = new Character(JSON.parse(localStorage['character.'+getParameterByName('n')]));
+  var oldType = getParameterByName('t');
+  var oldKey = getParameterByName('k');
+
+  if (oldType && oldKey) {
+    prefill(character, oldType, oldKey);
+  }
 
   $('#newEquipmentType').change(function(event) {
-    $('#extraOptions').remove();
-    var template = this.options[this.options.selectedIndex].value;
-    if (template === "armors" || template === "weapons") {
-      $('#content').append(Mustache.render(Template[template+'Options']));
-    }
+    changeType(this.options[this.options.selectedIndex].value);
   });
   $('#addEquippedBonus').click(function(event) {
-    $('#equippedBonuses').append(Mustache.render(Template.bonus, gatherScoreables(character, []).sort(function(a,b) {return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);})));
-    $('#equippedBonuses .remove').last().click(function(event) {
-      $(this).closest('tr').remove();
-    });
+    addBonus(character, 'equippedBonuses');
   });
   $('#addPossessionBonus').click(function(event) {
-    $('#possessionBonuses').append(Mustache.render(Template.bonus, gatherScoreables(character, []).sort(function(a,b) {return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);})));
-    $('#possessionBonuses .remove').last().click(function(event) {
-      $(this).closest('tr').remove();
-    });
+    addBonus(character, 'possessionBonuses');
   });
 
   $('#addEquipment').click(function(event) {
@@ -80,7 +76,7 @@ $( document ).ready(function() {
       data.secondaryAttackType = $('#secondaryAttackType').val();
       data.weaponType = $('#weaponType').val();
       data.special = $('#special').val();
-      data.twoHanded = $('#special').val() == 'true';
+      data.twoHanded = $('#twoHanded').val() == 'true';
 
     } else if (type === "armors") {
       data.armorRequirement = Number($('#armorRequirement').val());
@@ -98,7 +94,7 @@ $( document ).ready(function() {
       data.protections.energy = Number($('#energy').val());
     }
 
-    var key = guid();
+    var key = oldKey ? oldKey : guid();
     try {
       var equipment;
       if (type === "weapons") {
@@ -117,3 +113,71 @@ $( document ).ready(function() {
     }
   });
 });
+
+function prefill(character, type, key) {
+  var data = character.equipment[type][key];
+
+  $('#newEquipmentName').val(data.name);
+  $('#newEquipmentDescription').val(data.description);
+
+  $('#newEquipmentGp').val(data.costData.gp);
+  $('#newEquipmentSp').val(data.costData.sp);
+  $('#newEquipmentCp').val(data.costData.cp);
+
+  $('#newEquipmentWeight').val(data.weight);
+  $('#newEquipmentAvailability').val(data.availability);
+  $('#newEquipmentFortitude').val(data.fortitude);
+  $('#newEquipmentPresence').val(data.presence);
+  $('#newEquipmentQualityBonus').val(data.qualityBonus);
+
+  for (let i in data.equippedBonuses) {
+    addBonus(character, 'equippedBonuses', data.equippedBonuses[i].keyChain, data.equippedBonuses[i].bonus);
+  }
+  for (let i in data.possessionBonuses) {
+    addBonus(character, 'possessionBonuses', data.possessionBonuses[i].keyChain, data.possessionBonuses[i].bonus);
+  }
+
+  $('#newEquipmentType').val(type);
+  changeType(type);
+
+  if (type === "armors") {
+    $('#armorRequirement').val(data.armorRequirement);
+    $('#naturalPenalty').val(data.naturalPenalty);
+    $('#perceptionPenalty').val(data.perceptionPenalty);
+    $('#movementRestriction').val(data.movementRestriction);
+    $('#cut').val(data.protections.cut);
+    $('#impact').val(data.protections.impact);
+    $('#thrust').val(data.protections.thrust);
+    $('#heat').val(data.protections.heat);
+    $('#electricity').val(data.protections.electricity);
+    $('#cold').val(data.protections.cold);
+    $('#energy').val(data.protections.energy);
+  } else if (type === "weapons") {
+    $('#damage').val(data.damage);
+    $('#speed').val(data.speed);
+    $('#requiredStrength').val(data.requiredStrength);
+    $('#primaryAttackType').val(data.primaryAttackType);
+    $('#secondaryAttackType').val(data.secondaryAttackType);
+    $('#weaponType').val(data.weaponType);
+    $('#special').val(data.special);
+    $('#twoHanded').val(data.twoHanded ? 'true' : 'false');
+  }
+}
+
+function addBonus(character, id, keyChain, bonus) {
+  $('#' + id).append(Mustache.render(Template.bonus, gatherScoreables(character, []).sort(function(a,b) {return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);})));
+  $('#' + id + ' .remove').last().click(function(event) {
+    $(this).closest('tr').remove();
+  });
+  if (keyChain && bonus) {
+    $('#' + id + ' select').last().val(keyChain);
+    $('#' + id + ' input').last().val(bonus);
+  }
+}
+
+function changeType(type) {
+  $('#extraOptions').remove();
+  if (type === "armors" || type === "weapons") {
+    $('#extraOptionsContainer').html(Mustache.render(Template[type+'Options']));
+  }
+}

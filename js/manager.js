@@ -152,6 +152,12 @@ function renderCharacter(character) {
           updateCharacter(character);
         }
       });
+
+      dom = $('#equipmentList .edit').last();
+      dom.click(function(event) {
+        event.stopPropagation();
+        window.open("new_equipment.html?n=" + character.name + "&t=" + type + "&k=" + i, "_self");
+      });
     }
   }
 

@@ -12,7 +12,6 @@ function gatherScoreables(data, keychain) {
       if (names[i] === "constructor" || names[i] === "length" || names === "prototype") {
         continue;
       }
-      console.log(names[i]);
       out = out.concat(gatherScoreables(data[names[i]], keychain.concat(names[i])));
     }
   }
