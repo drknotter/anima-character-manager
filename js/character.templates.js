@@ -179,8 +179,8 @@ Template.equipment = String.raw`
 <tr class="equipment">
 <td class="name">{{name}}</td>
 <td class="action"><div class="action equip"><span>{{#equipped}}U{{/equipped}}{{^equipped}}E{{/equipped}}</span></div></td>
-<td class="action"><div class="action sell"><span>S</span></div></td>
-<td class="action"><div class="action discard"><span>D</span></div></td>
+<td class="action"><div class="action sell"><span>$</span></div></td>
+<td class="action"><div class="action discard"><span>&#x232b;</span></div></td>
 <td class="action"><div class="action edit"><span>&#x270E;</span></div></td>
 </tr>
 `;
