@@ -26,13 +26,13 @@ Template.mainInfoHeader = String.raw`
 Template.mainInfo = String.raw`
 <table class="stats">
 <tr>
-<td class="stat"><span id="lifePoints" contenteditable="true">{{currentLifePoints}}</span>/{{lifePoints.score}}<br/>Life Points</td>
+<td id="lifePoints" class="stat setMainInfo"><span>{{currentLifePoints}}</span>/{{lifePoints.score}}<br/>Life Points</td>
 <td class="space"/>
-<td class="stat"><span id="fatigue" contenteditable="true">{{currentFatigue}}</span>/{{fatigue}}<br/>Fatigue</td>
+<td id="fatigue" class="stat setMainInfo"><span>{{currentFatigue}}</span>/{{fatigue}}<br/>Fatigue</td>
 <td class="space"/>
-<td class="stat"><span id="exp" contenteditable="true">{{exp}}</span>/{{toNextLevel}}<br/>Experience</td>
+<td id="exp" class="stat setMainInfo"><span>{{exp}}</span>/{{toNextLevel}}<br/>Experience</td>
 <td class="space"/>
-<td class="stat">{{wealthData.gp}}GP, {{wealthData.sp}}SP, {{wealthData.cp}}CP<br/>Wealth</td>
+<td id="wealth" class="stat setMainInfo">{{wealthData.gp}}GP, {{wealthData.sp}}SP, {{wealthData.cp}}CP<br/>Wealth</td>
 </tr>
 </table>
 `;
@@ -236,4 +236,25 @@ Template.weaponDetails = String.raw`
 <tr><th>Special</th><td>{{special}}</td></tr>
 <tr><th>Two Handed?</th><td>{{#twoHanded}}Yes{{/twoHanded}}{{^twoHanded}}No{{/twoHanded}}</td></tr>
 </table>
+`;
+
+Template.singleNumberPopup = String.raw`
+<div class="popup">
+<table class="numberPopup">
+<tr><th colspan="2">{{name}}</th></tr>
+<tr><td><input value="{{currentValue}}" type="number"></td><td><div class="enterButton">Enter</div></td></tr>
+</table>
+</div>
+`;
+
+Template.tripleNumberPopup = String.raw`
+<div class="popup">
+<table class="numberPopup">
+<tr><th colspan="2">{{name}}</th></tr>
+<tr><td><input value="{{currentValue1}}" type="number"></td><td class="label">{{label1}}</td></tr>
+<tr><td><input value="{{currentValue2}}" type="number"></td><td class="label">{{label2}}</td></tr>
+<tr><td><input value="{{currentValue3}}" type="number"></td><td class="label">{{label3}}</td></tr>
+<tr><td colspan="2"><div class="enterButton">Enter</div></td></tr>
+</table>
+</div>
 `;

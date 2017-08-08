@@ -395,3 +395,29 @@
   background: #888;
 }
 
+.numberPopup td {
+  padding-top: 0.5rem;
+}
+.numberPopup input {
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.numberPopup .enterButton {
+  text-align: center;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+  background: #aaa;
+}
+.numberPopup .enterButton:hover {
+  cursor: pointer;
+  background: #aac;
+}
+.numberPopup .label {
+  text-align: center;
+}
+
+.setMainInfo:hover {
+  background: #999;
+  cursor: pointer;
+}

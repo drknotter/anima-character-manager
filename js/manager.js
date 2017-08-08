@@ -161,30 +161,92 @@ function renderCharacter(character) {
     }
   }
 
-  $('#lifePoints').keypress({'key':'currentLifePoints', 'character': character}, updateCharacterFrom);
-  $('#fatigue').keypress({'key':'currentFatigue', 'character': character}, updateCharacterFrom);
-  $('#exp').keypress({'key':'exp', 'character': character}, updateCharacterFrom);
+  $('#lifePoints').click(function(event) {
+    $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Current Life Points', 'currentValue': character.currentLifePoints}));
+    $('#popupBackground').show();
+    $('#popup input').last().focus();
+    $('#popup input').last().keypress(function() {
+      if (event.which == 1) {
+        character['currentLifePoints'] = Number($(this).val());
+        updateCharacter(character);
+        $('#popupBackground').hide();
+      }
+    });
+    $('#popup .enterButton').click(function() {
+        character['currentLifePoints'] = Number($('#popup input').last().val());
+        updateCharacter(character);
+        $('#popupBackground').hide();
+    });
+  });
+  $('#fatigue').click(function(event) {
+    $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Current Fatigue', 'currentValue': character.currentFatigue}));
+    $('#popupBackground').show();
+    $('#popup input').last().focus();
+    $('#popup input').last().keypress(function() {
+      if (event.which == 1) {
+        character['currentFatigue'] = Number($(this).val());
+        updateCharacter(character);
+        $('#popupBackground').hide();
+      }
+    });
+    $('#popup .enterButton').click(function() {
+        character['currentFatigue'] = Number($('#popup input').last().val());
+        updateCharacter(character);
+        $('#popupBackground').hide();
+    });
+  });
+  $('#exp').click(function(event) {
+    $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Experience', 'currentValue': character.exp}));
+    $('#popupBackground').show();
+    $('#popup input').last().focus();
+    $('#popup input').last().keypress(function() {
+      if (event.which == 1) {
+        character['exp'] = Number($(this).val());
+        updateCharacter(character);
+        $('#popupBackground').hide();
+      }
+    });
+    $('#popup .enterButton').click(function() {
+        character['exp'] = Number($('#popup input').last().val());
+        updateCharacter(character);
+        $('#popupBackground').hide();
+    });
+  });
+  $('#wealth').click(function(event) {
+    $('#popup').html(Mustache.render(Template.tripleNumberPopup, 
+      {'name': 'Wealth', 
+      'currentValue1': character.wealthData.gp, 'label1': 'GP', 
+      'currentValue2': character.wealthData.sp, 'label2': 'SP', 
+      'currentValue3': character.wealthData.cp, 'label3': 'CP'}));
+    $('#popupBackground').show();
+    $('#popup input').first().focus();
+    $('#popup input').last().keypress(function() {
+      if (event.which == 1) {
+        var inputs = $('#popup input');
+        var gp = Number(inputs[0].value);
+        var sp = Number(inputs[1].value);
+        var cp = Number(inputs[2].value);
+        character['wealth'] = gp + 0.01 * sp + 0.001 * cp;
+        updateCharacter(character);
+        $('#popupBackground').hide();
+      }
+    });
+    $('#popup .enterButton').last().click(function() {
+      var inputs = $('#popup input');
+      var gp = Number(inputs[0].value);
+      var sp = Number(inputs[1].value);
+      var cp = Number(inputs[2].value);
+      character['wealth'] = gp + 0.01 * sp + 0.001 * cp;
+      updateCharacter(character);
+      $('#popupBackground').hide();
+    });
+  });
 
   var blob = new Blob([JSON.stringify(character, null, 2)], {type: 'application/json'});
   $('#exportButton').attr('href', URL.createObjectURL(blob));
 
   handleResize();
   $(window).resize(handleResize);
-}
-
-function updateCharacterFrom(event) {
-  var character = event.data['character'];
-  var key = event.data['key'];
-  if (event.which == 13) {
-    var textInt = Number(this.textContent);
-    if (this.textContent != "" && !isNaN(textInt)) {
-      character[key] = textInt;
-      updateCharacter(character);
-    } else {
-      $(this).html(character[key]);
-    }
-  }
-  return event.which != 13;
 }
 
 function handleResize() {
