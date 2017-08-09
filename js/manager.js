@@ -34,6 +34,7 @@ function renderCharacter(character) {
   sections.push({'id': 'resistances', 'closeable': true, 'header': 'Resistances'});
   sections.push({'id': 'advantages', 'closeable': true, 'header': 'Advantages and Disadvantages'});
   sections.push({'id': 'equipment', 'closeable': true, 'header': 'Equipment'});
+  sections.push({'id': 'elan', 'closeable': true, 'header': 'Elan'});
 
   for (let i in sections) {
     appendBox($('#column0'), sections[i].id, sections[i].closeable, sections[i].header);
@@ -159,6 +160,22 @@ function renderCharacter(character) {
         window.open("new_equipment.html?n=" + character.name + "&t=" + type + "&k=" + i, "_self");
       });
     }
+  }
+
+  $('#elan').append(Mustache.render(Template.elanList, character));
+  for (let k in character.elan) {
+    $('#elanList>tbody').append(Mustache.render(Template.elan, character.elan[k]));
+    $('#elanList .name').last().click(function(event) {
+      $('#popup').html(Mustache.render(Template.elanPopup, character.elan[k]));
+      if (character.elan[k]['gifts'].length == 0) {
+        $('#elanGifts').remove();
+      }
+      for (let i in character.elan[k]['gifts']) {
+        let gift = character.elan[k]['gifts'][i];
+        $('#elanGifts').append(Mustache.render(Template.elanGift, Elan.Data[k]['gifts'][gift]));
+      }
+      $('#popupBackground').show();
+    });
   }
 
   $('#lifePoints').click(function(event) {

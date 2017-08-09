@@ -149,6 +149,12 @@ class Character {
         this.equipment.weapons[i] = new Weapon(data.equipment.weapons[i], this, i);
       }
     }
+
+    this.elan = {};
+    for (let i in Elan.Data) {
+      let elanData = data.elan ? data.elan[i] : {};
+      this.elan[i] = new Elan(elanData, this, i);
+    }
   }
 
   get level() {

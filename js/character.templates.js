@@ -258,3 +258,30 @@ Template.tripleNumberPopup = String.raw`
 </table>
 </div>
 `;
+
+Template.elanList = String.raw`
+<table id="elanList">
+<tr><th class="name">Deity</th><th class="score">Elan</th></tr>
+</table>
+`;
+
+Template.elan = String.raw`
+<tr><td class="name">{{name}} ({{type}})</td><td class="score">{{score}}</td></tr>
+`; 
+
+Template.elanPopup = String.raw`
+<div id="elanPopup" class="popup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<table id="elanGifts">
+<tr><th>Gifts</th></tr>
+</table>
+</div>
+`;
+
+Template.elanGift = String.raw`
+<tr class="gift"><td>
+<div class="giftName">{{name}}</div>
+<div class="giftDescription">{{description}}</div>
+</td></tr>
+`;
