@@ -176,6 +176,23 @@ function renderCharacter(character) {
       }
       $('#popupBackground').show();
     });
+    $('#elanList .score').last().click(function(event) {
+      $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Elan for ' + character.elan[k].name, 'currentValue': character.elan[k].elanBonus}))
+      $('#popupBackground').show();
+      $('#popup input').last().focus();
+      $('#popup input').last().keypress(function() {
+        if (event.which == 1) {
+          character.elan[k].elanBonus = Number($(this).val());
+          updateCharacter(character);
+          $('#popupBackground').hide();
+        }
+      });
+      $('#popup .enterButton').click(function() {
+          character.elan[k].elanBonus = Number($('#popup input').last().val());
+          updateCharacter(character);
+          $('#popupBackground').hide();
+      });
+    });
   }
 
   $('#lifePoints').click(function(event) {
