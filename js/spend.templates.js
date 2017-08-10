@@ -6,6 +6,12 @@ Template.spendingOptionGroupHeader = String.raw`
 </div>
 `;
 
+Template.spendingOptionGroupHeaderNoTotal = String.raw`
+<div class="header">
+<span>{{optionName}}</span>
+</div>
+`;
+
 Template.spendingOptionSubgroup = String.raw`
 <table class="spendingOptionSubgroup">
 </table>
@@ -78,4 +84,27 @@ Template.cpInvestmentVariableChoice = String.raw`
 Invest <input type="number" min="{{min}}" max="{{max}}" value="{{min}}"> creation points.
 <div class="button">Invest</div>
 </div>
+`;
+
+Template.elanDeityGroup = String.raw`
+<div id="{{name}}Group" class="deityGroup">
+<span class="deityName">{{name}} ({{type}})</span><span class="elanText">Elan: <span class="elanBonus">{{elanBonus}}</span></span>
+<table class="gifts">
+<tr class="gift">
+<th class="name">Gift Name</th>
+<th class="cost">Cost</th>
+<th class="requiredElan">Required Elan</th>
+<th class="obtained">Obtained?</th>
+</tr>
+</table>
+</div>
+`;
+
+Template.deityGift = String.raw`
+<tr class="gift">
+<td class="name">{{name}}</td>
+<td class="cost">{{cost}}</td>
+<td class="requiredElan">{{requiredElan}}</td>
+<td class="obtained"><input type="checkbox"></td>
+</tr>
 `;

@@ -20,6 +20,23 @@ class Elan extends Scoreable {
       check(data.gifts[i] in Elan.Data[key]['gifts'], data.gifts[i] + " is not a valid gift for " + key + "!");
       this.gifts.push(data.gifts[i]);
     }
+
+    for (let i in this.gifts) {
+      if (Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonus) {
+        let keyChain = Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonus.split('|');
+        let property = character;
+        for (let p in keyChain) {
+          property = property[keyChain[p]];
+        }
+        if (property instanceof Scoreable) {
+          Object.defineProperty(property, key + this.gifts[i] + "Bonus", {
+            get: function() {
+              return character.elan[key].elanBonus;
+            }
+          })
+        }
+      }
+    }
   }
 }
 
@@ -46,66 +63,94 @@ Elan.Data = {
   'uriel': {
     'name': 'Uriel',
     'type': 'Beryl',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'gabriel': {
     'name': 'Gabriel',
     'type': 'Beryl',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'rafael': {
     'name': 'Rafael',
     'type': 'Beryl',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'azrael': {
     'name': 'Azrael',
     'type': 'Beryl',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {
+      'leader': {
+        'name': 'Leader',
+        'description': 'This gift will increase the bearer\'s natural charisma with a special bonus to Leadership equivalent to his or her Elan level. For instance, anyone with 50 Elan points would gain a +50 bonus.',
+        'cost': 5,
+        'requiredElan': 10,
+        'elanLevelGiftBonus': 'secondaryAbilities|leadership'
+      },
+      'theValueOfHeroes': {
+        'name': 'The Value of Heroes',
+        'description': 'The character is armed with unusual courage and is thus able to remain undaunted where others would run. This grants him a special bonus to the Composure secondary ability equivalent to his Elan level.',
+        'cost': 5,
+        'requiredElan': 20,
+        'elanLevelGiftBonus': 'secondaryAbilities|composure'
+      }
+    }
   },
   'barakiel': {
     'name': 'Barakiel',
     'type': 'Beryl',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'edamiel': {
     'name': 'Edamiel',
     'type': 'Beryl',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'zemial': {
     'name': 'Zemial',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'jedah': {
     'name': 'Jedah',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'noah': {
     'name': 'Noah',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'erebus': {
     'name': 'Erebus',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'abbadon': {
     'name': 'Abbadon',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'eriol': {
     'name': 'Eriol',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
   'meseguis': {
     'name': 'Meseguis',
     'type': 'Shajad',
-    'description': 'No description yet!'
+    'description': 'No description yet!',
+    'gifts': {}
   },
 };

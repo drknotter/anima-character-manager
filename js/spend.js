@@ -165,6 +165,7 @@ function renderSpendingOptionGroups(character) {
   renderSecondaryAbilityLevelBonusSpendingGroup(character);
   renderPpSpendingGroup(character);
   renderCpSpendingGroup(character);
+  renderElanSpendingGroup(character);
 }
 
 /////////////////////////
@@ -346,6 +347,46 @@ function renderPpSpendingGroup(character) {
   spendingOptionGroup.attr('class', 'spendingOptionGroup');
 }
 
+///////////////////////////
+// Elan spending options //
+///////////////////////////
+
+function renderElanSpendingGroup(character) {
+  appendBox($('#content'), 'elanSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeaderNoTotal, {
+    'optionName': 'Elan'
+  }));
+
+  for (let i in Elan.Data) {
+    $('#elanSpendingOptionGroup').append(Mustache.render(Template.elanDeityGroup, character.elan[i]));
+    renderDeitySpendingOptions(character, i);
+  }
+
+  $('#elanSpendingOptionGroup').toggle();
+}
+
+function renderDeitySpendingOptions(character, deityKey) {
+  var deityName = Elan.Data[deityKey].name;
+  var table = $('#' + deityName + 'Group .gifts').first();
+  var totalElanSpent = 0;
+  for (let i in character.elan[deityKey].gifts) {
+    var giftKey = character.elan[deityKey].gifts[i];
+    totalElanSpent += Elan.Data[deityKey].gifts[giftKey].cost;
+  }
+
+  for (let i in Elan.Data[deityKey].gifts) {
+    table.append(Mustache.render(Template.deityGift, Elan.Data[deityKey].gifts[i]));
+    let input = table.find('.gift input').last();
+    input.attr('checked', character.elan[deityKey].gifts.includes(i));
+    input.attr('disabled', !character.elan[deityKey].gifts.includes(i) 
+      && (Elan.Data[deityKey].gifts[i].cost > (character.elan[deityKey].elanBonus - totalElanSpent)
+        || Elan.Data[deityKey].gifts[i].requiredElan > character.elan[deityKey].elanBonus));
+    input.change({'character': character, 'deityKey': deityKey, 'giftKey': i}, function(event) {
+      changeElan(event, $(this).is(":checked"));
+    })
+  }
+}
+
+
 //////////////////////
 // Update functions //
 //////////////////////
@@ -415,10 +456,10 @@ function changeCP(event, newValue) {
       $('#variableCpChoiceDialog>.button').click(function() {
         var advantage = new Advantage(advantageData, character, )
         if (isAdvantage) {
-          advantage.cpInvested = $('#variableCpChoiceDialog input').last().val()
+          advantage.cpInvested = Number($('#variableCpChoiceDialog input').last().val());
           character.advantages[advantageKey] = advantage;
         } else {
-          advantage.cpInvested = -$('#variableCpChoiceDialog input').last().val()
+          advantage.cpInvested = -Number($('#variableCpChoiceDialog input').last().val());
           character.disadvantages[advantageKey] = advantage;
         }
 
@@ -427,6 +468,7 @@ function changeCP(event, newValue) {
         $('#popupBackground').hide();
       });
       $('#popupBackground').show();
+      $('#variableCpChoiceDialog input').last().focus();
       $('#popupBackground').on('click', function() {
         updateSpendingOptions(character);
         localStorage['character.'+character.name] = JSON.stringify(character);
@@ -436,11 +478,32 @@ function changeCP(event, newValue) {
   }
 }
 
+function changeElan(event, obtainedGift) {
+  var c = event.data.character;
+  var d = event.data.deityKey;
+  var g = event.data.giftKey;
+
+  var seen = {};
+  c.elan[d].gifts = c.elan[d].gifts.filter(function(item) {
+      return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+  });
+  var index = c.elan[d].gifts.indexOf(g);
+
+  if (obtainedGift && index == -1) {
+    c.elan[d].gifts.push(g);
+  } else if (index > -1) {
+    c.elan[d].gifts.splice(index, 1);
+  }
+  updateSpendingOptions(c);
+  localStorage['character.'+c.name] = JSON.stringify(c);
+}
+
 function updateSpendingOptions(character) {
   updateDpSpendingOptions(character);
   updateCharacteristicLevelBonusSpendingOptions(character);
   updateSecondaryAbilityLevelBonusSpendingOptions(character);
   updateCpSpendingOptions(character);
+  updateElanSpendingOptions(character);
 }
 
 function updateDpSpendingOptions(character) {
@@ -496,5 +559,27 @@ function updateCpSpendingOptions(character) {
     advantageDOM.find("input").attr({
       "checked": hasAdvantage(character, i),
       "disabled": !canAffordAdvantage(character, i)});
+  }
+}
+
+function updateElanSpendingOptions(character) {
+  for (let d in Elan.Data) {
+    let table = $('#' + Elan.Data[d].name + 'Group .gifts').first();
+    let totalElanSpent = 0;
+    for (let i in character.elan[d].gifts) {
+      var giftKey = character.elan[d].gifts[i];
+      totalElanSpent += Elan.Data[d].gifts[giftKey].cost;
+    }
+
+    let i=0;
+    for (let g in Elan.Data[d].gifts) {
+      let gift = Elan.Data[d].gifts[g];
+      let input = table.find('.gift input')[i];
+      $(input).attr('checked', character.elan[d].gifts.includes(g));
+      $(input).attr('disabled', !character.elan[d].gifts.includes(g) 
+        && (gift.cost > (character.elan[d].elanBonus - totalElanSpent)
+          || gift.requiredElan > character.elan[d].elanBonus));
+      i++;
+    }
   }
 }
