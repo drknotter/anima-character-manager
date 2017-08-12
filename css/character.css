@@ -473,3 +473,21 @@
   padding-bottom: 0.5rem;
   font-size: 80%;
 }
+
+#rollResultText {
+  text-align: center;
+  font-size: 110%;
+  font-weight: bold;
+}
+
+#rollResult {
+  text-align: center;
+  font-size: 400%;
+  font-weight: bold;
+}
+
+.openRollable:hover, .percentileRollable:hover, .d10Rollable:hover, .rollable:hover {
+  background: #aaa;
+  cursor: pointer;
+}
+

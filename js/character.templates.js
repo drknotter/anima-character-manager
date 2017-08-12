@@ -44,16 +44,16 @@ Template.characteristics = String.raw`
 Template.characteristic = String.raw`
 <tr class="characteristic">
 <{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score d10Rollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
 <{{rowType}}{{^rowType}}td{{/rowType}} class="modifier">{{modifier}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
 
 Template.combat = String.raw`
 <table class="stats">
 <tr>
-<td class="stat"><span>{{initiative.score}}</span><br/>Initiative</td>
+<td class="stat openRollable" data-name="Initiative" data-bonus="{{initiative.score}}"><span>{{initiative.score}}</span><br/>Initiative</td>
 <td class="space"/>
 <td class="stat"><span>{{primaryAbilities.attack.score}}<span class="percentile"> ({{primaryAbilities.attack.percentile}}%)</span></span><br/>Attack</td>
 <td class="space"/>
@@ -91,8 +91,8 @@ Template.secondaryAbilitiesCategory = String.raw`
 Template.secondaryAbility = String.raw`
 <tr>
 <td class="name">{{name}}</td>
-<td class="score">{{score}}</td>
-<td class="score">{{percentile}}%</td>
+<td class="score openRollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</td>
+<td class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</td>
 </tr>
 `;
 
@@ -103,8 +103,8 @@ Template.resistances = String.raw`
 Template.resistance = String.raw`
 <tr class="resistance">
 <{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score rollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
 </tr>
 `;
 
@@ -284,4 +284,11 @@ Template.elanGift = String.raw`
 <div class="giftName">{{name}}</div>
 <div class="giftDescription">{{description}}</div>
 </td></tr>
+`;
+
+Template.rollPopup = String.raw`
+<div class="popup">
+<div id="rollResultText">{{resultText}}</div>
+<div id="rollResult">{{result}}</div>
+</div>
 `;

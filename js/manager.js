@@ -279,6 +279,64 @@ function renderCharacter(character) {
   var blob = new Blob([JSON.stringify(character, null, 2)], {type: 'application/json'});
   $('#exportButton').attr('href', URL.createObjectURL(blob));
 
+  $('.openRollable').click(function(event) {
+    var roll = Math.floor(100 * Math.random()) + 1;
+
+    if (roll <= 3) {
+      var total = Math.floor(100 * Math.random()) + 1;
+      if (roll == 1) {
+        total += 15;
+      } else if (roll == 3) {
+        total -= 15;
+      }
+
+      $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': $(this).attr('data-name') + ': Fumble!', 'result': total}));
+      $('#popupBackground').show();
+
+    } else {
+      var total = Number($(this).attr('data-bonus'));
+      console.log(total);
+      var rollCount = 0;
+      do {
+        total += roll;
+        roll = Math.floor(100 * Math.random()) + 1;
+      } while (roll == 100 || roll >= 90 + rollCount++)
+
+      $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': $(this).attr('data-name') + ': Success!', 'result': total}));
+      $('#popupBackground').show();
+    }
+  });
+  $('.rollable').click(function(event) {
+    var roll = Math.floor(100 * Math.random()) + 1;
+    var total = roll + Number($(this).attr('data-bonus'));
+    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': $(this).attr('data-name') + ':' + (roll == 100 ? ' Success!' : ''), 'result': total}));
+    $('#popupBackground').show();
+  });
+  $('.percentileRollable').click(function(event) {
+    var bonus = Number($(this).attr("data-bonus"));
+    var roll = Math.floor(100 * Math.random()) + 1;
+
+    var resultText = $(this).attr('data-name') + ": " + (roll <= bonus ? "Success!" : "Miss!");
+    var total = Math.abs(roll - bonus);
+    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': resultText, 'result': total}));
+    $('#popupBackground').show();
+  });
+  $('.d10Rollable').click(function(event) {
+    var bonus = Number($(this).attr("data-bonus"));
+    var roll = Math.floor(10 * Math.random()) + 1;
+
+    if (roll == 10) {
+      roll = 13;
+    } else if (roll == 1) {
+      roll = -2;
+    }
+
+    var resultText = $(this).attr('data-name') + ": " + (roll <= bonus ? "Success!" : "Miss!");
+    var total = Math.abs(roll - bonus);
+    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': resultText, 'result': total}));
+    $('#popupBackground').show();
+  })
+
   handleResize();
   $(window).resize(handleResize);
 }
