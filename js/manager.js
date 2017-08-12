@@ -43,7 +43,6 @@ function renderCharacter(character) {
   $('#mainInfo').append(Mustache.render(Template.mainInfo, character));
 
   $('#characteristics').append(Mustache.render(Template.characteristics));
-  $('#characteristics>table').append(Mustache.render(Template.characteristic, {'rowType':'th','name':'','score':'Score','modifier':'Modifier'}));
   for (let i in character.characteristics) {
     $('#characteristics>table').append(Mustache.render(Template.characteristic, character.characteristics[i]));
   }
@@ -61,7 +60,6 @@ function renderCharacter(character) {
   }
 
   $('#resistances').append(Mustache.render(Template.resistances));
-  $('#resistances>table').append(Mustache.render(Template.resistance, {'rowType':'th','name':'','score':'Score','percentile':''}));
   for (let i in character.resistances) {
     $('#resistances>table').append(Mustache.render(Template.resistance, character.resistances[i]));
   }
@@ -92,8 +90,7 @@ function renderCharacter(character) {
   }
 
   for (let i in disciplinesMentalPowerMap) {
-    $('#mentalPowers').append(Mustache.render(Template.mentalPowerDiscipline));
-    $('#mentalPowers .discipline').last().append(Mustache.render(Template.mentalPower, {'rowType': 'th', 'name': i, 'action': 'Action', 'maintainable': 'Maintain?', 'bonus': 'Bonus'}));
+    $('#mentalPowers').append(Mustache.render(Template.mentalPowerDiscipline, {'name': i}));
     for (let j in disciplinesMentalPowerMap[i]) {
       $('#mentalPowers table').last().append(Mustache.render(Template.mentalPower, disciplinesMentalPowerMap[i][j]));
       $('#mentalPowers table .mentalPower').last().click(function(event) {
@@ -285,17 +282,19 @@ function renderCharacter(character) {
   $('#exportButton').attr('href', URL.createObjectURL(blob));
 
   $('.openRollable').click(function(event) {
+    event.stopPropagation();
     var roll = Math.floor(100 * Math.random()) + 1;
     var rolls = [];
 
     if (roll <= 3) {
       rolls.push(roll);
+      var fumble = roll;
       roll = Math.floor(100 * Math.random()) + 1;
       rolls.push(roll);
       var total = roll;
-      if (roll == 1) {
+      if (fumble == 1) {
         total += 15;
-      } else if (roll == 3) {
+      } else if (fumble == 3) {
         total -= 15;
       }
 
@@ -325,6 +324,7 @@ function renderCharacter(character) {
     }
   });
   $('.rollable').click(function(event) {
+    event.stopPropagation();
     var roll = Math.floor(100 * Math.random()) + 1;
     var total = roll + Number($(this).attr('data-bonus'));
     $('#popup').html(Mustache.render(Template.rollPopup, {
@@ -334,6 +334,7 @@ function renderCharacter(character) {
     $('#popupBackground').show();
   });
   $('.percentileRollable').click(function(event) {
+    event.stopPropagation();
     var bonus = Number($(this).attr("data-bonus"));
     var roll = Math.floor(100 * Math.random()) + 1;
     var rolls = [roll];
@@ -345,6 +346,7 @@ function renderCharacter(character) {
     $('#popupBackground').show();
   });
   $('.d10Rollable').click(function(event) {
+    event.stopPropagation();
     var bonus = Number($(this).attr("data-bonus"));
     var roll = Math.floor(10 * Math.random()) + 1;
     var adjusted = roll;

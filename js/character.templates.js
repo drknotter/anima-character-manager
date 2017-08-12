@@ -38,15 +38,22 @@ Template.mainInfo = String.raw`
 `;
 
 Template.characteristics = String.raw`
-<table></table>
+<table>
+<tr class="characteristic">
+<th class="name"></th>
+<th class="score">Score</th>
+<th class="modifier">Modifier</th>
+<th class="score">%</th>
+</tr>
+</table>
 `;
 
 Template.characteristic = String.raw`
 <tr class="characteristic">
-<{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score d10Rollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="modifier">{{modifier}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
+<td class="name">{{name}}</td>
+<td class="score d10Rollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</td>
+<td class="modifier">{{modifier}}</td>
+<td class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</td>
 </tr>
 `;
 
@@ -97,14 +104,20 @@ Template.secondaryAbility = String.raw`
 `;
 
 Template.resistances = String.raw`
-<table></table>
+<table>
+<tr class="resistance">
+<th class="name"></th>
+<th class="score">Score</th>
+<th class="score">%</th>
+</tr>
+</table>
 `;
 
 Template.resistance = String.raw`
 <tr class="resistance">
-<{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score rollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</{{rowType}}{{^rowType}}td{{/rowType}}>
+<td class="name">{{name}}</td>
+<td class="score rollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</td>
+<td class="score percentileRollable" data-name="{{name}}" data-bonus="{{percentile}}">{{percentile}}%</td>
 </tr>
 `;
 
@@ -133,15 +146,22 @@ Template.mainPsychicInfo = String.raw`
 `;
 
 Template.mentalPowerDiscipline = String.raw`
-<table class="discipline" />
+<table class="discipline">
+<tr class="mentalPower">
+<th class="name">{{name}}</th>
+<th class="action">Action</th>
+<th class="maintainable">Maintain?</th>
+<th class="bonus">Score</th>
+</tr>
+</table>
 `;
 
 Template.mentalPower = String.raw`
 <tr class="mentalPower">
-<{{rowType}}{{^rowType}}td{{/rowType}} class="name">{{name}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="action">{{action}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="maintainable">{{maintainable}}</{{rowType}}{{^rowType}}td{{/rowType}}>
-<{{rowType}}{{^rowType}}td{{/rowType}} class="bonus">{{bonus}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<td class="name">{{name}}</td>
+<td class="action">{{action}}</td>
+<td class="maintainable">{{maintainable}}</td>
+<td class="bonus openRollable" data-name="{{name}}" data-bonus="{{score}}">{{score}}</td>
 </tr>
 `;
 
@@ -149,8 +169,7 @@ Template.mentalPowerPopup = String.raw`
 <div id="mentalPowerPopup" class="popup">
 <div class="name">{{name}}</div>
 <div class="description">{{description}}</div>
-<table class="effects">
-</table>
+<table class="effects"></table>
 </div>
 `;
 
