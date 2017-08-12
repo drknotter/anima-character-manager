@@ -479,6 +479,9 @@
   font-size: 110%;
   font-weight: bold;
 }
+#rolls {
+  text-align: center;
+}
 
 #rollResult {
   text-align: center;

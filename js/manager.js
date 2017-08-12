@@ -180,8 +180,9 @@ function renderCharacter(character) {
       $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Elan for ' + character.elan[k].name, 'currentValue': character.elan[k].elanBonus}))
       $('#popupBackground').show();
       $('#popup input').last().focus();
-      $('#popup input').last().keypress(function() {
-        if (event.which == 1) {
+      $('#popup input').last().select();
+      $('#popup input').last().keypress(function(event) {
+        if (event.which == 13) {
           character.elan[k].elanBonus = Number($(this).val());
           updateCharacter(character);
           $('#popupBackground').hide();
@@ -199,8 +200,9 @@ function renderCharacter(character) {
     $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Current Life Points', 'currentValue': character.currentLifePoints}));
     $('#popupBackground').show();
     $('#popup input').last().focus();
-    $('#popup input').last().keypress(function() {
-      if (event.which == 1) {
+    $('#popup input').last().select();
+    $('#popup input').last().keypress(function(event) {
+      if (event.which == 13) {
         character['currentLifePoints'] = Number($(this).val());
         updateCharacter(character);
         $('#popupBackground').hide();
@@ -216,8 +218,9 @@ function renderCharacter(character) {
     $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Current Fatigue', 'currentValue': character.currentFatigue}));
     $('#popupBackground').show();
     $('#popup input').last().focus();
-    $('#popup input').last().keypress(function() {
-      if (event.which == 1) {
+    $('#popup input').last().select();
+    $('#popup input').last().keypress(function(event) {
+      if (event.which == 13) {
         character['currentFatigue'] = Number($(this).val());
         updateCharacter(character);
         $('#popupBackground').hide();
@@ -233,8 +236,9 @@ function renderCharacter(character) {
     $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Experience', 'currentValue': character.exp}));
     $('#popupBackground').show();
     $('#popup input').last().focus();
-    $('#popup input').last().keypress(function() {
-      if (event.which == 1) {
+    $('#popup input').last().select();
+    $('#popup input').last().keypress(function(event) {
+      if (event.which == 13) {
         character['exp'] = Number($(this).val());
         updateCharacter(character);
         $('#popupBackground').hide();
@@ -254,8 +258,9 @@ function renderCharacter(character) {
       'currentValue3': character.wealthData.cp, 'label3': 'CP'}));
     $('#popupBackground').show();
     $('#popup input').first().focus();
-    $('#popup input').last().keypress(function() {
-      if (event.which == 1) {
+    $('#popup input').first().select();
+    $('#popup input').last().keypress(function(event) {
+      if (event.which == 13) {
         var inputs = $('#popup input');
         var gp = Number(inputs[0].value);
         var sp = Number(inputs[1].value);
@@ -281,59 +286,79 @@ function renderCharacter(character) {
 
   $('.openRollable').click(function(event) {
     var roll = Math.floor(100 * Math.random()) + 1;
+    var rolls = [];
 
     if (roll <= 3) {
-      var total = Math.floor(100 * Math.random()) + 1;
+      rolls.push(roll);
+      roll = Math.floor(100 * Math.random()) + 1;
+      rolls.push(roll);
+      var total = roll;
       if (roll == 1) {
         total += 15;
       } else if (roll == 3) {
         total -= 15;
       }
 
-      $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': $(this).attr('data-name') + ': Fumble!', 'result': total}));
+      $('#popup').html(Mustache.render(Template.rollPopup, {
+        'resultText': $(this).attr('data-name') + ': Fumble!', 
+        'rolls': rolls.join(', '),
+        'result': total}));
       $('#popupBackground').show();
 
     } else {
       var total = Number($(this).attr('data-bonus'));
       console.log(total);
       var rollCount = 0;
-      do {
-        total += roll;
-        roll = Math.floor(100 * Math.random()) + 1;
-      } while (roll == 100 || roll >= 90 + rollCount++)
 
-      $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': $(this).attr('data-name') + ': Success!', 'result': total}));
+      rolls.push(roll)
+      total += roll;
+      while (roll == 100 || roll >= 90 + rollCount++) {
+        roll = Math.floor(100 * Math.random()) + 1;
+        rolls.push(roll)
+        total += roll;
+      }
+
+      $('#popup').html(Mustache.render(Template.rollPopup, {
+        'resultText': $(this).attr('data-name') + ': Success!',
+        'rolls': rolls.join(', '), 
+        'result': total}));
       $('#popupBackground').show();
     }
   });
   $('.rollable').click(function(event) {
     var roll = Math.floor(100 * Math.random()) + 1;
     var total = roll + Number($(this).attr('data-bonus'));
-    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': $(this).attr('data-name') + ':' + (roll == 100 ? ' Success!' : ''), 'result': total}));
+    $('#popup').html(Mustache.render(Template.rollPopup, {
+      'resultText': $(this).attr('data-name') + ':' + (roll == 100 ? ' Success!' : ''), 
+      'rolls': roll,
+      'result': total}));
     $('#popupBackground').show();
   });
   $('.percentileRollable').click(function(event) {
     var bonus = Number($(this).attr("data-bonus"));
     var roll = Math.floor(100 * Math.random()) + 1;
+    var rolls = [roll];
 
     var resultText = $(this).attr('data-name') + ": " + (roll <= bonus ? "Success!" : "Miss!");
+    var rollText = rolls.join(', ');
     var total = Math.abs(roll - bonus);
-    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': resultText, 'result': total}));
+    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': resultText, 'rolls': rollText, 'result': total}));
     $('#popupBackground').show();
   });
   $('.d10Rollable').click(function(event) {
     var bonus = Number($(this).attr("data-bonus"));
     var roll = Math.floor(10 * Math.random()) + 1;
+    var adjusted = roll;
 
     if (roll == 10) {
-      roll = 13;
+      adjusted = 13;
     } else if (roll == 1) {
-      roll = -2;
+      adjusted = -2;
     }
 
     var resultText = $(this).attr('data-name') + ": " + (roll <= bonus ? "Success!" : "Miss!");
-    var total = Math.abs(roll - bonus);
-    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': resultText, 'result': total}));
+    var total = Math.abs(adjusted - bonus);
+    $('#popup').html(Mustache.render(Template.rollPopup, {'resultText': resultText, 'rolls': roll, 'result': total}));
     $('#popupBackground').show();
   })
 

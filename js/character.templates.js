@@ -289,6 +289,7 @@ Template.elanGift = String.raw`
 Template.rollPopup = String.raw`
 <div class="popup">
 <div id="rollResultText">{{resultText}}</div>
+<div id="rolls">Rolls: {{rolls}}</div>
 <div id="rollResult">{{result}}</div>
 </div>
 `;
