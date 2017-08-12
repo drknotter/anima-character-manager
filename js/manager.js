@@ -307,7 +307,6 @@ function renderCharacter(character) {
 
     } else {
       var total = Number($(this).attr('data-bonus'));
-      console.log(total);
       var rollCount = 0;
 
       rolls.push(roll)
