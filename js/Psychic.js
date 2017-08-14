@@ -1,11 +1,11 @@
 class MentalPower extends Scoreable {
   constructor(data, character, key) {
-    super(MENTAL_POWER_DATA[key].name, MENTAL_POWER_DATA[key].description);
+    super(MENTAL_POWER_DATA[key].name);
     
     check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for mental power " + key + "!");
     this.ppInvested = data.ppInvested;
 
-    var attrs = ['discipline', 'action', 'maintainable', 'effects'];
+    var attrs = ['description', 'discipline', 'action', 'maintainable', 'effects'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {

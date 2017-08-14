@@ -176,8 +176,12 @@ class Character {
     }
   }
 
+  get totalDP() {
+    return 100 * this.level + 500;
+  }
+
   get DP() {
-    return 100 * this.level + 500 - totalInvested(this, 'dpInvested');
+    return this.totalDP - totalInvested(this, 'dpInvested');
   }
 
   get CP() {

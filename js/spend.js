@@ -96,17 +96,18 @@ var OTHER_DP_SPEND_GROUP = {
   ],
 };
 
-function gatherInvestments(data, key) {
+function gatherInvestments(data, key, searchKey) {
   if (!data) {
     return [];
   }
 
   var gathered = [];
   for (let i in data) {
-    if (i === key) {
-      gathered.push(data);
+    if (i === searchKey) {
+      gathered.push({'key': key, 'data': data});
+      break;
     } else if (data[i] instanceof Object) {
-      var gatheredFromChild = gatherInvestments(data[i], key);
+      var gatheredFromChild = gatherInvestments(data[i], i, searchKey);
       for (let j in gatheredFromChild) {
         gathered.push(gatheredFromChild[j]);
       }
@@ -207,16 +208,23 @@ function renderDpOptionSpendingGroup(character) {
 }
 
 function renderDpSpendingOptionSubgroup(character, investments, subgroupName, limit, parent) {
+  var totalInvestedInSubgroup = 0;
+  for (let i in investments) {
+    totalInvestedInSubgroup += investments[i].dpInvested;
+  }
   parent.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = parent.children('.spendingOptionSubgroup').last();
   subgroup.append(Mustache.render(Template.dpInvestmentHeader, {'name': subgroupName, 'limit': limit}))
   for (let i in investments) {
-    renderDpSpendingOption(character, investments[i], subgroup);
+    renderDpSpendingOption(character, investments[i], subgroup, limit, totalInvestedInSubgroup);
   }
 }
 
-function renderDpSpendingOption(character, investment, parent) {
+function renderDpSpendingOption(character, investment, parent, limit, totalInvestedInSubgroup) {
   var maxForInvestment = investment.dpInvested + character.DP;
+  if (limit) {
+    maxForInvestment = Math.min(maxForInvestment, investment.dpInvested + (character.totalDp * limit / 100 - totalInvestedInSubgroup));
+  }
   var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
   parent.append(Mustache.render(Template.dpInvestment, data));
   parent.children('.dpInvestment').last().attr('id', investment.name.replace(/\s/g, "_") + ":DP");
@@ -508,44 +516,61 @@ function updateSpendingOptions(character) {
 
 function updateDpSpendingOptions(character) {
   var DP = character.DP;
-  var investments = gatherInvestments(character, 'dpInvested');
+  var investments = gatherInvestments(character, null, 'dpInvested');
 
   $('#Total_DP').html(DP);
 
+  var subgroupTotals = {'combat': 0, 'supernatural': 0, 'psychic': 0};
   for (let i in investments) {
-    var maxForInvestment = investments[i].dpInvested + character.DP;
-    var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":DP"));
+    for (let j in PRIMARY_DP_SPEND_GROUPS) {
+      if (PRIMARY_DP_SPEND_GROUPS[j].abilities.indexOf(investments[i].key) != -1) {
+        subgroupTotals[j] += investments[i].data.dpInvested;
+      }
+    }
+  }
+
+  for (let i in investments) {
+    var limit = null;
+    var maxForInvestment = investments[i].data.dpInvested + character.DP;
+    for (let j in PRIMARY_DP_SPEND_GROUPS) {
+      if (PRIMARY_DP_SPEND_GROUPS[j].abilities.indexOf(investments[i].key) != -1) {
+        maxForInvestment = Math.min(maxForInvestment, 
+          investments[i].data.dpInvested + (character.totalDP * character.class.limits[j] - subgroupTotals[j]));
+        break;
+      }
+    }
+    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + ":DP"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
-    investmentDOM.children(".score").html(investments[i].score);
+    investmentDOM.children(".score").html(investments[i].data.score);
   }
 }
 
 function updateCharacteristicLevelBonusSpendingOptions(character) {
   var characteristicLevelBonuses = character.characteristicLevelBonuses;
-  var investments = gatherInvestments(character, 'characteristicLevelBonusesInvested');
+  var investments = gatherInvestments(character, null, 'characteristicLevelBonusesInvested');
 
   $('#Total_Level_Bonuses').html(characteristicLevelBonuses);
 
   for (let i in investments) {
-    var maxForInvestment = investments[i].characteristicLevelBonusesInvested + characteristicLevelBonuses;
-    var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":CB"));
+    var maxForInvestment = investments[i].data.characteristicLevelBonusesInvested + characteristicLevelBonuses;
+    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + ":CB"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
-    investmentDOM.children(".score").html(investments[i].score);
-    investmentDOM.children(".modifier").html(investments[i].modifier);
+    investmentDOM.children(".score").html(investments[i].data.score);
+    investmentDOM.children(".modifier").html(investments[i].data.modifier);
   }
 }
 
 function updateSecondaryAbilityLevelBonusSpendingOptions(character) {
   var secondaryAbilityLevelBonuses = character.secondaryAbilityLevelBonuses;
-  var investments = gatherInvestments(character, 'secondaryAbilityLevelBonusesInvested');
+  var investments = gatherInvestments(character, null, 'secondaryAbilityLevelBonusesInvested');
 
   $('#Total_Natural_Bonuses').html(secondaryAbilityLevelBonuses);
 
   for (let i in investments) {
-    var maxForInvestment = investments[i].secondaryAbilityLevelBonusesInvested + secondaryAbilityLevelBonuses;
-    var investmentDOM = $(document.getElementById(investments[i].name.replace(/\s/g, "_") + ":NB"));
+    var maxForInvestment = investments[i].data.secondaryAbilityLevelBonusesInvested + secondaryAbilityLevelBonuses;
+    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + ":NB"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
-    investmentDOM.children(".score").html(investments[i].score);
+    investmentDOM.children(".score").html(investments[i].data.score);
   }
 }
 
