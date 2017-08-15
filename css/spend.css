@@ -159,3 +159,17 @@
   width: 7rem;
   text-align: center;
 }
+
+.nonMentalPowerPPInvestment .ppInvested {
+  width: 7rem;
+  padding: 0rem 0.25rem;
+  text-align: center;
+}
+.nonMentalPowerPPInvestment input {
+  width: 3.75rem;
+  font-size: 100%;
+}
+.nonMentalPowerPPInvestment .score {
+  width: 5rem;
+  text-align: center;
+}

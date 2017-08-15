@@ -353,6 +353,16 @@ function renderPpSpendingGroup(character) {
 
   var spendingOptionGroup = $('#ppSpendingOptionGroup');
   spendingOptionGroup.attr('class', 'spendingOptionGroup');
+
+  spendingOptionGroup.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = spendingOptionGroup.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.nonMentalPowerPPInvestments, character));
+  $('#psychicPotentialInvestment input').first().change({'key': 'psychicPotential', 'character': character}, function(event) {
+    changePP(event, Number($(this).val()));
+  })
+  $('#innateSlotsInvestment input').first().change({'key': 'innateSlots', 'character': character}, function(event) {
+    changePP(event, Number($(this).val()));
+  })
 }
 
 ///////////////////////////
@@ -486,6 +496,14 @@ function changeCP(event, newValue) {
   }
 }
 
+function changePP(event, newValue) {
+  var key = event.data.key;
+  var character = event.data.character;
+  character[key].ppInvested = newValue;
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
 function changeElan(event, obtainedGift) {
   var c = event.data.character;
   var d = event.data.deityKey;
@@ -512,6 +530,7 @@ function updateSpendingOptions(character) {
   updateSecondaryAbilityLevelBonusSpendingOptions(character);
   updateCpSpendingOptions(character);
   updateElanSpendingOptions(character);
+  updatePpSpendingOptions(character);
 }
 
 function updateDpSpendingOptions(character) {
@@ -585,6 +604,15 @@ function updateCpSpendingOptions(character) {
       "checked": hasAdvantage(character, i),
       "disabled": !canAffordAdvantage(character, i)});
   }
+}
+
+function updatePpSpendingOptions(character) {
+  var PP = character.primaryAbilities.psychicPoints.score;
+
+  $('#Total_PP').html(PP);
+
+  $('#psychicPotentialInvestment').find('.score').first().html(character.psychicPotential.score);
+  $('#innateSlotsInvestment').find('.score').first().html(character.innateSlots.score);
 }
 
 function updateElanSpendingOptions(character) {

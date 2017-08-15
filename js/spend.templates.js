@@ -65,6 +65,12 @@ Template.secondaryAbilityLevelBonusInvestment = String.raw`
 </tr>
 `;
 
+Template.nonMentalPowerPPInvestments = String.raw`
+<tr class="nonMentalPowerPPInvestment"><th class="name"></th><th class="ppInvested">PP Invested</th><th class="score">Score</th></tr>
+<tr id="psychicPotentialInvestment" class="nonMentalPowerPPInvestment"><td class="name">Psychic Potential</td><td class="ppInvested"><input type="number" value="{{psychicPotential.ppInvested}}"></td><td class="score">{{psychicPotential.score}}</td></tr>
+<tr id="innateSlotsInvestment" class="nonMentalPowerPPInvestment"><td class="name">Innate Slots</td><td class="ppInvested"><input type="number" value="{{innateSlots.ppInvested}}" step="2"></td><td class="score">{{innateSlots.score}}</td></tr>
+`;
+
 Template.cpInvestmentHeader = String.raw`
 <tr class="cpInvestment">
 <th class="name">{{name}}</th>

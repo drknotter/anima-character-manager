@@ -50,7 +50,7 @@ class PsychicPotential extends Scoreable {
   get ppInvestedBonus() {
     var ppInvestedAddition = 0;
     var tally = 1;
-    while (tally * (tally - 1) / 2 < this.ppInvested) {
+    while (tally * (tally + 1) / 2 < this.ppInvested + 1) {
       tally++;
       ppInvestedAddition += 10;
     }
