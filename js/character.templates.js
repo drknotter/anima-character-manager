@@ -58,18 +58,13 @@ Template.characteristic = String.raw`
 `;
 
 Template.combat = String.raw`
-<table class="stats">
-<tr>
-<td class="stat openRollable" data-name="Initiative" data-bonus="{{initiative.score}}"><span>{{initiative.score}}</span><br/>Initiative</td>
-<td class="space"/>
-<td class="stat"><span>{{primaryAbilities.attack.score}}<span class="percentile"> ({{primaryAbilities.attack.percentile}}%)</span></span><br/>Attack</td>
-<td class="space"/>
-<td class="stat"><span>{{primaryAbilities.block.score}}<span class="percentile"> ({{primaryAbilities.block.percentile}}%)</span></span><br/>Block</td>
-<td class="space"/>
-<td class="stat"><span>{{primaryAbilities.dodge.score}}<span class="percentile"> ({{primaryAbilities.dodge.percentile}}%)</span></span><br/>Dodge</td>
-</tr>
+<table class="combatTable">
+<tr><td>Initiative</td><td class="score openRollable" data-name="Initiative" data-bonus="{{initiative.score}}">{{initiative.score}}</td><td class="score"></td></tr>
+<tr><td>Attack</td><td class="score openRollable" data-name="Attack" data-bonus="{{primaryAbilities.attack.score}}">{{primaryAbilities.attack.score}}</td><td class="score percentileRollable" data-name="Attack" data-bonus="{{primaryAbilities.attack.percentile}}">{{primaryAbilities.attack.percentile}}%</td></tr>
+<tr><td>Block</td><td class="score openRollable" data-name="Block" data-bonus="{{primaryAbilities.block.score}}">{{primaryAbilities.block.score}}</td><td class="score percentileRollable" data-name="Block" data-bonus="{{primaryAbilities.block.percentile}}">{{primaryAbilities.block.percentile}}%</td></tr>
+<tr><td>Dodge</td><td class="score openRollable" data-name="Dodge" data-bonus="{{primaryAbilities.dodge.score}}">{{primaryAbilities.dodge.score}}</td><td class="score percentileRollable" data-name="Dodge" data-bonus="{{primaryAbilities.dodge.percentile}}">{{primaryAbilities.dodge.percentile}}%</td></tr>
 </table>
-<table id="armorTypes">
+<table class="combatTable">
 <tr><th>Armor Type</th><th>Score</th></tr>
 <tr><td>{{armorType.cut.name}}</td><td class="score">{{armorType.cut.score}}</td></tr>
 <tr><td>{{armorType.impact.name}}</td><td class="score">{{armorType.impact.score}}</td></tr>

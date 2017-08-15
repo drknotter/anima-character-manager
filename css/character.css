@@ -321,15 +321,15 @@
   vertical-align: middle;
 }
 
-#armorTypes {
+.combatTable {
   background: #eee;
   padding: 0.5rem;
   margin-top: 0.5rem;
 }
-#armorTypes th {
+.combatTable th {
   vertical-align: top;
 }
-#armorTypes th:first-child {
+.combatTable th:first-child {
   background: #eee;
   font-size: 110%;
   text-align: left;
@@ -337,13 +337,13 @@
   padding-bottom: 0.5rem;
   font-weight: bold;
 }
-#armorTypes tr:nth-child(even) {
+.combatTable tr:nth-child(even) {
   background: #ccc;
 }
-#armorTypes td {
+.combatTable td {
   padding: 0.25rem 1rem;
 }
-#armorTypes .score {
+.combatTable .score {
   text-align: center;
   width: 2.5rem;
 }
