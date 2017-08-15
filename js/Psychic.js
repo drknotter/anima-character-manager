@@ -45,28 +45,28 @@ class PsychicPotential extends Scoreable {
         return base;
       }
     });
-    Object.defineProperty(this, 'ppInvestedBonus', {
-      get: function() {
-        var ppInvestedAddition = 0;
-        var tally = 1;
-        while (tally * (tally - 1) / 2 < thisClosure.ppInvested) {
-          tally++;
-          ppInvestedAddition += 10;
-        }
-        return ppInvestedAddition;
-      }
-    });
   }
 
-  get name() {
-    return "Psychic Potential";
+  get ppInvestedBonus() {
+    var ppInvestedAddition = 0;
+    var tally = 1;
+    while (tally * (tally - 1) / 2 < this.ppInvested) {
+      tally++;
+      ppInvestedAddition += 10;
+    }
+    return ppInvestedAddition;
   }
 }
 
-class InnateSlots {
+class InnateSlots extends Scoreable {
   constructor(data) {
+    super("Innate Slots");
     check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for innate slots!");
     this.ppInvested = data.ppInvested;
+  }
+
+  get ppInvestedBonus() {
+    return Math.floor(this.ppInvested / 2);
   }
 }
 

@@ -52,11 +52,17 @@ class Scoreable {
 
   get score() {
     var total = 0;
-    var names = Object.getOwnPropertyNames(this);
-    for (let key in names) {
-      if (/Bonus$/.test(names[key])) {
-        total += this[names[key]];
-      }
+    var bonusNames = [];
+    var names = [];
+    var obj = this;
+    do {
+      var names = Object.getOwnPropertyNames(obj);
+      bonusNames = bonusNames.concat(names.filter(name => /Bonus$/.test(name)));
+      obj = obj.__proto__;
+    } while(obj != null);
+
+    for (let key in bonusNames) {
+      total += this[bonusNames[key]];
     }
     return total;
   }

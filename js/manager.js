@@ -81,7 +81,7 @@ function renderCharacter(character) {
   $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Psychic Projection', 'score': character.primaryAbilities.psychicProjection.score}));
   $('#mainPsychicInfo .mainPsychicInfo .score').last().addClass('openRollable');
   $('#mainPsychicInfo .mainPsychicInfo .score').last().attr({'data-name': 'Psychic Projection', 'data-bonus': character.primaryAbilities.psychicProjection.score});
-  $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Innate Slots', 'score': character.innateSlots.ppInvested / 2}));
+  $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Innate Slots', 'score': character.innateSlots.score}));
 
   var disciplinesMentalPowerMap = {};
   for (let i in character.mentalPowers) {
