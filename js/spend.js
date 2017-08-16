@@ -96,6 +96,15 @@ var OTHER_DP_SPEND_GROUP = {
   ],
 };
 
+var OPTION_GROUP_IDS = [
+'dpSpendingOptionGroup',
+'characteristicLevelBonusSpendingOptionGroup',
+'secondaryAbilityLevelBonusSpendingOptionGroup',
+'ppSpendingOptionGroup',
+'cpSpendingOptionGroup',
+'elanSpendingOptionGroup'
+];
+
 function gatherInvestments(data, key, searchKey) {
   if (!data) {
     return [];
@@ -185,29 +194,52 @@ function allMentalPowersByDiscipline() {
   return allMentalPowersByDiscipline;
 }
 
+jQuery.fn.getPath = function () {
+    if (this.length != 1) throw 'Requires one element.';
+
+    var path, node = this;
+    while (node.length) {
+        var realNode = node[0], name = realNode.localName;
+        if (!name) break;
+        name = name.toLowerCase();
+
+        var parent = node.parent();
+
+        var siblings = parent.children(name);
+        if (siblings.length > 1) { 
+            name += ':eq(' + siblings.index(realNode) + ')';
+        }
+
+        path = name + (path ? '>' + path : '');
+        node = parent;
+    }
+
+    return path;
+};
+
 $( document ).ready(function() {
   var characterName = getParameterByName("n");
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
-  renderSpendingOptionGroups(character);
+  renderSpendingOptionGroups(character, [true, true, true, true, true, true, ]);
   $('#popup').click(function(event) {
     event.stopPropagation();
   });
 });
 
-function renderSpendingOptionGroups(character) {
-  renderDpOptionSpendingGroup(character);
-  renderCharacteristicLevelBonusSpendingGroup(character);
-  renderSecondaryAbilityLevelBonusSpendingGroup(character);
-  renderPpSpendingGroup(character);
-  renderCpSpendingGroup(character);
-  renderElanSpendingGroup(character);
+function renderSpendingOptionGroups(character, toggle) {
+  renderDpOptionSpendingGroup(character, toggle[0]);
+  renderCharacteristicLevelBonusSpendingGroup(character, toggle[1]);
+  renderSecondaryAbilityLevelBonusSpendingGroup(character, toggle[2]);
+  renderPpSpendingGroup(character, toggle[3]);
+  renderCpSpendingGroup(character, toggle[4]);
+  renderElanSpendingGroup(character, toggle[5]);
 }
 
 /////////////////////////
 // DP spending options //
 /////////////////////////
 
-function renderDpOptionSpendingGroup(character) {
+function renderDpOptionSpendingGroup(character, doToggle) {
   var DP = character.DP;
 
   appendBox($('#content'), 'dpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -238,7 +270,9 @@ function renderDpOptionSpendingGroup(character) {
     investments.push(character.otherAbilities[OTHER_DP_SPEND_GROUP.abilities[i]]);
   }
   renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, null, spendingOptionGroup);
-  spendingOptionGroup.toggle();
+  if (doToggle) {
+    spendingOptionGroup.toggle();
+  }
 }
 
 function renderDpSpendingOptionSubgroup(character, investments, subgroupName, limit, parent) {
@@ -270,7 +304,7 @@ function renderDpSpendingOption(character, investment, parent, limit, totalInves
 /////////////////////////////////////////////////
 // Characteristic level bonus spending options //
 /////////////////////////////////////////////////
-function renderCharacteristicLevelBonusSpendingGroup(character) {
+function renderCharacteristicLevelBonusSpendingGroup(character, doToggle) {
   var levelBonuses = character.characteristicLevelBonuses;
 
   appendBox($('#content'), 'characteristicLevelBonusSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -294,13 +328,15 @@ function renderCharacteristicLevelBonusSpendingGroup(character) {
     });
   }
 
-  spendingOptionGroup.toggle();
+  if (doToggle) {
+    spendingOptionGroup.toggle();
+  }
 }
 
 ////////////////////////////////////////////////////
 // Secondary ability level bonus spending options //
 ////////////////////////////////////////////////////
-function renderSecondaryAbilityLevelBonusSpendingGroup(character) {
+function renderSecondaryAbilityLevelBonusSpendingGroup(character, doToggle) {
   var levelBonuses = character.secondaryAbilityLevelBonuses;
 
   appendBox($('#content'), 'secondaryAbilityLevelBonusSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -324,14 +360,16 @@ function renderSecondaryAbilityLevelBonusSpendingGroup(character) {
     });
   }
 
-  spendingOptionGroup.toggle();
+  if (doToggle) {
+    spendingOptionGroup.toggle();
+  }
 }
 
 /////////////////////////////////////
 // Creation point spending options //
 /////////////////////////////////////
 
-function renderCpSpendingGroup(character) {
+function renderCpSpendingGroup(character, doToggle) {
   var CP = character.CP;
 
   appendBox($('#content'), 'cpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -356,7 +394,10 @@ function renderCpSpendingGroup(character) {
   for (let i in DISADVANTAGES) {
     renderCpSpendingOption(character, DISADVANTAGES[i], subgroup);
   }
-  spendingOptionGroup.toggle();
+
+  if (doToggle) {
+    spendingOptionGroup.toggle();
+  }
 }
 
 function renderCpSpendingOption(character, advantageKey, parent) {
@@ -376,7 +417,7 @@ function renderCpSpendingOption(character, advantageKey, parent) {
 // PP spending options //
 /////////////////////////
 
-function renderPpSpendingGroup(character) {
+function renderPpSpendingGroup(character, doToggle) {
   var PP = character.primaryAbilities.psychicPoints.score;
 
   appendBox($('#content'), 'ppSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -403,6 +444,10 @@ function renderPpSpendingGroup(character) {
   var disciplines = allMentalPowersByDiscipline();
   for (let d in disciplines) {
     renderMentalPowerDisciplineSpendingGroup(spendingOptionGroup, character, d, disciplines[d]);
+  }
+
+  if (doToggle) {
+    spendingOptionGroup.toggle();
   }
 }
 
@@ -447,7 +492,7 @@ function renderMentalPower(parent, character, mentalPowerKey) {
 // Elan spending options //
 ///////////////////////////
 
-function renderElanSpendingGroup(character) {
+function renderElanSpendingGroup(character, doToggle) {
   appendBox($('#content'), 'elanSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeaderNoTotal, {
     'optionName': 'Elan'
   }));
@@ -457,7 +502,9 @@ function renderElanSpendingGroup(character) {
     renderDeitySpendingOptions(character, i);
   }
 
-  $('#elanSpendingOptionGroup').toggle();
+  if (doToggle) {
+    $('#elanSpendingOptionGroup').toggle();
+  }
 }
 
 function renderDeitySpendingOptions(character, deityKey) {
@@ -617,12 +664,14 @@ function changeElan(event, obtainedGift) {
 }
 
 function updateSpendingOptions(character) {
-  updateDpSpendingOptions(character);
-  updateCharacteristicLevelBonusSpendingOptions(character);
-  updateSecondaryAbilityLevelBonusSpendingOptions(character);
-  updateCpSpendingOptions(character);
-  updateElanSpendingOptions(character);
-  updatePpSpendingOptions(character);
+  var toggle = [];
+  for (let i in OPTION_GROUP_IDS) {
+    toggle.push($('#' + OPTION_GROUP_IDS[i]).is(':hidden'));
+  }
+  var focusPath = $(document.activeElement).getPath();
+  $('#content').empty();
+  renderSpendingOptionGroups(character, toggle);
+  $(focusPath).focus();
 }
 
 function updateDpSpendingOptions(character) {
