@@ -151,6 +151,40 @@ function canAffordAdvantage(character, advantageKey) {
   return hasAdvantage(character, advantageKey) || ADVANTAGE_DATA[advantageKey].minCost <= character.CP;
 }
 
+function hasAffinityWithDiscipline(character, disciplineName) {
+  for (let m in character.mentalPowers) {
+    if (character.mentalPowers[m].discipline == disciplineName) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function allMentalPowersByDiscipline() {
+    var allMentalPowersByDiscipline = {};
+  for (let m in MENTAL_POWER_DATA) {
+    if (!(MENTAL_POWER_DATA[m].discipline in allMentalPowersByDiscipline)) {
+      allMentalPowersByDiscipline[MENTAL_POWER_DATA[m].discipline] = [];
+    }
+    allMentalPowersByDiscipline[MENTAL_POWER_DATA[m].discipline].push({
+      'key': m,
+      'level': MENTAL_POWER_DATA[m].level,
+      'name': MENTAL_POWER_DATA[m].name
+    });
+  }
+
+  for (let d in allMentalPowersByDiscipline) {
+    allMentalPowersByDiscipline[d].sort(function(a, b) {
+      if (a.level != b.level) {
+        return a.level - b.level;
+      }
+      return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+    });
+  }
+
+  return allMentalPowersByDiscipline;
+}
+
 $( document ).ready(function() {
   var characterName = getParameterByName("n");
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
@@ -227,7 +261,7 @@ function renderDpSpendingOption(character, investment, parent, limit, totalInves
   }
   var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
   parent.append(Mustache.render(Template.dpInvestment, data));
-  parent.children('.dpInvestment').last().attr('id', investment.name.replace(/\s/g, "_") + ":DP");
+  parent.children('.dpInvestment').last().attr('id', investment.name.replace(/\s/g, "_") + "_DP");
   $('.dpInvested>input').last().change({'investment': investment, 'character': character}, function(event) {
     changeDP(event, Number(this.value));
   });
@@ -254,7 +288,7 @@ function renderCharacteristicLevelBonusSpendingGroup(character) {
   for (let i in character.characteristics) {
     var maxForInvestment = levelBonuses + character.characteristics[i].characteristicLevelBonusesInvested;
     subgroup.append(Mustache.render(Template.characteristicLevelBonusInvestment, {'characteristic': character.characteristics[i], 'maxForInvestment': maxForInvestment}));
-    subgroup.children('.characteristicLevelBonusInvestment').last().attr('id', character.characteristics[i].name.replace(/\s/g, "_") + ":CB");
+    subgroup.children('.characteristicLevelBonusInvestment').last().attr('id', character.characteristics[i].name.replace(/\s/g, "_") + "_CB");
     $('.characteristicLevelBonusesInvested>input').last().change({'characteristic': character.characteristics[i], 'character': character}, function(event) {
       changeCharacteristicLevelBonuses(event, Number(this.value));
     });
@@ -284,7 +318,7 @@ function renderSecondaryAbilityLevelBonusSpendingGroup(character) {
   for (let i in character.secondaryAbilities) {
     var maxForInvestment = levelBonuses + character.secondaryAbilities[i].secondaryAbilityLevelBonusesInvested;
     subgroup.append(Mustache.render(Template.secondaryAbilityLevelBonusInvestment, {'ability': character.secondaryAbilities[i], 'maxForInvestment': maxForInvestment}));
-    subgroup.children('.secondaryAbilityLevelBonusInvestment').last().attr('id', character.secondaryAbilities[i].name.replace(/\s/g, "_") + ":NB");
+    subgroup.children('.secondaryAbilityLevelBonusInvestment').last().attr('id', character.secondaryAbilities[i].name.replace(/\s/g, "_") + "_NB");
     $('.secondaryAbilityLevelBonusesInvested>input').last().change({'ability': character.secondaryAbilities[i], 'character': character}, function(event) {
       changeSecondaryAbilityLevelBonuses(event, Number(this.value));
     });
@@ -330,7 +364,7 @@ function renderCpSpendingOption(character, advantageKey, parent) {
 
   var data = {'name': advantage.name, 'cost': advantageCost(character, advantageKey)};
   parent.append(Mustache.render(Template.cpInvestment, data));
-  parent.children('.cpInvestment').last().attr('id', advantage.name.replace(/\s/g, "_") + ":CP");
+  parent.children('.cpInvestment').last().attr('id', advantage.name.replace(/\s/g, "_") + "_CP");
   $('.obtained>input').last().attr("checked", hasAdvantage(character, advantageKey));
   $('.obtained>input').last().attr("disabled", !canAffordAdvantage(character, advantageKey));
   $('.obtained>input').last().change({'advantageKey': advantageKey, 'character': character}, function(event) {
@@ -360,9 +394,53 @@ function renderPpSpendingGroup(character) {
   $('#psychicPotentialInvestment input').first().change({'key': 'psychicPotential', 'character': character}, function(event) {
     changePP(event, Number($(this).val()));
   })
+  $('#psychicPotentialInvestment input').first().attr('max', character.psychicPotential.ppInvested + PP);
   $('#innateSlotsInvestment input').first().change({'key': 'innateSlots', 'character': character}, function(event) {
     changePP(event, Number($(this).val()));
   })
+  $('#innateSlotsInvestment input').first().attr('max', character.innateSlots.ppInvested + PP);
+
+  var disciplines = allMentalPowersByDiscipline();
+  for (let d in disciplines) {
+    renderMentalPowerDisciplineSpendingGroup(spendingOptionGroup, character, d, disciplines[d]);
+  }
+}
+
+function renderMentalPowerDisciplineSpendingGroup(parent, character, disciplineName, discipline) {
+  parent.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = parent.children('.spendingOptionSubgroup').last();
+  subgroup.attr('id', disciplineName.replace(/\s/g, "_") + "_MentalDiscipline")
+
+  subgroup.append(Mustache.render(Template.mentalDisciplineHeader, {'name': disciplineName}));
+  subgroup.find('input.affinity').last().attr({
+    'checked': hasAffinityWithDiscipline(character, disciplineName),
+    'disabled': true
+  });
+
+  for (let m in discipline) {
+    renderMentalPower(subgroup, character, discipline[m].key);
+  }
+}
+
+function renderMentalPower(parent, character, mentalPowerKey) {
+  if (mentalPowerKey in character.mentalPowers) {
+    parent.append(Mustache.render(Template.mentalPower, character.mentalPowers[mentalPowerKey]));
+  } else {
+    parent.append(Mustache.render(Template.mentalPower, MENTAL_POWER_DATA[mentalPowerKey]));
+  }
+  parent.find('.mentalPower').last().attr('id', mentalPowerKey + "_MentalPower");
+  var obtainedMentalPower = $('#' + mentalPowerKey + "_MentalPower").find('.obtainedMentalPower')
+  var mentalPowerInvestment = $('#' + mentalPowerKey + "_MentalPower").find('.mentalPowerInvestment');
+
+  var PP = character.primaryAbilities.psychicPoints.score;
+  var hasMentalPower = mentalPowerKey in character.mentalPowers;
+  var canAffordMentalPower = hasAffinityWithDiscipline(MENTAL_POWER_DATA[mentalPowerKey].discipline) ? (PP >= 1) : (PP >= 2);
+  obtainedMentalPower.attr('checked', hasMentalPower);
+  obtainedMentalPower.attr('disabled', !hasMentalPower && !canAffordMentalPower);
+  obtainedMentalPower.change(function(event) {
+    changeMentalPower(character, mentalPowerKey, $(this).is(":checked"), Number(mentalPowerInvestment.val()));
+  })
+  mentalPowerInvestment.attr('disabled', !hasMentalPower);
 }
 
 ///////////////////////////
@@ -504,6 +582,20 @@ function changePP(event, newValue) {
   localStorage['character.'+character.name] = JSON.stringify(character);
 }
 
+function changeMentalPower(character, mentalPowerKey, obtained, ppInvested) {
+  if (obtained) {
+    if (!(mentalPowerKey in character.mentalPowers)) {
+      var mentalPowerData = jQuery.extend({}, MENTAL_POWER_DATA[mentalPowerKey], {'ppInvested': 0});
+      character.mentalPowers[mentalPowerKey] = new MentalPower(mentalPowerData, character, mentalPowerKey);
+    }
+    character.mentalPowers[mentalPowerKey].ppInvested = ppInvested;
+  } else if (!obtained) {
+    delete character.mentalPowers[mentalPowerKey];
+  }
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
 function changeElan(event, obtainedGift) {
   var c = event.data.character;
   var d = event.data.deityKey;
@@ -558,7 +650,7 @@ function updateDpSpendingOptions(character) {
         break;
       }
     }
-    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + ":DP"));
+    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + "_DP"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
     investmentDOM.children(".score").html(investments[i].data.score);
   }
@@ -572,7 +664,7 @@ function updateCharacteristicLevelBonusSpendingOptions(character) {
 
   for (let i in investments) {
     var maxForInvestment = investments[i].data.characteristicLevelBonusesInvested + characteristicLevelBonuses;
-    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + ":CB"));
+    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + "_CB"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
     investmentDOM.children(".score").html(investments[i].data.score);
     investmentDOM.children(".modifier").html(investments[i].data.modifier);
@@ -587,7 +679,7 @@ function updateSecondaryAbilityLevelBonusSpendingOptions(character) {
 
   for (let i in investments) {
     var maxForInvestment = investments[i].data.secondaryAbilityLevelBonusesInvested + secondaryAbilityLevelBonuses;
-    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + ":NB"));
+    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + "_NB"));
     investmentDOM.find("input").attr({'max': maxForInvestment});
     investmentDOM.children(".score").html(investments[i].data.score);
   }
@@ -598,7 +690,7 @@ function updateCpSpendingOptions(character) {
 
   for (let i in ADVANTAGE_DATA) {
     var advantageData = ADVANTAGE_DATA[i];
-    var advantageDOM = $(document.getElementById(advantageData.name.replace(/\s/g, "_") + ":CP"));
+    var advantageDOM = $(document.getElementById(advantageData.name.replace(/\s/g, "_") + "_CP"));
     advantageDOM.find(".cost").html(advantageCost(character, i));
     advantageDOM.find("input").attr({
       "checked": hasAdvantage(character, i),
@@ -612,7 +704,9 @@ function updatePpSpendingOptions(character) {
   $('#Total_PP').html(PP);
 
   $('#psychicPotentialInvestment').find('.score').first().html(character.psychicPotential.score);
+  $('#psychicPotentialInvestment input').first().attr('max', character.psychicPotential.ppInvested + PP);
   $('#innateSlotsInvestment').find('.score').first().html(character.innateSlots.score);
+  $('#innateSlotsInvestment input').first().attr('max', character.innateSlots.ppInvested + PP);
 }
 
 function updateElanSpendingOptions(character) {

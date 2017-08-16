@@ -173,3 +173,15 @@
   width: 5rem;
   text-align: center;
 }
+
+.disciplineName {
+  font-size: 120%;
+}
+.mentalPower .input {
+  width: 6rem;
+  max-width: 6rem;
+  text-align: center;
+}
+.mentalPower .input input {
+  max-width: 4rem;
+}

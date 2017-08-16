@@ -71,6 +71,23 @@ Template.nonMentalPowerPPInvestments = String.raw`
 <tr id="innateSlotsInvestment" class="nonMentalPowerPPInvestment"><td class="name">Innate Slots</td><td class="ppInvested"><input type="number" value="{{innateSlots.ppInvested}}" step="2"></td><td class="score">{{innateSlots.score}}</td></tr>
 `;
 
+Template.mentalDisciplineHeader = String.raw`
+<tr class="mentalPower">
+<th colspan="3" class="disciplineName">{{name}}</th><th class="input">Affinity? <input class="affinity" type="checkbox"></th>
+</tr>
+<tr class="mentalPower">
+<th class="name"></th><th class="input">Obtained?</th><th class="input">PP Invested</th><th class="input">Bonus</th>
+</tr>
+`;
+Template.mentalPower = String.raw`
+<tr class="mentalPower">
+<td class="name">{{name}} (Level {{level}})</td>
+<td class="input"><input class="obtainedMentalPower" type="checkbox"></td>
+<td class="input"><input class="mentalPowerInvestment" type="number" value="{{ppInvested}}" min="0"></td>
+<td class="input bonus">{{#ppInvestedBonus}}{{ppInvestedBonus}}{{/ppInvestedBonus}}{{^ppInvestedBonus}}N/A{{/ppInvestedBonus}}</td>
+</tr>
+`;
+
 Template.cpInvestmentHeader = String.raw`
 <tr class="cpInvestment">
 <th class="name">{{name}}</th>

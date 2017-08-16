@@ -5,7 +5,7 @@ class MentalPower extends Scoreable {
     check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for mental power " + key + "!");
     this.ppInvested = data.ppInvested;
 
-    var attrs = ['description', 'discipline', 'action', 'maintainable', 'effects'];
+    var attrs = ['description', 'discipline', 'action', 'maintainable', 'effects', 'level'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {
@@ -89,6 +89,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '20 Intensities'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '25 Intensities'},
     ],
+    'level': 1,
   },
   'controlFire': {
     'name': 'Control Fire',
@@ -108,6 +109,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '25 Intensities / 200 PhR'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '30 Intensities / 240 PhR'},
     ],
+    'level': 1,
   },
   'freeze': {
     'name': 'Freeze',
@@ -127,6 +129,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '180 PhR'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '220 PhR'},
     ],
+    'level': 1,
   },
   'iceShield': {
     'name': 'Ice Shield',
@@ -146,6 +149,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '4,000 LP'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '6,000 LP'},
     ],
+    'level': 2,
   },
   'defensiveTeleportation': {
     'name': 'Defensive Teleportation',
@@ -165,6 +169,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '8 Dodge / 300 ft'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '&infin; Dodge / &infin; ft'},
     ],
+    'level': 1,
   },
   'createChaos': {
     'name': 'Create Chaos',
@@ -184,6 +189,7 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '2 miles'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '3 miles'},
     ],
+    'level': 1,
   },
   'everlastingMoment': {
     'name': 'Everlasting Moment',
@@ -203,5 +209,6 @@ var MENTAL_POWER_DATA = {
       {'roll': 320, 'difficulty': 'Inhuman', 'outcome': '180 PhR / 150 ft radius'},
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '220 PhR / 300 ft radius'},
     ],
+    'level': 3,
   },
 };
