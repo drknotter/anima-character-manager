@@ -484,8 +484,11 @@ function renderMentalPower(parent, character, mentalPowerKey) {
   obtainedMentalPower.attr('disabled', !hasMentalPower && !canAffordMentalPower);
   obtainedMentalPower.change(function(event) {
     changeMentalPower(character, mentalPowerKey, $(this).is(":checked"), Number(mentalPowerInvestment.val()));
-  })
+  });
   mentalPowerInvestment.attr('disabled', !hasMentalPower);
+  mentalPowerInvestment.change(function(event) {
+    changeMentalPower(character, mentalPowerKey, obtainedMentalPower.is(":checked"), Number($(this).val()));
+  });
 }
 
 ///////////////////////////

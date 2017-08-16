@@ -110,7 +110,7 @@ class Character {
         var disciplines = [];
         var ppInvestedOnMentalPowers = 0;
         for (let i in me.mentalPowers) {
-          if (!(me.mentalPowers[i].discipline in disciplines)) {
+          if (disciplines.indexOf(me.mentalPowers[i].discipline) < 0) {
             ppInvestedOnMentalPowers++;
             disciplines.push(me.mentalPowers[i].discipline);
           }
