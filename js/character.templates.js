@@ -59,7 +59,8 @@ Template.characteristic = String.raw`
 
 Template.combat = String.raw`
 <table class="combatTable">
-<tr><td>Initiative</td><td class="score openRollable" data-name="Initiative" data-bonus="{{initiative.score}}">{{initiative.score}}</td><td class="score"></td></tr>
+<tr><td>Initiative</td><td class="score"></td><td class="score openRollable" data-name="Initiative" data-bonus="{{initiative.score}}">{{initiative.score}}</td></tr>
+<tr><td>Actions</td><td class="score"></td><td class="score">{{actions}}</td></tr>
 <tr><td>Attack</td><td class="score openRollable" data-name="Attack" data-bonus="{{primaryAbilities.attack.score}}">{{primaryAbilities.attack.score}}</td><td class="score percentileRollable" data-name="Attack" data-bonus="{{primaryAbilities.attack.percentile}}">{{primaryAbilities.attack.percentile}}%</td></tr>
 <tr><td>Block</td><td class="score openRollable" data-name="Block" data-bonus="{{primaryAbilities.block.score}}">{{primaryAbilities.block.score}}</td><td class="score percentileRollable" data-name="Block" data-bonus="{{primaryAbilities.block.percentile}}">{{primaryAbilities.block.percentile}}%</td></tr>
 <tr><td>Dodge</td><td class="score openRollable" data-name="Dodge" data-bonus="{{primaryAbilities.dodge.score}}">{{primaryAbilities.dodge.score}}</td><td class="score percentileRollable" data-name="Dodge" data-bonus="{{primaryAbilities.dodge.percentile}}">{{primaryAbilities.dodge.percentile}}%</td></tr>

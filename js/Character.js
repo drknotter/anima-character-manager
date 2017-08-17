@@ -214,6 +214,26 @@ class Character {
     return this.characteristics.con.score;
   }
 
+  get actions() {
+    var x = this.characteristics.agi.score + this.characteristics.dex.score;
+    if (x < 11) {
+      return 1;
+    } else if (x < 15) {
+      return 2;
+    } else if (x < 20) {
+      return 3;
+    } else if (x < 23) {
+      return 4;
+    } else if (x < 26) {
+      return 5;
+    } else if (x < 29) {
+      return 6;
+    } else if (x < 32) {
+      return 8;
+    }
+    return 10;
+  }
+
   get basePresence() {
     return 25 + this.level * 5;
   }
