@@ -288,10 +288,10 @@
     }
   },
   "advantages": {
-    "amplifySustainedPower": {
+    "freeAccessToAnyPsychicDiscipline": {
       "cpInvested": 2
     },
-    "freeAccessToAnyPsychicDiscipline": {
+    "amplifySustainedPower": {
       "cpInvested": 2
     }
   },
@@ -301,25 +301,25 @@
     }
   },
   "mentalPowers": {
-    "createFire": {
-      "ppInvested": 0
-    },
-    "controlFire": {
-      "ppInvested": 0
-    },
     "freeze": {
       "ppInvested": 0
     },
     "iceShield": {
-      "ppInvested": 0
+      "ppInvested": 2
     },
     "everlastingMoment": {
-      "ppInvested": 3
+      "ppInvested": 4
     },
     "defensiveTeleportation": {
       "ppInvested": 2
     },
     "createChaos": {
+      "ppInvested": 0
+    },
+    "controlFire": {
+      "ppInvested": 0
+    },
+    "createFire": {
       "ppInvested": 0
     }
   },
@@ -474,7 +474,7 @@
         "fortitude": 8,
         "presence": 15,
         "qualityBonus": 0,
-        "equipped": true,
+        "equipped": false,
         "equippedBonuses": [],
         "possesionBonuses": [],
         "damage": 25,
@@ -507,7 +507,9 @@
     },
     "azrael": {
       "elanBonus": 14,
-      "gifts": []
+      "gifts": [
+        "leader"
+      ]
     },
     "barakiel": {
       "elanBonus": 8,

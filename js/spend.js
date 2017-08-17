@@ -291,7 +291,7 @@ function renderDpSpendingOptionSubgroup(character, investments, subgroupName, li
 function renderDpSpendingOption(character, investment, parent, limit, totalInvestedInSubgroup) {
   var maxForInvestment = investment.dpInvested + character.DP;
   if (limit) {
-    maxForInvestment = Math.min(maxForInvestment, investment.dpInvested + (character.totalDp * limit / 100 - totalInvestedInSubgroup));
+    maxForInvestment = Math.min(maxForInvestment, investment.dpInvested + (character.totalDP * limit / 100 - totalInvestedInSubgroup));
   }
   var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
   parent.append(Mustache.render(Template.dpInvestment, data));
@@ -675,110 +675,4 @@ function updateSpendingOptions(character) {
   $('#content').empty();
   renderSpendingOptionGroups(character, toggle);
   $(focusPath).focus();
-}
-
-function updateDpSpendingOptions(character) {
-  var DP = character.DP;
-  var investments = gatherInvestments(character, null, 'dpInvested');
-
-  $('#Total_DP').html(DP);
-
-  var subgroupTotals = {'combat': 0, 'supernatural': 0, 'psychic': 0};
-  for (let i in investments) {
-    for (let j in PRIMARY_DP_SPEND_GROUPS) {
-      if (PRIMARY_DP_SPEND_GROUPS[j].abilities.indexOf(investments[i].key) != -1) {
-        subgroupTotals[j] += investments[i].data.dpInvested;
-      }
-    }
-  }
-
-  for (let i in investments) {
-    var limit = null;
-    var maxForInvestment = investments[i].data.dpInvested + character.DP;
-    for (let j in PRIMARY_DP_SPEND_GROUPS) {
-      if (PRIMARY_DP_SPEND_GROUPS[j].abilities.indexOf(investments[i].key) != -1) {
-        maxForInvestment = Math.min(maxForInvestment, 
-          investments[i].data.dpInvested + (character.totalDP * character.class.limits[j] - subgroupTotals[j]));
-        break;
-      }
-    }
-    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + "_DP"));
-    investmentDOM.find("input").attr({'max': maxForInvestment});
-    investmentDOM.children(".score").html(investments[i].data.score);
-  }
-}
-
-function updateCharacteristicLevelBonusSpendingOptions(character) {
-  var characteristicLevelBonuses = character.characteristicLevelBonuses;
-  var investments = gatherInvestments(character, null, 'characteristicLevelBonusesInvested');
-
-  $('#Total_Level_Bonuses').html(characteristicLevelBonuses);
-
-  for (let i in investments) {
-    var maxForInvestment = investments[i].data.characteristicLevelBonusesInvested + characteristicLevelBonuses;
-    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + "_CB"));
-    investmentDOM.find("input").attr({'max': maxForInvestment});
-    investmentDOM.children(".score").html(investments[i].data.score);
-    investmentDOM.children(".modifier").html(investments[i].data.modifier);
-  }
-}
-
-function updateSecondaryAbilityLevelBonusSpendingOptions(character) {
-  var secondaryAbilityLevelBonuses = character.secondaryAbilityLevelBonuses;
-  var investments = gatherInvestments(character, null, 'secondaryAbilityLevelBonusesInvested');
-
-  $('#Total_Natural_Bonuses').html(secondaryAbilityLevelBonuses);
-
-  for (let i in investments) {
-    var maxForInvestment = investments[i].data.secondaryAbilityLevelBonusesInvested + secondaryAbilityLevelBonuses;
-    var investmentDOM = $(document.getElementById(investments[i].data.name.replace(/\s/g, "_") + "_NB"));
-    investmentDOM.find("input").attr({'max': maxForInvestment});
-    investmentDOM.children(".score").html(investments[i].data.score);
-  }
-}
-
-function updateCpSpendingOptions(character) {
-  $('#Total_CP').html(character.CP);
-
-  for (let i in ADVANTAGE_DATA) {
-    var advantageData = ADVANTAGE_DATA[i];
-    var advantageDOM = $(document.getElementById(advantageData.name.replace(/\s/g, "_") + "_CP"));
-    advantageDOM.find(".cost").html(advantageCost(character, i));
-    advantageDOM.find("input").attr({
-      "checked": hasAdvantage(character, i),
-      "disabled": !canAffordAdvantage(character, i)});
-  }
-}
-
-function updatePpSpendingOptions(character) {
-  var PP = character.primaryAbilities.psychicPoints.score;
-
-  $('#Total_PP').html(PP);
-
-  $('#psychicPotentialInvestment').find('.score').first().html(character.psychicPotential.score);
-  $('#psychicPotentialInvestment input').first().attr('max', character.psychicPotential.ppInvested + PP);
-  $('#innateSlotsInvestment').find('.score').first().html(character.innateSlots.score);
-  $('#innateSlotsInvestment input').first().attr('max', character.innateSlots.ppInvested + PP);
-}
-
-function updateElanSpendingOptions(character) {
-  for (let d in Elan.Data) {
-    let table = $('#' + Elan.Data[d].name + 'Group .gifts').first();
-    let totalElanSpent = 0;
-    for (let i in character.elan[d].gifts) {
-      var giftKey = character.elan[d].gifts[i];
-      totalElanSpent += Elan.Data[d].gifts[giftKey].cost;
-    }
-
-    let i=0;
-    for (let g in Elan.Data[d].gifts) {
-      let gift = Elan.Data[d].gifts[g];
-      let input = table.find('.gift input')[i];
-      $(input).attr('checked', character.elan[d].gifts.includes(g));
-      $(input).attr('disabled', !character.elan[d].gifts.includes(g) 
-        && (gift.cost > (character.elan[d].elanBonus - totalElanSpent)
-          || gift.requiredElan > character.elan[d].elanBonus));
-      i++;
-    }
-  }
 }

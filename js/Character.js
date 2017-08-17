@@ -121,7 +121,7 @@ class Character {
       }
     });
 
-    this.currentLifePoints = this.lifePoints;
+    this.currentLifePoints = this.lifePoints.score;
     if (data.currentLifePoints) {
       this.currentLifePoints = data.currentLifePoints;
     }
