@@ -104,6 +104,11 @@ class Character {
     this.innateSlots = new InnateSlots(data.innateSlots ? data.innateSlots : {'ppInvested': 0});
     this.psychicPotential = new PsychicPotential(data.psychicPotential ? data.psychicPotential : {'ppInvested': 0}, this);
 
+    this.combatModules = {};
+    for (let i in data.combatModules) {
+      this.combatModules[i] = new CombatModule(data.combatModules[i], this, i);
+    }
+
     // Adjust psychic points by pp invested + mental powers
     Object.defineProperty(this.primaryAbilities.psychicPoints, 'spentBonus', {
       get: function() {

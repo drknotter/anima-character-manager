@@ -105,24 +105,19 @@ var OPTION_GROUP_IDS = [
 'elanSpendingOptionGroup'
 ];
 
-function gatherInvestments(data, key, searchKey) {
-  if (!data) {
-    return [];
-  }
-
-  var gathered = [];
-  for (let i in data) {
-    if (i === searchKey) {
-      gathered.push({'key': key, 'data': data});
-      break;
-    } else if (data[i] instanceof Object) {
-      var gatheredFromChild = gatherInvestments(data[i], i, searchKey);
-      for (let j in gatheredFromChild) {
-        gathered.push(gatheredFromChild[j]);
+function totalDpInvestedInTypes(character) {
+  var totalDpInvestedInTypes = {'combat': 0, 'supernatural': 0, 'psychic': 0};
+  for (let type in totalDpInvestedInTypes) {
+    for (let i in PRIMARY_DP_SPEND_GROUPS[type].abilities) {
+      totalDpInvestedInTypes[type] += character.primaryAbilities[PRIMARY_DP_SPEND_GROUPS[type].abilities[i]].dpInvested;
+    }
+    for (let i in character.combatModules) {
+      if (character.combatModules[i].type === type) {
+        totalDpInvestedInTypes[type] += character.combatModules[i].type.cost;
       }
     }
   }
-  return gathered;
+  return totalDpInvestedInTypes;
 }
 
 function advantageCost(character, advantageKey) {
@@ -194,6 +189,34 @@ function allMentalPowersByDiscipline() {
   return allMentalPowersByDiscipline;
 }
 
+function modulesByType() {
+  var modulesByType = {};
+  for (let i in CombatModule.Data) {
+    if (!(CombatModule.Data[i].type in modulesByType)) {
+      modulesByType[CombatModule.Data[i].type] = [];
+    }
+    modulesByType[CombatModule.Data[i].type].push(i);
+  }
+  for (let i in modulesByType) {
+    modulesByType[i].sort(function(a, b) {
+      return CombatModule.Data[i][a].name < CombatModule.Data[i][b].name ? -1
+          : (CombatModule.Data[i][a].name > CombatModule.Data[i][b].name ? 1 : 0);
+    });
+  }
+  return modulesByType;
+}
+function moduleNameForType(type) {
+  if (type === 'combat') {
+    return 'Combat Modules';
+  }
+  if (type === 'supernatural') {
+    return 'Supernatural Modules';
+  }
+  if (type === 'psychic') {
+    return 'Psychic Modules';
+  }
+}
+
 jQuery.fn.getPath = function () {
     if (this.length != 1) throw 'Requires one element.';
 
@@ -241,6 +264,7 @@ function renderSpendingOptionGroups(character, toggle) {
 
 function renderDpOptionSpendingGroup(character, doToggle) {
   var DP = character.DP;
+  var totals = totalDpInvestedInTypes(character);
 
   appendBox($('#content'), 'dpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
     'optionName': 'Development Points', 
@@ -256,49 +280,71 @@ function renderDpOptionSpendingGroup(character, doToggle) {
     for (let j in PRIMARY_DP_SPEND_GROUPS[i].abilities) {
       investments.push(character.primaryAbilities[PRIMARY_DP_SPEND_GROUPS[i].abilities[j]]);
     }
-    renderDpSpendingOptionSubgroup(character, investments, PRIMARY_DP_SPEND_GROUPS[i].name, limit, spendingOptionGroup);
+    renderDpSpendingOptionSubgroup(character, investments, PRIMARY_DP_SPEND_GROUPS[i].name, spendingOptionGroup, limit, totals[i]);
+    renderModuleSubgroup(character, modulesByType()[i], moduleNameForType(i), spendingOptionGroup, limit, totals[i]);
   }
 
   var investments = [];
   for (let i in SECONDARY_DP_SPEND_GROUP.abilities) {
     investments.push(character.secondaryAbilities[SECONDARY_DP_SPEND_GROUP.abilities[i]]);
   }
-  renderDpSpendingOptionSubgroup(character, investments, SECONDARY_DP_SPEND_GROUP.name, null, spendingOptionGroup);
+  renderDpSpendingOptionSubgroup(character, investments, SECONDARY_DP_SPEND_GROUP.name, spendingOptionGroup);
 
   var investments = [];
   for (let i in OTHER_DP_SPEND_GROUP.abilities) {
     investments.push(character.otherAbilities[OTHER_DP_SPEND_GROUP.abilities[i]]);
   }
-  renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, null, spendingOptionGroup);
+  renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, spendingOptionGroup);
   if (doToggle) {
     spendingOptionGroup.toggle();
   }
 }
 
-function renderDpSpendingOptionSubgroup(character, investments, subgroupName, limit, parent) {
-  var totalInvestedInSubgroup = 0;
-  for (let i in investments) {
-    totalInvestedInSubgroup += investments[i].dpInvested;
-  }
+function renderDpSpendingOptionSubgroup(character, investments, subgroupName, parent, limit, total) {
   parent.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = parent.children('.spendingOptionSubgroup').last();
   subgroup.append(Mustache.render(Template.dpInvestmentHeader, {'name': subgroupName, 'limit': limit}))
   for (let i in investments) {
-    renderDpSpendingOption(character, investments[i], subgroup, limit, totalInvestedInSubgroup);
+    renderDpSpendingOption(character, investments[i], subgroup, limit, total);
   }
 }
 
-function renderDpSpendingOption(character, investment, parent, limit, totalInvestedInSubgroup) {
+function renderDpSpendingOption(character, investment, parent, limit, total) {
   var maxForInvestment = investment.dpInvested + character.DP;
   if (limit) {
-    maxForInvestment = Math.min(maxForInvestment, investment.dpInvested + (character.totalDP * limit / 100 - totalInvestedInSubgroup));
+    maxForInvestment = Math.min(maxForInvestment, investment.dpInvested + (character.totalDP * limit / 100 - total));
   }
   var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
   parent.append(Mustache.render(Template.dpInvestment, data));
-  parent.children('.dpInvestment').last().attr('id', investment.name.replace(/\s/g, "_") + "_DP");
   $('.dpInvested>input').last().change({'investment': investment, 'character': character}, function(event) {
     changeDP(event, Number(this.value));
   });
+}
+
+function renderModuleSubgroup(character, modules, subgroupName, parent, limit, total) {
+  parent.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = parent.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.moduleInvestmentHeader, {'name': subgroupName, 'limit': limit}));
+  for (let i in modules) {
+    renderModule(character, modules[i], subgroup, limit, total);
+  }
+}
+
+function renderModule(character, moduleKey, parent, limit, total) {
+  var module = CombatModule.Data[moduleKey];
+  var hasModule = moduleKey in character.combatModules;
+  var canAfford = character.DP >= module.cost && total + module.cost <= character.totalDP * limit / 100;
+
+  parent.append(Mustache.render(Template.moduleInvestment, module));
+  var dpInvestment = parent.children('.dpInvestment').last();
+  var obtainedInput = dpInvestment.find('.obtained input').last();
+  obtainedInput.attr({
+    'checked': hasModule,
+    'disabled': !hasModule && !canAfford
+  });
+  obtainedInput.change(function(event) {
+
+  })
 }
 
 /////////////////////////////////////////////////

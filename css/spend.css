@@ -38,7 +38,7 @@
   text-align: center;
 }
 
-.dpInvestment input {
+.dpInvestment input[type="number"] {
   width: 3.75rem;
   font-size: 100%;
 }
@@ -46,7 +46,7 @@
   width: 5rem;
   text-align: center;
 }
-.dpInvestment .score {
+.dpInvestment .score, .dpInvestment .obtained {
   width: 5rem;
   text-align: center;
 }

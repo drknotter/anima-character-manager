@@ -25,12 +25,26 @@ Template.dpInvestmentHeader = String.raw`
 <th class="score">Score</th>
 </tr>
 `;
+Template.moduleInvestmentHeader = String.raw`
+<tr class="dpInvestment">
+<th>{{name}} {{#limit}}(Limit {{limit}}%){{/limit}}</th>
+<th class="cost">Cost</th>
+<th class="obtained">Obtained?</th>
+</tr>
+`;
 Template.dpInvestment = String.raw`
 <tr class="dpInvestment">
 <td>{{investment.name}}</td>
 <td class="cost">{{investment.cost}}/{{investment.bonus}}</td>
 <td class="dpInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{investment.dpInvested}}" step="{{investment.cost}}"></td>
 <td class="score">{{investment.score}}</td>
+</tr>
+`;
+Template.moduleInvestment = String.raw`
+<tr class="dpInvestment">
+<td>{{name}}</td>
+<td class="cost">{{cost}}</td>
+<td class="obtained"><input type="checkbox"></td>
 </tr>
 `;
 
