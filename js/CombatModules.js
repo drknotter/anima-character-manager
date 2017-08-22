@@ -1,5 +1,5 @@
 class CombatModule {
-  constuctor(data, character, key) {
+  constructor(data, character, key) {
     check(key in CombatModule.Data, key + " is not a valid key for a combat module!");
 
     var attrs = ['description', 'effects', 'cost', 'type'];

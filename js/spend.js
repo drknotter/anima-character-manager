@@ -113,7 +113,7 @@ function totalDpInvestedInTypes(character) {
     }
     for (let i in character.combatModules) {
       if (character.combatModules[i].type === type) {
-        totalDpInvestedInTypes[type] += character.combatModules[i].type.cost;
+        totalDpInvestedInTypes[type] += character.combatModules[i].cost;
       }
     }
   }
@@ -342,8 +342,8 @@ function renderModule(character, moduleKey, parent, limit, total) {
     'checked': hasModule,
     'disabled': !hasModule && !canAfford
   });
-  obtainedInput.change(function(event) {
-
+  obtainedInput.change({'key': moduleKey, 'character': character}, function(event) {
+    changeModule(event, $(this).is(":checked"));
   })
 }
 
@@ -587,6 +587,18 @@ function changeDP(event, newValue) {
   var investment = event.data.investment;
   var character = event.data.character;
   investment.dpInvested = newValue;
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
+function changeModule(event, obtained) {
+  var moduleKey = event.data.key;
+  var character = event.data.character;
+  if (obtained && !(moduleKey in character.combatModules)) {
+    character.combatModules[moduleKey] = new CombatModule(CombatModule.Data[moduleKey], character, moduleKey);
+  } else if (!obtained) {
+    delete character.combatModules[moduleKey];
+  }
   updateSpendingOptions(character);
   localStorage['character.'+character.name] = JSON.stringify(character);
 }
