@@ -18,46 +18,6 @@ function gatherScoreables(data, keychain) {
   return out;
 }
 
-class EquipmentBonus {
-  constructor(data) {
-    check(Array.isArray(data.keyChain), data.keyChain + " is not a valid key chain for an equipment bonus!");
-    this.keyChain = data.keyChain;
-
-    check(isNumber(data.bonus), data.bonus + " is not a valid bonus for an equipment bonus!");
-    this.bonus = data.bonus;
-  }
-
-  apply(character, key) {
-    var me = this;
-    let property = character;
-    for (let k in this.keyChain) {
-      property = property[this.keyChain[k]];
-      if (!property) {
-        return;
-      }
-    }
-
-    Object.defineProperty(property, key + "Bonus", {
-      get: function() {
-        return me.bonus;
-      },
-      configurable: true
-    });
-  }
-
-  unapply(character, key) {
-    let property = character;
-    for (let k in this.keyChain) {
-      property = property[this.keyChain[k]];
-      if (!property) {
-        return;
-      }
-    }
-
-    delete property[key + "Bonus"];
-  }
-}
-
 class Equipment {
   constructor(data, character, key) {
     check(data.name, "Missing name for equiment with key " + key + "!");
@@ -84,12 +44,12 @@ class Equipment {
 
     this.equippedBonuses = [];
     for (let i in data.equippedBonuses) {
-      this.equippedBonuses.push(new EquipmentBonus(data.equippedBonuses[i]));
+      this.equippedBonuses.push(new ScoreableBonus(data.equippedBonuses[i]));
     }
 
     this.possesionBonuses = [];
     for (let i in data.possesionBonuses) {
-      this.possesionBonuses.push(new EquipmentBonus(data.possesionBonuses[i]));
+      this.possesionBonuses.push(new ScoreableBonus(data.possesionBonuses[i]));
     }
 
     this.equip = function() {

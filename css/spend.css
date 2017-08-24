@@ -4,6 +4,10 @@
   background: #ccc;
 }
 
+.box .box {
+  padding: 0rem;
+}
+
 .spendingOptionGroup {
   background: #ccc;
 }

@@ -36,20 +36,27 @@ class Character {
       this.characteristics[cKey] = new Characteristic(data.characteristics[cKey], cKey);
     }
 
+    if (data.preferredWeapon) {
+      check(typeof data.preferredWeapon === "string" && data.preferredWeapon.length > 0, data.preferredWeapon + " is not a valid value for a preferred weapon!");
+      this.preferredWeapon = data.preferredWeapon;
+    } else {
+      this.preferredWeapon = "unarmed";
+    }
+
     Object.defineProperty(this, 'lifePoints', {
       value: new LifePoints(this),
       enumerable: false
-    })
+    });
 
     Object.defineProperty(this, 'initiative', {
       value: new Initiative(this),
       enumerable: false
-    })
+    });
 
     Object.defineProperty(this, 'movement', {
       value: new Movement(this),
       enumerable: false
-    })
+    });
 
     Object.defineProperty(this, 'resistances', {
       value: {
@@ -60,7 +67,7 @@ class Character {
         'psychic': new Resistance(this, 'Psychic', 'wp'),
       },
       enumerable: false
-    })
+    });
 
     Object.defineProperty(this, 'armorType', {
       value: {
@@ -73,7 +80,12 @@ class Character {
         'energy': new ArmorType(this, 'Energy', 'energy')
       },
       enumerable: false
-    })
+    });
+
+    Object.defineProperty(this, 'martialKnowledge', {
+      value: new MartialKnowledge(this),
+      enumerable: false
+    });
 
     check(Class[data.classId], data.classId + " is not a valid class key!");
     this.classId = data.classId;
@@ -107,6 +119,16 @@ class Character {
     this.combatModules = {};
     for (let i in data.combatModules) {
       this.combatModules[i] = new CombatModule(data.combatModules[i], this, i);
+    }
+
+    this.martialArts = {};
+    for (let i in data.martialArts) {
+      this.martialArts[i] = new MartialArt(this, i);
+    }
+
+    this.kiAbilities = {};
+    for (let i in data.kiAbilities) {
+      this.kiAbilities[i] = new KiAbility(this, i);
     }
 
     // Adjust psychic points by pp invested + mental powers
@@ -208,11 +230,6 @@ class Character {
   get secondaryAbilityLevelBonuses() {
     var totalLevelBonusesInvested = totalInvested(this, 'secondaryAbilityLevelBonusesInvested');
     return this.level - totalLevelBonusesInvested;
-  }
-
-  get martialKnowledge() {
-    // TODO: add bonuses from martial arts
-    return this.class.martialKnowledge.bonus * Math.floor(this.level / this.class.martialKnowledge.cost);
   }
 
   get fatigue() {
@@ -404,5 +421,17 @@ class ArmorType extends Scoreable {
         return total;
       }
     })
+  }
+}
+
+class MartialKnowledge extends Scoreable {
+  constructor(character) {
+    super("Martial Knowledge");
+
+    Object.defineProperty(this, 'classLevelBonus', {
+      get: function() {
+        return character.class.martialKnowledge.bonus * Math.floor(character.level / character.class.martialKnowledge.cost);
+      }
+    });
   }
 }

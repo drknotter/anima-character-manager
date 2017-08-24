@@ -113,3 +113,8 @@ td.right {
 .abilityGroup .right {
   width: 4.75rem;
 }
+
+#preferredWeapon {
+  width: 100%;
+  margin: 0rem;
+}

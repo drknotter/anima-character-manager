@@ -32,6 +32,14 @@ Template.moduleInvestmentHeader = String.raw`
 <th class="obtained">Obtained?</th>
 </tr>
 `;
+Template.martialArtInvestmentHeader = String.raw`
+<tr class="dpInvestment">
+<th>{{name}}</th>
+<th class="cost">Cost</th>
+<th class="obtained">Obtained?</th>
+<th class="score">Damage</th>
+</tr>
+`;
 Template.dpInvestment = String.raw`
 <tr class="dpInvestment">
 <td>{{investment.name}}</td>
@@ -45,6 +53,17 @@ Template.moduleInvestment = String.raw`
 <td>{{name}}</td>
 <td class="cost">{{cost}}</td>
 <td class="obtained"><input type="checkbox"></td>
+</tr>
+`;
+Template.martialArtInvestment = String.raw`
+<tr class="dpInvestment">
+<td>{{name}}</td>
+<td class="cost">{{cost}}</td>
+<td class="obtained" style="position: relative;">
+  <input type="checkbox">
+  <div class="disabledInterceptor" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+</td>
+<td class="score">{{damage}}</td>
 </tr>
 `;
 
@@ -145,3 +164,4 @@ Template.deityGift = String.raw`
 <td class="obtained"><input type="checkbox"></td>
 </tr>
 `;
+

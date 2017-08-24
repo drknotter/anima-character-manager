@@ -10,6 +10,8 @@ class CombatModule {
         }
       });
     }
+
+    this.dpInvested = this.cost;
   }  
 }
 

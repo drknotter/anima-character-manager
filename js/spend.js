@@ -1,6 +1,6 @@
 var PRIMARY_DP_SPEND_GROUPS = {
   'combat': {
-    'name': 'Combat Abilities',
+    'name': 'Combat',
     'abilities': [
       'attack',
       'block',
@@ -25,7 +25,7 @@ var PRIMARY_DP_SPEND_GROUPS = {
     ],
   },
   'supernatural': {
-    'name': 'Supernatural Abilities',
+    'name': 'Supernatural',
     'abilities': [
       'zeon',
       'magicAccumulationMultiple',
@@ -37,7 +37,7 @@ var PRIMARY_DP_SPEND_GROUPS = {
     ],
   },
   'psychic': {
-    'name': 'Psychic Abilities',
+    'name': 'Psychic',
     'abilities': [
       'psychicPoints',
       'psychicProjection',
@@ -98,6 +98,10 @@ var OTHER_DP_SPEND_GROUP = {
 
 var OPTION_GROUP_IDS = [
 'dpSpendingOptionGroup',
+'combatDpSpendingOptionGroup',
+'supernaturalDpSpendingOptionGroup',
+'psychicDpSpendingOptionGroup',
+'otherDpSpendingOptionGroup',
 'characteristicLevelBonusSpendingOptionGroup',
 'secondaryAbilityLevelBonusSpendingOptionGroup',
 'ppSpendingOptionGroup',
@@ -243,26 +247,32 @@ jQuery.fn.getPath = function () {
 $( document ).ready(function() {
   var characterName = getParameterByName("n");
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
-  renderSpendingOptionGroups(character, [true, true, true, true, true, true, ]);
+  renderSpendingOptionGroups(character);
   $('#popup').click(function(event) {
     event.stopPropagation();
   });
 });
 
 function renderSpendingOptionGroups(character, toggle) {
-  renderDpOptionSpendingGroup(character, toggle[0]);
-  renderCharacteristicLevelBonusSpendingGroup(character, toggle[1]);
-  renderSecondaryAbilityLevelBonusSpendingGroup(character, toggle[2]);
-  renderPpSpendingGroup(character, toggle[3]);
-  renderCpSpendingGroup(character, toggle[4]);
-  renderElanSpendingGroup(character, toggle[5]);
+  renderDpOptionSpendingGroup(character);
+  renderCharacteristicLevelBonusSpendingGroup(character);
+  renderSecondaryAbilityLevelBonusSpendingGroup(character);
+  renderPpSpendingGroup(character);
+  renderCpSpendingGroup(character);
+  renderElanSpendingGroup(character);
+
+  for (let i in OPTION_GROUP_IDS) {
+    if (!toggle || !(OPTION_GROUP_IDS[i] in toggle) || toggle[OPTION_GROUP_IDS[i]]) {
+      $('#'+OPTION_GROUP_IDS[i]).toggle();
+    }
+  }
 }
 
 /////////////////////////
 // DP spending options //
 /////////////////////////
 
-function renderDpOptionSpendingGroup(character, doToggle) {
+function renderDpOptionSpendingGroup(character) {
   var DP = character.DP;
   var totals = totalDpInvestedInTypes(character);
 
@@ -274,36 +284,45 @@ function renderDpOptionSpendingGroup(character, doToggle) {
 
   var spendingOptionGroup = $('#dpSpendingOptionGroup');
   spendingOptionGroup.attr('class', 'spendingOptionGroup');
+
+  var index = 0;
   for (let i in PRIMARY_DP_SPEND_GROUPS) {
-    var investments = [];
     var limit = Math.floor(character.class.limits[i] * 100);
+    appendBox(spendingOptionGroup, i+'DpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+      'optionName': PRIMARY_DP_SPEND_GROUPS[i].name + " (Limit " + limit + "%)",
+      'total': Math.min(DP, character.totalDP * limit / 100 - totals[i]),
+    }));
+    var investments = [];
     for (let j in PRIMARY_DP_SPEND_GROUPS[i].abilities) {
       investments.push(character.primaryAbilities[PRIMARY_DP_SPEND_GROUPS[i].abilities[j]]);
     }
-    renderDpSpendingOptionSubgroup(character, investments, PRIMARY_DP_SPEND_GROUPS[i].name, spendingOptionGroup, limit, totals[i]);
-    renderModuleSubgroup(character, modulesByType()[i], moduleNameForType(i), spendingOptionGroup, limit, totals[i]);
+    renderDpSpendingOptionSubgroup(character, investments, 'Abilities', $('#'+i+'DpSpendingOptionGroup'), limit, totals[i]);
+    renderModuleSubgroup(character, modulesByType()[i], 'Modules', $('#'+i+'DpSpendingOptionGroup'), limit, totals[i]);
   }
 
+  appendBox(spendingOptionGroup, 'otherDpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+    'optionName': 'Other (No Limit)',
+    'total': DP,
+  }));
   var investments = [];
   for (let i in SECONDARY_DP_SPEND_GROUP.abilities) {
     investments.push(character.secondaryAbilities[SECONDARY_DP_SPEND_GROUP.abilities[i]]);
   }
-  renderDpSpendingOptionSubgroup(character, investments, SECONDARY_DP_SPEND_GROUP.name, spendingOptionGroup);
+  renderDpSpendingOptionSubgroup(character, investments, SECONDARY_DP_SPEND_GROUP.name, $('#otherDpSpendingOptionGroup'));
 
   var investments = [];
   for (let i in OTHER_DP_SPEND_GROUP.abilities) {
     investments.push(character.otherAbilities[OTHER_DP_SPEND_GROUP.abilities[i]]);
   }
-  renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, spendingOptionGroup);
-  if (doToggle) {
-    spendingOptionGroup.toggle();
-  }
+  renderDpSpendingOptionSubgroup(character, investments, OTHER_DP_SPEND_GROUP.name, $('#otherDpSpendingOptionGroup'));
+
+  renderMartialArtsOptionSubgroup(character, $('#otherDpSpendingOptionGroup'));
 }
 
 function renderDpSpendingOptionSubgroup(character, investments, subgroupName, parent, limit, total) {
   parent.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = parent.children('.spendingOptionSubgroup').last();
-  subgroup.append(Mustache.render(Template.dpInvestmentHeader, {'name': subgroupName, 'limit': limit}))
+  subgroup.append(Mustache.render(Template.dpInvestmentHeader, {'name': subgroupName}))
   for (let i in investments) {
     renderDpSpendingOption(character, investments[i], subgroup, limit, total);
   }
@@ -324,7 +343,7 @@ function renderDpSpendingOption(character, investment, parent, limit, total) {
 function renderModuleSubgroup(character, modules, subgroupName, parent, limit, total) {
   parent.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = parent.children('.spendingOptionSubgroup').last();
-  subgroup.append(Mustache.render(Template.moduleInvestmentHeader, {'name': subgroupName, 'limit': limit}));
+  subgroup.append(Mustache.render(Template.moduleInvestmentHeader, {'name': subgroupName}));
   for (let i in modules) {
     renderModule(character, modules[i], subgroup, limit, total);
   }
@@ -347,10 +366,52 @@ function renderModule(character, moduleKey, parent, limit, total) {
   })
 }
 
+function renderMartialArtsOptionSubgroup(character, parent) {
+  parent.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = parent.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.martialArtInvestmentHeader, {'name': 'Martial Arts'}))
+  for (let i in MartialArt.Data) {
+    renderMartialArt(character, i, subgroup);
+  }
+}
+
+function renderMartialArt(character, key, parent) {
+  var data = MartialArt.Data[key];
+  var cost = MartialArt.costFor(character);
+  var hasMartialArt = key in character.martialArts;
+  parent.append(Mustache.render(Template.martialArtInvestment, {
+    'name': data.name,
+    'cost': cost,
+    'damage': data.baseDamageFn(character)
+  }));
+  var dpInvestment = parent.children('.dpInvestment').last();
+  var obtainedInput = dpInvestment.find('.obtained input').last();
+  obtainedInput.attr({
+    'checked': hasMartialArt,
+    'disabled': !hasMartialArt && (!MartialArt.Data[key].requirementFn(character) || character.DP < cost || !MartialArt.hasEnoughAttackAndDefense(character))
+  });
+  if (obtainedInput.is(':disabled')) {
+    dpInvestment.find('.obtained .disabledInterceptor').last().click(function(event) {
+      alert(Mustache.render(
+String.raw`Required Attack + Defense: {{attackDefenseRequirement}}
+Other Requirements: {{otherRequirements}}`, {
+  'attackDefenseRequirement': 40 * (Object.keys(character.martialArts).length + 1),
+  'otherRequirements': MartialArt.Data[key].requirements
+}));
+    });
+  } else {
+    dpInvestment.find('.obtained .disabledInterceptor').last().remove();
+  }
+
+  obtainedInput.change({'key': key, 'character': character}, function(event) {
+    changeMartialArt(event, $(this).is(":checked"));
+  })
+}
+
 /////////////////////////////////////////////////
 // Characteristic level bonus spending options //
 /////////////////////////////////////////////////
-function renderCharacteristicLevelBonusSpendingGroup(character, doToggle) {
+function renderCharacteristicLevelBonusSpendingGroup(character) {
   var levelBonuses = character.characteristicLevelBonuses;
 
   appendBox($('#content'), 'characteristicLevelBonusSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -373,16 +434,12 @@ function renderCharacteristicLevelBonusSpendingGroup(character, doToggle) {
       changeCharacteristicLevelBonuses(event, Number(this.value));
     });
   }
-
-  if (doToggle) {
-    spendingOptionGroup.toggle();
-  }
 }
 
 ////////////////////////////////////////////////////
 // Secondary ability level bonus spending options //
 ////////////////////////////////////////////////////
-function renderSecondaryAbilityLevelBonusSpendingGroup(character, doToggle) {
+function renderSecondaryAbilityLevelBonusSpendingGroup(character) {
   var levelBonuses = character.secondaryAbilityLevelBonuses;
 
   appendBox($('#content'), 'secondaryAbilityLevelBonusSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -405,17 +462,13 @@ function renderSecondaryAbilityLevelBonusSpendingGroup(character, doToggle) {
       changeSecondaryAbilityLevelBonuses(event, Number(this.value));
     });
   }
-
-  if (doToggle) {
-    spendingOptionGroup.toggle();
-  }
 }
 
 /////////////////////////////////////
 // Creation point spending options //
 /////////////////////////////////////
 
-function renderCpSpendingGroup(character, doToggle) {
+function renderCpSpendingGroup(character) {
   var CP = character.CP;
 
   appendBox($('#content'), 'cpSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -440,10 +493,6 @@ function renderCpSpendingGroup(character, doToggle) {
   for (let i in DISADVANTAGES) {
     renderCpSpendingOption(character, DISADVANTAGES[i], subgroup);
   }
-
-  if (doToggle) {
-    spendingOptionGroup.toggle();
-  }
 }
 
 function renderCpSpendingOption(character, advantageKey, parent) {
@@ -463,7 +512,7 @@ function renderCpSpendingOption(character, advantageKey, parent) {
 // PP spending options //
 /////////////////////////
 
-function renderPpSpendingGroup(character, doToggle) {
+function renderPpSpendingGroup(character) {
   var PP = character.primaryAbilities.psychicPoints.score;
 
   appendBox($('#content'), 'ppSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
@@ -490,10 +539,6 @@ function renderPpSpendingGroup(character, doToggle) {
   var disciplines = allMentalPowersByDiscipline();
   for (let d in disciplines) {
     renderMentalPowerDisciplineSpendingGroup(spendingOptionGroup, character, d, disciplines[d]);
-  }
-
-  if (doToggle) {
-    spendingOptionGroup.toggle();
   }
 }
 
@@ -541,7 +586,7 @@ function renderMentalPower(parent, character, mentalPowerKey) {
 // Elan spending options //
 ///////////////////////////
 
-function renderElanSpendingGroup(character, doToggle) {
+function renderElanSpendingGroup(character) {
   appendBox($('#content'), 'elanSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeaderNoTotal, {
     'optionName': 'Elan'
   }));
@@ -549,10 +594,6 @@ function renderElanSpendingGroup(character, doToggle) {
   for (let i in Elan.Data) {
     $('#elanSpendingOptionGroup').append(Mustache.render(Template.elanDeityGroup, character.elan[i]));
     renderDeitySpendingOptions(character, i);
-  }
-
-  if (doToggle) {
-    $('#elanSpendingOptionGroup').toggle();
   }
 }
 
@@ -598,6 +639,21 @@ function changeModule(event, obtained) {
     character.combatModules[moduleKey] = new CombatModule(CombatModule.Data[moduleKey], character, moduleKey);
   } else if (!obtained) {
     delete character.combatModules[moduleKey];
+  }
+  updateSpendingOptions(character);
+  localStorage['character.'+character.name] = JSON.stringify(character);
+}
+
+function changeMartialArt(event, obtained) {
+  var martialArtKey = event.data.key;
+  var character = event.data.character;
+  if (obtained && !(martialArtKey in character.martialArts)) {
+    character.martialArts[martialArtKey] = new MartialArt(character, martialArtKey);
+  } else if (!obtained) {
+    if (martialArtKey in character.martialArts) {
+      character.martialArts[martialArtKey].removeBonusesFromCharacter();
+    }
+    delete character.martialArts[martialArtKey];
   }
   updateSpendingOptions(character);
   localStorage['character.'+character.name] = JSON.stringify(character);
@@ -725,9 +781,9 @@ function changeElan(event, obtainedGift) {
 }
 
 function updateSpendingOptions(character) {
-  var toggle = [];
+  var toggle = {};
   for (let i in OPTION_GROUP_IDS) {
-    toggle.push($('#' + OPTION_GROUP_IDS[i]).is(':hidden'));
+    toggle[OPTION_GROUP_IDS[i]] = $('#' + OPTION_GROUP_IDS[i]).is(':hidden');
   }
   var focusPath = $(document.activeElement).getPath();
   $('#content').empty();
