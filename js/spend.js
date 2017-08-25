@@ -106,7 +106,8 @@ var OPTION_GROUP_IDS = [
 'secondaryAbilityLevelBonusSpendingOptionGroup',
 'ppSpendingOptionGroup',
 'cpSpendingOptionGroup',
-'elanSpendingOptionGroup'
+'elanSpendingOptionGroup',
+'martialKnowledgeSpendingOptionGroup'
 ];
 
 function totalDpInvestedInTypes(character) {
@@ -257,6 +258,7 @@ function renderSpendingOptionGroups(character, toggle) {
   renderDpOptionSpendingGroup(character);
   renderCharacteristicLevelBonusSpendingGroup(character);
   renderSecondaryAbilityLevelBonusSpendingGroup(character);
+  renderMartialKnowledgeSpendingGroup(character);
   renderPpSpendingGroup(character);
   renderCpSpendingGroup(character);
   renderElanSpendingGroup(character);
@@ -619,6 +621,61 @@ function renderDeitySpendingOptions(character, deityKey) {
   }
 }
 
+////////////////////////////////////////
+// Martial Knowledge spending options //
+////////////////////////////////////////
+
+function renderMartialKnowledgeSpendingGroup(character) {
+  var MK = character.martialKnowledge.score;
+  appendBox($('#content'), 'martialKnowledgeSpendingOptionGroup', true, Mustache.render(Template.spendingOptionGroupHeader, {
+    'optionName': 'Martial Knowledge',
+    'total': MK,
+    'totalId': 'Total_MK',
+  }));
+
+  renderKiAbilitiesSpendingSubgroup(character, $('#martialKnowledgeSpendingOptionGroup'));
+}
+
+function renderKiAbilitiesSpendingSubgroup(character, parent) {
+  parent.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = parent.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.kiInvestmentHeader, {'name': 'Ki Abilities'}));
+  for (let i in KiAbility.Data) {
+    renderKiAbility(character, i, subgroup);
+  }
+}
+
+function renderKiAbility(character, key, parent) {
+  var abilityData = KiAbility.Data[key];
+  var hasKiAbility = key in character.kiAbilities;
+
+  parent.append(Mustache.render(Template.kiAbility, {
+    'name': abilityData.name,
+    'cost': abilityData.martialKnowledge,
+  }));
+
+  var kiInvestment = parent.children('.kiInvestment').last();
+  var obtainedInput = kiInvestment.find('.obtained input').last();
+  obtainedInput.attr({
+    'checked': hasKiAbility,
+    'disabled': !hasKiAbility && (!abilityData.requirementFn(character) 
+        || character.martialKnowledge.score < abilityData.martialKnowledge)
+  });
+  if (obtainedInput.is(':disabled')) {
+    kiInvestment.find('.obtained .disabledInterceptor').last().click(function(event) {
+      alert(Mustache.render(
+String.raw`Requirements: {{requirements}}`, {
+  'requirements': abilityData.requirements
+}));
+    });
+  } else {
+    kiInvestment.find('.obtained .disabledInterceptor').last().remove();
+  }
+
+  obtainedInput.change({'key': key, 'character': character}, function(event) {
+    changeKiAbility(event, $(this).is(':checked'));
+  })
+}
 
 //////////////////////
 // Update functions //
@@ -778,6 +835,20 @@ function changeElan(event, obtainedGift) {
   }
   updateSpendingOptions(c);
   localStorage['character.'+c.name] = JSON.stringify(c);
+}
+
+function changeKiAbility(event, obtained) {
+  var c = event.data.character;
+  var k = event.data.key;
+
+  if (obtained && !(k in c.kiAbilities)) {
+    c.kiAbilities[k] = new KiAbility(c, k);
+  } else if (!obtained) {
+    delete c.kiAbilities[k];
+  }  
+
+  updateSpendingOptions(c);
+  localStorage['character.' + c.name] = JSON.stringify(c);
 }
 
 function updateSpendingOptions(character) {

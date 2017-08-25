@@ -165,3 +165,22 @@ Template.deityGift = String.raw`
 </tr>
 `;
 
+Template.kiInvestmentHeader = String.raw`
+<tr class="kiInvestment">
+<th>{{name}}</th>
+<th class="cost">Cost</th>
+<th class="obtained">Obtained?</th>
+</tr>
+`;
+
+Template.kiAbility = String.raw`
+<tr class="kiInvestment">
+<td>{{name}}</td>
+<td class="cost">{{cost}}</td>
+<td class="obtained" style="position: relative;">
+  <input type="checkbox">
+  <div class="disabledInterceptor" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+</td>
+</td>
+</tr>
+`;

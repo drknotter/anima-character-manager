@@ -433,5 +433,11 @@ class MartialKnowledge extends Scoreable {
         return character.class.martialKnowledge.bonus * Math.floor(character.level / character.class.martialKnowledge.cost);
       }
     });
+
+    Object.defineProperty(this, 'spentBonus', {
+      get: function() {
+        return -totalInvested(character, 'martialKnowledgeInvested');
+      }
+    })
   }
 }

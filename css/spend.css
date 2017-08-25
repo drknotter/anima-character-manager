@@ -189,3 +189,22 @@
 .mentalPower .input input {
   max-width: 4rem;
 }
+
+.kiInvestment .kiInvested {
+  width: 5rem;
+  padding: 0rem 0.25rem;
+  text-align: center;
+}
+
+.kiInvestment input[type="number"] {
+  width: 3.75rem;
+  font-size: 100%;
+}
+.kiInvestment .cost {
+  width: 5rem;
+  text-align: center;
+}
+.kiInvestment .score, .kiInvestment .obtained {
+  width: 5rem;
+  text-align: center;
+}

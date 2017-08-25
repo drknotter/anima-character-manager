@@ -47,9 +47,11 @@ class Equipment {
       this.equippedBonuses.push(new ScoreableBonus(data.equippedBonuses[i]));
     }
 
-    this.possesionBonuses = [];
-    for (let i in data.possesionBonuses) {
-      this.possesionBonuses.push(new ScoreableBonus(data.possesionBonuses[i]));
+    this.possessionBonuses = [];
+    for (let i in data.possessionBonuses) {
+      var bonus = new ScoreableBonus(data.possessionBonuses[i]);
+      this.possessionBonuses.push(bonus);
+      bonus.apply(character, key);
     }
 
     this.equip = function() {
