@@ -638,6 +638,7 @@ function renderMartialKnowledgeSpendingGroup(character) {
   }));
 
   renderKiAbilitiesSpendingSubgroup(character, $('#martialKnowledgeSpendingOptionGroup'));
+  renderKiTechniquesSpendingSubgroup(character, $('#martialKnowledgeSpendingOptionGroup'));
 }
 
 function renderKiAbilitiesSpendingSubgroup(character, parent) {
@@ -676,6 +677,12 @@ function renderKiAbility(character, key, parent) {
   obtainedInput.change({'key': key, 'character': character}, function(event) {
     changeKiAbility(event, $(this).is(':checked'));
   })
+}
+
+function renderKiTechniquesSpendingSubgroup(character, parent) {
+  parent.append(Mustache.render(Template.spendingOptionSubgroup));
+  var subgroup = parent.children('.spendingOptionSubgroup').last();
+  subgroup.append(Mustache.render(Template.kiTechniqueList, {'name': character.name}));
 }
 
 //////////////////////

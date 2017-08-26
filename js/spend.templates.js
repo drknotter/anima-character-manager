@@ -187,3 +187,12 @@ Template.kiAbility = String.raw`
 </td>
 </tr>
 `;
+
+Template.kiTechniqueList = String.raw`
+<table id="kiTechniqueList">
+<tr class="kiTechnique">
+<th>Ki Techniques</th>
+</tr>
+</table>
+<a id="newKiTechnique" href="new_ki_technique.html?n={{name}}">Add New Ki Technique</a>
+`;

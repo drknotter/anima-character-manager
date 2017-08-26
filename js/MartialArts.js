@@ -39,7 +39,7 @@ MartialArt.RequirementFor = function(character, key) {
 }
 
 MartialArt.CostRequirement = function(character) {
-  return MartialArt.CostFor(character) < character.DP ? null : "Not enough development points.";
+  return MartialArt.CostFor(character) <= character.DP ? null : "Not enough development points.";
 }
 
 MartialArt.AttackAndDefenseRequirement = function(character) {
