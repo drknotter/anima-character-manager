@@ -1,6 +1,6 @@
 class MentalPower extends Scoreable {
   constructor(data, character, key) {
-    super(MENTAL_POWER_DATA[key].name);
+    super(MentalPower.Data[key].name);
     
     check(isNumber(data.ppInvested), data.ppInvested + " is not a valid ppInvested for mental power " + key + "!");
     this.ppInvested = data.ppInvested;
@@ -9,7 +9,7 @@ class MentalPower extends Scoreable {
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {
-          return MENTAL_POWER_DATA[key][attrs[i]];
+          return MentalPower.Data[key][attrs[i]];
         }
       });
     }
@@ -70,7 +70,61 @@ class InnateSlots extends Scoreable {
   }
 }
 
-var MENTAL_POWER_DATA = {
+MentalPower.RequirementFor = function(character, key) {
+  if (key in character.mentalPowers) {
+    return null;
+  }
+  return MentalPower.AdvantageRequirement(character) 
+      || MentalPower.PPRequirement(character, key)
+      || MentalPower.LevelRequirement(character, key);
+}
+
+MentalPower.AdvantageRequirement = function(character) {
+  if ('freeAccessToAnyPsychicDiscipline' in character.advantages) {
+    return null;
+  }
+  if ('accessToOnePsychicDiscipline' in character.advantages || 'accessToNaturalPsychicPowers' in character.advantages) {
+    if (Object.keys(character.mentalPowers).length === 0) {
+      return null;
+    }
+    return "'Free Access to Any Psychic Discipline' is required for obtaining multiple mental powers.";
+  }
+  return "'Free Access to Any Psychic Discipline', 'Access to One Psychic Discipline', or 'Access to Natural Psychic Powers' is needed for obtaining a mental power.";
+}
+
+MentalPower.PPRequirement = function(character, key) {
+  var data = MentalPower.Data[key];
+
+  var ppCost = 2;
+  for (let i in character.mentalPowers) {
+    if (character.mentalPowers[i].discipline === data.discipline) {
+      ppCost = 1;
+      break;
+    }
+  }
+
+  if (ppCost > character.primaryAbilities.psychicPoints.score) {
+    return "Not enough psychic points.";
+  }
+  return null;
+}
+
+MentalPower.LevelRequirement = function(character, key) {
+  var data = MentalPower.Data[key];
+  if (data.level == 1) {
+    return null;
+  }
+  for (let i in character.mentalPowers) {
+    if (character.mentalPowers[i].discipline === data.discipline) {
+      if (character.mentalPowers[i].level >= data.level - 1) {
+        return null;
+      }
+    }
+  }
+  return "A lower level mental power in '" + data.discipline + "' is required.";
+}
+
+MentalPower.Data = {
   'createFire': {
     'name': 'Create Fire',
     'discipline':'Pyrokinesis',
@@ -90,6 +144,15 @@ var MENTAL_POWER_DATA = {
       {'roll': 440, 'difficulty': 'Zen', 'outcome': '25 Intensities'},
     ],
     'level': 1,
+    get requirements() {
+      var me = this;
+      return function(character) {
+        var out = MentalPower.AdvantageRequirement(character);
+        if (out) {
+          return out;
+        }
+      }
+    }
   },
   'controlFire': {
     'name': 'Control Fire',

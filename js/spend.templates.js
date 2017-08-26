@@ -115,7 +115,10 @@ Template.mentalDisciplineHeader = String.raw`
 Template.mentalPower = String.raw`
 <tr class="mentalPower">
 <td class="name">{{name}} (Level {{level}})</td>
-<td class="input"><input class="obtainedMentalPower" type="checkbox"></td>
+<td class="input" style="position: relative;">
+  <input class="obtainedMentalPower" type="checkbox">
+  <div class="disabledInterceptor" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+</td>
 <td class="input"><input class="mentalPowerInvestment" type="number" value="{{ppInvested}}" min="0"></td>
 <td class="input bonus">{{#ppInvestedBonus}}{{ppInvestedBonus}}{{/ppInvestedBonus}}{{^ppInvestedBonus}}N/A{{/ppInvestedBonus}}</td>
 </tr>

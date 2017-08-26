@@ -2,7 +2,7 @@ class MartialArt {
   constructor(character, key) {
     check(key in MartialArt.Data, key + " is not a valid key for a martial art!");
 
-    this.dpInvested = MartialArt.costFor(character);
+    this.dpInvested = MartialArt.CostFor(character);
 
     Object.defineProperty(this, 'baseDamage', {
       get: function() {
@@ -24,17 +24,28 @@ class MartialArt {
   }
 };
 
-MartialArt.costFor = function(character) {
+MartialArt.CostFor = function(character) {
   var prefersUnarmed = character.preferredWeapon === "unarmed";
   var isTao = character.classId === "tao";
   var isFirst = Object.keys(character.martialArts).length === 0;
-  return Math.floor((isTao ? 20 : 50) * (prefersUnarmed && isFirst ? 0.5 : 1));
+  var cost = Math.floor((isTao ? 20 : 50) * (prefersUnarmed && isFirst ? 0.5 : 1));
+  return cost;
 }
 
-MartialArt.hasEnoughAttackAndDefense = function(character) {
+MartialArt.RequirementFor = function(character, key) {
+  return MartialArt.CostRequirement(character)
+      || MartialArt.AttackAndDefenseRequirement(character)
+      || MartialArt.Data[key].requirementFn(character);
+}
+
+MartialArt.CostRequirement = function(character) {
+  return MartialArt.CostFor(character) < character.DP ? null : "Not enough development points.";
+}
+
+MartialArt.AttackAndDefenseRequirement = function(character) {
   var n = Object.keys(character.martialArts).length;
   var attackAndDefense = character.primaryAbilities.attack.score + Math.max(character.primaryAbilities.block.score, character.primaryAbilities.dodge.score);
-  return 40 * (n + 1) <= attackAndDefense;
+  return 40 * (n + 1) <= attackAndDefense ? null : "At least " + (40 * (n + 1)) + " combined Attack and Defense is required.";
 }
 
 MartialArt.Data = {
@@ -44,7 +55,7 @@ MartialArt.Data = {
     'advantages': "The rapid flurry of blows allows a Kempo master to carry out additional attacks with a penalty of -10 to his ability instead of -25. It has a base damage of 20, plus the character\'s strength bonus. Kempo uses the Blunt table.", 
     'requirements': "None", 
     'requirementFn': function(character) {
-      return true;
+      return null;
     }, 
     'martialKnowledge': 10, 
     'bonuses': [
@@ -63,7 +74,7 @@ MartialArt.Data = {
     'advantages': 'The movements of Capoeira are so sweeping that when the user makes an Area Attack, he is considered to be using a large weapon, and he can affect up to five opponents. Capoeira has a base damage of 20, plus the character\'s strength bonus. It uses the Blunt table.',
     'requirements': 'Dance 40',
     'requirementFn': function(character) {
-      return character.secondaryAbilities.dance.score >= 40;
+      return character.secondaryAbilities.dance.score >= 40 ? null : "Requires at least 40 points in 'Dance'";
     },
     'martialKnowledge': 10,
     'bonuses': [

@@ -171,14 +171,14 @@ function hasAffinityWithDiscipline(character, disciplineName) {
 
 function allMentalPowersByDiscipline() {
     var allMentalPowersByDiscipline = {};
-  for (let m in MENTAL_POWER_DATA) {
-    if (!(MENTAL_POWER_DATA[m].discipline in allMentalPowersByDiscipline)) {
-      allMentalPowersByDiscipline[MENTAL_POWER_DATA[m].discipline] = [];
+  for (let m in MentalPower.Data) {
+    if (!(MentalPower.Data[m].discipline in allMentalPowersByDiscipline)) {
+      allMentalPowersByDiscipline[MentalPower.Data[m].discipline] = [];
     }
-    allMentalPowersByDiscipline[MENTAL_POWER_DATA[m].discipline].push({
+    allMentalPowersByDiscipline[MentalPower.Data[m].discipline].push({
       'key': m,
-      'level': MENTAL_POWER_DATA[m].level,
-      'name': MENTAL_POWER_DATA[m].name
+      'level': MentalPower.Data[m].level,
+      'name': MentalPower.Data[m].name
     });
   }
 
@@ -379,7 +379,7 @@ function renderMartialArtsOptionSubgroup(character, parent) {
 
 function renderMartialArt(character, key, parent) {
   var data = MartialArt.Data[key];
-  var cost = MartialArt.costFor(character);
+  var cost = MartialArt.CostFor(character);
   var hasMartialArt = key in character.martialArts;
   parent.append(Mustache.render(Template.martialArtInvestment, {
     'name': data.name,
@@ -388,18 +388,14 @@ function renderMartialArt(character, key, parent) {
   }));
   var dpInvestment = parent.children('.dpInvestment').last();
   var obtainedInput = dpInvestment.find('.obtained input').last();
+  var requirements = MartialArt.RequirementFor(character, key);
   obtainedInput.attr({
     'checked': hasMartialArt,
-    'disabled': !hasMartialArt && (!MartialArt.Data[key].requirementFn(character) || character.DP < cost || !MartialArt.hasEnoughAttackAndDefense(character))
+    'disabled': !hasMartialArt && requirements != null
   });
   if (obtainedInput.is(':disabled')) {
     dpInvestment.find('.obtained .disabledInterceptor').last().click(function(event) {
-      alert(Mustache.render(
-String.raw`Required Attack + Defense: {{attackDefenseRequirement}}
-Other Requirements: {{otherRequirements}}`, {
-  'attackDefenseRequirement': 40 * (Object.keys(character.martialArts).length + 1),
-  'otherRequirements': MartialArt.Data[key].requirements
-}));
+      alert(requirements);
     });
   } else {
     dpInvestment.find('.obtained .disabledInterceptor').last().remove();
@@ -564,17 +560,25 @@ function renderMentalPower(parent, character, mentalPowerKey) {
   if (mentalPowerKey in character.mentalPowers) {
     parent.append(Mustache.render(Template.mentalPower, character.mentalPowers[mentalPowerKey]));
   } else {
-    parent.append(Mustache.render(Template.mentalPower, MENTAL_POWER_DATA[mentalPowerKey]));
+    parent.append(Mustache.render(Template.mentalPower, MentalPower.Data[mentalPowerKey]));
   }
   parent.find('.mentalPower').last().attr('id', mentalPowerKey + "_MentalPower");
   var obtainedMentalPower = $('#' + mentalPowerKey + "_MentalPower").find('.obtainedMentalPower')
   var mentalPowerInvestment = $('#' + mentalPowerKey + "_MentalPower").find('.mentalPowerInvestment');
-
+  var disabledInterceptor = $('#' + mentalPowerKey + "_MentalPower").find('.disabledInterceptor');
   var PP = character.primaryAbilities.psychicPoints.score;
   var hasMentalPower = mentalPowerKey in character.mentalPowers;
-  var canAffordMentalPower = hasAffinityWithDiscipline(MENTAL_POWER_DATA[mentalPowerKey].discipline) ? (PP >= 1) : (PP >= 2);
   obtainedMentalPower.attr('checked', hasMentalPower);
-  obtainedMentalPower.attr('disabled', !hasMentalPower && !canAffordMentalPower);
+
+  var requirements = MentalPower.RequirementFor(character, mentalPowerKey);
+  obtainedMentalPower.attr('disabled', !hasMentalPower && requirements != null);
+  if (requirements != null) {
+    disabledInterceptor.click(function(event) {
+      alert(requirements);
+    });
+  } else {
+    disabledInterceptor.remove();
+  }
   obtainedMentalPower.change(function(event) {
     changeMentalPower(character, mentalPowerKey, $(this).is(":checked"), Number(mentalPowerInvestment.val()));
   });
@@ -656,17 +660,14 @@ function renderKiAbility(character, key, parent) {
 
   var kiInvestment = parent.children('.kiInvestment').last();
   var obtainedInput = kiInvestment.find('.obtained input').last();
+  var requirements = KiAbility.RequirementFor(character, key);
   obtainedInput.attr({
     'checked': hasKiAbility,
-    'disabled': !hasKiAbility && (!abilityData.requirementFn(character) 
-        || character.martialKnowledge.score < abilityData.martialKnowledge)
+    'disabled': !hasKiAbility && requirements != null
   });
   if (obtainedInput.is(':disabled')) {
     kiInvestment.find('.obtained .disabledInterceptor').last().click(function(event) {
-      alert(Mustache.render(
-String.raw`Requirements: {{requirements}}`, {
-  'requirements': abilityData.requirements
-}));
+      alert(requirements);
     });
   } else {
     kiInvestment.find('.obtained .disabledInterceptor').last().remove();
@@ -806,7 +807,7 @@ function changePP(event, newValue) {
 function changeMentalPower(character, mentalPowerKey, obtained, ppInvested) {
   if (obtained) {
     if (!(mentalPowerKey in character.mentalPowers)) {
-      var mentalPowerData = jQuery.extend({}, MENTAL_POWER_DATA[mentalPowerKey], {'ppInvested': 0});
+      var mentalPowerData = jQuery.extend({}, MentalPower.Data[mentalPowerKey], {'ppInvested': 0});
       character.mentalPowers[mentalPowerKey] = new MentalPower(mentalPowerData, character, mentalPowerKey);
     }
     character.mentalPowers[mentalPowerKey].ppInvested = ppInvested;
