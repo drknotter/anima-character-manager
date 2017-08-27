@@ -40,6 +40,43 @@ class Elan extends Scoreable {
   }
 }
 
+Elan.RenderCharacterPopup = function(character, key, popup, background) {
+  popup.html(Mustache.render(Elan.Template.popup, character.elan[key]));
+  if (character.elan[key]['gifts'].length == 0) {
+    $('#elanGifts').remove();
+  }
+  for (let i in character.elan[key]['gifts']) {
+    let gift = character.elan[key]['gifts'][i];
+    $('#elanGifts').append(Mustache.render(Elan.Template.gift, Elan.Data[key]['gifts'][gift]));
+  }
+  background.show();
+}
+
+Elan.RenderGiftPopup = function(deityKey, giftKey, popup, background) {
+  popup.html(Mustache.render(Elan.Template.gift, Elan.Data[deityKey]['gifts'][giftKey]));
+  background.show();
+}
+
+Elan.Template = {};
+
+Elan.Template.popup = String.raw`
+<div id="elanPopup" class="popup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<table id="elanGifts">
+<tr><th>Gifts</th></tr>
+</table>
+</div>
+`;
+
+Elan.Template.gift = String.raw`
+<tr class="gift"><td>
+<div class="giftName">{{name}}</div>
+<div class="giftDescription">{{description}}</div>
+</td></tr>
+`;
+
+
 Elan.Data = {
   'mikael': {
     'name': 'Mikael',

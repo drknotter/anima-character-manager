@@ -165,15 +165,7 @@ function renderCharacter(character) {
   for (let k in character.elan) {
     $('#elanList>tbody').append(Mustache.render(Template.elan, character.elan[k]));
     $('#elanList .name').last().click(function(event) {
-      $('#popup').html(Mustache.render(Template.elanPopup, character.elan[k]));
-      if (character.elan[k]['gifts'].length == 0) {
-        $('#elanGifts').remove();
-      }
-      for (let i in character.elan[k]['gifts']) {
-        let gift = character.elan[k]['gifts'][i];
-        $('#elanGifts').append(Mustache.render(Template.elanGift, Elan.Data[k]['gifts'][gift]));
-      }
-      $('#popupBackground').show();
+      Elan.RenderCharacterPopup(character, k, $('#popup'), $('#popupBackground'));
     });
     $('#elanList .score').last().click(function(event) {
       $('#popup').html(Mustache.render(Template.singleNumberPopup, {'name': 'Elan for ' + character.elan[k].name, 'currentValue': character.elan[k].elanBonus}))

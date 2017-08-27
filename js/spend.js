@@ -249,6 +249,9 @@ $( document ).ready(function() {
   var characterName = getParameterByName("n");
   var character = new Character(JSON.parse(localStorage['character.'+characterName]));
   renderSpendingOptionGroups(character);
+  $('#popupBackground').click(function() {
+    $('#popupBackground').hide();
+  });
   $('#popup').click(function(event) {
     event.stopPropagation();
   });
@@ -614,6 +617,9 @@ function renderDeitySpendingOptions(character, deityKey) {
 
   for (let i in Elan.Data[deityKey].gifts) {
     table.append(Mustache.render(Template.deityGift, Elan.Data[deityKey].gifts[i]));
+    table.find('.name').last().click(function(event) {
+      Elan.RenderGiftPopup(deityKey, i, $('#popup'), $('#popupBackground'));
+    })
     let input = table.find('.gift input').last();
     input.attr('checked', character.elan[deityKey].gifts.includes(i));
     input.attr('disabled', !character.elan[deityKey].gifts.includes(i) 

@@ -8,6 +8,12 @@
   padding: 0rem;
 }
 
+#popup {
+  background: #ccc;
+  padding: 0.5rem;
+  min-width: 20rem;
+}
+
 .spendingOptionGroup {
   background: #ccc;
 }
@@ -154,6 +160,9 @@
   text-align: left;
   padding: 0.5rem;
 }
+.gift .name:hover {
+  cursor: pointer;
+}
 .gift .cost, .gift .obtained {
   width: 1rem;
   padding: 0rem 0.5rem;
@@ -225,3 +234,9 @@
   background: #888;
 }
 
+#popup .giftName {
+  font-weight: bold;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 110%;
+}
