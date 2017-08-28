@@ -124,6 +124,34 @@ MentalPower.LevelRequirement = function(character, key) {
   return "A lower level mental power in '" + data.discipline + "' is required.";
 }
 
+MentalPower.RenderPopup = function(key, popup, background) {
+  popup.html(Mustache.render(MentalPower.Template.popup, MentalPower.Data[key]));
+  popup.find('.effects').append(Mustache.render(MentalPower.Template.effect, {'roll': 'Roll', 'difficulty': 'Difficulty', 'outcome': 'Outcome', 'rowType': 'th'}));
+  for (let k in MentalPower.Data[key].effects) {
+    popup.find('.effects').append(Mustache.render(MentalPower.Template.effect, MentalPower.Data[key].effects[k]));
+  }
+  background.show();
+}
+
+MentalPower.Template = {};
+
+MentalPower.Template.popup = String.raw`
+<div id="mentalPowerPopup" class="popup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<table class="effects"></table>
+</div>
+`;
+
+MentalPower.Template.effect = String.raw`
+<tr class="effect">
+<{{rowType}}{{^rowType}}td{{/rowType}} class="roll">{{roll}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="difficulty">{{difficulty}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+<{{rowType}}{{^rowType}}td{{/rowType}} class="outcome">{{{outcome}}}</{{rowType}}{{^rowType}}td{{/rowType}}>
+</tr>
+`;
+
+
 MentalPower.Data = {
   'createFire': {
     'name': 'Create Fire',

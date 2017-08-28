@@ -368,6 +368,10 @@ function renderModule(character, moduleKey, parent, limit, total) {
   });
   obtainedInput.change({'key': moduleKey, 'character': character}, function(event) {
     changeModule(event, $(this).is(":checked"));
+  });
+
+  dpInvestment.find('.name').last().click(function(event) {
+    CombatModule.RenderPopup(moduleKey, $('#popup'), $('#popupBackground'));
   })
 }
 
@@ -406,7 +410,11 @@ function renderMartialArt(character, key, parent) {
 
   obtainedInput.change({'key': key, 'character': character}, function(event) {
     changeMartialArt(event, $(this).is(":checked"));
-  })
+  });
+
+  dpInvestment.find('.name').last().click(function(event) {
+    MartialArt.RenderPopup(key, $('#popup'), $('#popupBackground'));
+  });
 }
 
 /////////////////////////////////////////////////
@@ -566,6 +574,9 @@ function renderMentalPower(parent, character, mentalPowerKey) {
     parent.append(Mustache.render(Template.mentalPower, MentalPower.Data[mentalPowerKey]));
   }
   parent.find('.mentalPower').last().attr('id', mentalPowerKey + "_MentalPower");
+  $('#' + mentalPowerKey + "_MentalPower").find('.name').click(function(event) {
+    MentalPower.RenderPopup(mentalPowerKey, $('#popup'), $('#popupBackground'));
+  });
   var obtainedMentalPower = $('#' + mentalPowerKey + "_MentalPower").find('.obtainedMentalPower')
   var mentalPowerInvestment = $('#' + mentalPowerKey + "_MentalPower").find('.mentalPowerInvestment');
   var disabledInterceptor = $('#' + mentalPowerKey + "_MentalPower").find('.disabledInterceptor');

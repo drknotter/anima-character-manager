@@ -160,9 +160,6 @@
   text-align: left;
   padding: 0.5rem;
 }
-.gift .name:hover {
-  cursor: pointer;
-}
 .gift .cost, .gift .obtained {
   width: 1rem;
   padding: 0rem 0.5rem;
@@ -239,4 +236,53 @@
   margin: 0.5rem;
   text-align: center;
   font-size: 110%;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
+.combatModulePopup .name {
+  font-weight: bold;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 110%;
+}
+.combatModulePopup .description {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.martialArtPopup .name {
+  font-weight: bold;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 110%;
+}
+.martialArtPopup .description {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.martialArtPopup .requirements {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+#mentalPowerPopup .name {
+  font-size: 120%;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+#mentalPowerPopup .description {
+  margin-bottom: 0.5rem;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+  font-size: 80%;
+}
+#mentalPowerPopup .effect:nth-child(even) {
+  background: #eee;
+}
+#mentalPowerPopup .effect td {
+  padding: 0.25rem;
+  padding-left: 1rem;
 }

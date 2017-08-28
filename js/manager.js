@@ -88,20 +88,16 @@ function renderCharacter(character) {
     if (!(character.mentalPowers[i].discipline in disciplinesMentalPowerMap)) {
       disciplinesMentalPowerMap[character.mentalPowers[i].discipline] = [];
     }
-    disciplinesMentalPowerMap[character.mentalPowers[i].discipline].push(character.mentalPowers[i]);
+    disciplinesMentalPowerMap[character.mentalPowers[i].discipline].push(i);
   }
 
   for (let i in disciplinesMentalPowerMap) {
     $('#mentalPowers').append(Mustache.render(Template.mentalPowerDiscipline, {'name': i}));
     for (let j in disciplinesMentalPowerMap[i]) {
-      $('#mentalPowers table').last().append(Mustache.render(Template.mentalPower, disciplinesMentalPowerMap[i][j]));
+      $('#mentalPowers table').last().append(Mustache.render(Template.mentalPower, 
+        character.mentalPowers[disciplinesMentalPowerMap[i][j]]));
       $('#mentalPowers table .mentalPower').last().click(function(event) {
-        $('#popup').html(Mustache.render(Template.mentalPowerPopup, disciplinesMentalPowerMap[i][j]));
-        $('#popup .effects').append(Mustache.render(Template.mentalPowerEffect, {'roll': 'Roll', 'difficulty': 'Difficulty', 'outcome': 'Outcome', 'rowType': 'th'}));
-        for (let k in disciplinesMentalPowerMap[i][j].effects) {
-          $('#popup .effects').append(Mustache.render(Template.mentalPowerEffect,disciplinesMentalPowerMap[i][j].effects[k]));
-        }
-        $('#popupBackground').show();
+        MentalPower.RenderPopup(disciplinesMentalPowerMap[i][j], $('#popup'), $('#popupBackground'));
       })
     }
   }

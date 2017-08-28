@@ -49,15 +49,15 @@ Template.dpInvestment = String.raw`
 </tr>
 `;
 Template.moduleInvestment = String.raw`
-<tr class="dpInvestment">
-<td>{{name}}</td>
+<tr class="dpInvestment clickable">
+<td class="name">{{name}}</td>
 <td class="cost">{{cost}}</td>
 <td class="obtained"><input type="checkbox"></td>
 </tr>
 `;
 Template.martialArtInvestment = String.raw`
 <tr class="dpInvestment">
-<td>{{name}}</td>
+<td class="name clickable">{{name}}</td>
 <td class="cost">{{cost}}</td>
 <td class="obtained" style="position: relative;">
   <input type="checkbox">
@@ -114,7 +114,7 @@ Template.mentalDisciplineHeader = String.raw`
 `;
 Template.mentalPower = String.raw`
 <tr class="mentalPower">
-<td class="name">{{name}} (Level {{level}})</td>
+<td class="name clickable">{{name}} (Level {{level}})</td>
 <td class="input" style="position: relative;">
   <input class="obtainedMentalPower" type="checkbox">
   <div class="disabledInterceptor" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
@@ -161,7 +161,7 @@ Template.elanDeityGroup = String.raw`
 
 Template.deityGift = String.raw`
 <tr class="gift">
-<td class="name">{{name}}</td>
+<td class="name clickable">{{name}}</td>
 <td class="cost">{{cost}}</td>
 <td class="requiredElan">{{requiredElan}}</td>
 <td class="obtained"><input type="checkbox"></td>

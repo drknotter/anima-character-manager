@@ -48,6 +48,22 @@ MartialArt.AttackAndDefenseRequirement = function(character) {
   return 40 * (n + 1) <= attackAndDefense ? null : "At least " + (40 * (n + 1)) + " combined Attack and Defense is required.";
 }
 
+MartialArt.RenderPopup = function(key, popup, background) {
+  popup.html(Mustache.render(MartialArt.Template.popup, MartialArt.Data[key]));
+  background.show();
+}
+
+MartialArt.Template = {};
+
+MartialArt.Template.popup = String.raw`
+<div class="martialArtPopup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<div class="advantages">{{advantages}}</div>
+<div class="requirements">Requirements: {{requirements}}</div>
+</div>
+`;
+
 MartialArt.Data = {
   "kempo": {
     'name': "Kempo",

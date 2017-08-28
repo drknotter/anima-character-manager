@@ -15,6 +15,21 @@ class CombatModule {
   }  
 }
 
+CombatModule.RenderPopup = function(key, popup, background) {
+  popup.html(Mustache.render(CombatModule.Template.popup, CombatModule.Data[key]));
+  background.show();
+}
+
+CombatModule.Template = {};
+
+CombatModule.Template.popup = String.raw`
+<div class="combatModulePopup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<div class="effects">{{effects}}</div>
+</div>
+`;
+
 CombatModule.Data = {
   'similarWeapon': {
     'name': 'Similar Weapon',
