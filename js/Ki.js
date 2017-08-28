@@ -48,7 +48,7 @@ class KiTechnique {
     check(data.effects && Object.keys(data.effects).length > 0, "Ki techniques need at least one effect!");
     this.effects = [];
     for (let i=0; i<data.effects.length; i++) {
-      check(data.effects[i].key in KiTechnique.Data, i + " is not a valid effect for a ki technique!");
+      check(data.effects[i].key in KiTechnique.Data.Effects, i + " is not a valid effect for a ki technique!");
       check(isNumber(data.effects[i].level), data.effects[i] + " is not a valid effect level for a ki technique!");
       this.effects.push({});
       this.effects[i].level = data.effects[i].level;
@@ -57,14 +57,23 @@ class KiTechnique {
       }
 
       for (let j in data.effects[i].advantages) {
-        check(j in KiTechnique.Data[data.effects[i].key].advantages, j + " is not a valid optional advantage for effect " + KiTechnique.Data[data.effects[i].key].name + "!");
-        check(data.effects[i].advantages[j].option in KiTechnique.Data[data.effects[i].key].advantages[j].options, data.effects[i].advantages[j].option + " is not a valid option for advantage " + KiTechnique.Data[data.effects[i].key].advantages[j].name + "!");
+        check(j in KiTechnique.Data.Effects[data.effects[i].key].advantages, j + " is not a valid optional advantage for effect " + KiTechnique.Data.Effects[data.effects[i].key].name + "!");
+        check(data.effects[i].advantages[j].option in KiTechnique.Data.Effects[data.effects[i].key].advantages[j].options, data.effects[i].advantages[j].option + " is not a valid option for advantage " + KiTechnique.Data.Effects[data.effects[i].key].advantages[j].name + "!");
       }
+      this.effects[i].advantages = data.effects[i].advantages;
+    }
+
+    this.disadvantages = {};
+    for (let i in data.disadvantages) {
+      check(i in KiTechnique.Data.Disadvantages, i + " is not a valid disadvantage for a ki technique!");
+      check(data.disadvantages[i] in KiTechnique.Data.Disadvantages[i].options, data.disadvantages[i] + " is not a valid option for ki technique disadvantage " + KiTechnique.Data.Disadvantages[i].name + "!");
     }
   }
 }
 
-KiTechnique.Data = {
+KiTechnique.Data = {};
+
+KiTechnique.Data.Effects = {
   "attackAbility": {
     "name": "Attack Ability",
     "description": "This effect adds a bonus to the Attack Ability. Upon rolling the dice, a character adds the number under \"Attack Bonus\" to his roll.",
@@ -308,6 +317,25 @@ KiTechnique.Data = {
             "maintainCost": 2
           },
         }
+      }
+    }
+  }
+};
+
+KiTechnique.Data.Disadvantages = {
+  "elementalBinding": {
+    "name": "Elemental Binding",
+    "description": "This Disadvantage forces the player to choose effects only related to a particular element. Additionally, this Disadvantage will also force the character using it to choose that element again if developing a higher-level Technique based upon it. In other words, once a player chooses this Disadvantage, all higher-level techniques must also carry this Disadvantage.",
+    "options": {
+      "singleElement": {
+        "name": "Single Element",
+        "description": "Effects must be bound to a single element.",
+        "martialKnowledgeReduction": 15,
+      },
+      "twoElements": {
+        "name": "Two Elements",
+        "description": "As with Single Element, except players must limit the effect to two elements.",
+        "martialKnowledgeReduction": 10,
       }
     }
   }
