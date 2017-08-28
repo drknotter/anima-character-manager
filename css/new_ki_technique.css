@@ -1,0 +1,52 @@
+#content {
+  margin: 0rem 1rem;
+  background: #ccc;
+  padding: 0.25rem 0.5rem;
+}
+#content h1 {
+  text-align: center;
+  font-size: 120%;
+}
+#content>table th, #extraOptionsContainer>table th {
+  padding: 0.5rem;
+  text-align: left;
+  width: 6rem;
+}
+#content>table td, #extraOptionsContainer>table td {
+  padding: 0.5rem;
+}
+#content>table tr:nth-child(even), #extraOptionsContainer>table tr:nth-child(even) {
+  background: #ddd;
+}
+#content input, #content textarea, #content select {
+  resize: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  margin: 0rem;
+  padding: 0.25rem;
+}
+#addKiTechnique {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem;
+  background: #aaa;
+}
+#addKiTechnique:hover {
+  background: #cce;
+  cursor: pointer;
+}
+
+.effectGroup .addEffect {
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: #aaa;
+}
+.effectGroup .addEffect:hover {
+  background: #cce;
+  cursor: pointer;
+}

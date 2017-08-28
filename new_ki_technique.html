@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/mustache.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    
+    <script type="text/javascript" src="js/new_ki_technique.templates.js"></script>
+
+    <script type="text/javascript" src="js/Ki.js"></script>
+    <script type="text/javascript" src="js/MartialArts.js"></script>
+    <script type="text/javascript" src="js/CombatModules.js"></script>
+    <script type="text/javascript" src="js/Elan.js"></script>
+    <script type="text/javascript" src="js/Equipment.js"></script>
+    <script type="text/javascript" src="js/Psychic.js"></script>
+    <script type="text/javascript" src="js/Ability.js"></script>
+    <script type="text/javascript" src="js/Class.js"></script>
+    <script type="text/javascript" src="js/Characteristic.js"></script>
+    <script type="text/javascript" src="js/Advantages.js"></script>
+    <script type="text/javascript" src="js/Character.js"></script>
+    <script type="text/javascript" src="js/new_ki_technique.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/new_ki_technique.css">
+  </head>
+  <body>
+  <div id="content">
+    <h1>Create New Ki Technique</h1>
+    <table>
+      <tr><th>Name</th><td><input id="newKiTechniqueName" type="text"></td></tr>
+      <tr><th>Description</th><td><textarea id="newKiTechniqueDescription" rows="4"></textarea></td></tr>
+      <tr><th>Level</th><td><select>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      </td></tr>
+      <tr><td colspan="2">
+        <div id="effectGroup" class="effectGroup">
+          <div class="title">Main Effect</div>
+          <div id="setMainEffect" class="addEffect">Set Main Effect</div>
+        </div>
+      </td></tr>
+      <tr><td colspan="2">
+        <div id="effectGroup" class="effectGroup">
+          <div class="title">Secondary Effects</div>
+          <table id="secondaryEffects">
+          </table>
+          <div id="addSecondaryEffect" class="addEffect">Add Secondary Effect</div>
+        </div>
+      </td></tr>
+    </table>
+    <div id="addKiTechnique">Add Ki Technique</div>
+  </div>
+  <div id="popupBackground">
+    <div id="popup"></div>
+  </div>
+  </body>
+</html>
