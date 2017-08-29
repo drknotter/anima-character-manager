@@ -107,6 +107,15 @@ class KiTechnique {
       var effectData = KiTechnique.Data.Effects[this.effects[i].key];
       var totalKiPoints = effectData.bonus.levels[this.effects[i].level][i == 0 ? 'primary' : 'secondary']
           + ( this.effects[i].maintain ? effectData.bonus.levels[this.effects[i].level].maintainCost : 0);
+      var distributionTotal = 0;
+      for (let j in this.effects[i].distribution) {
+        distributionTotal += this.effects[i].distribution[j];
+        if (j in effectData.optionalCharacteristics) {
+          totalKiPoints += effectData.optionalCharacteristics[j];
+        }
+      }
+      check(totalKiPoints > distributionTotal, "Not enough Ki points distributed for effect " + effectData.name + "!");
+      check(totalKiPoints < distributionTotal, "Too many Ki points distributed for effect " + effectData.name + "!");
     }
   }
 }
