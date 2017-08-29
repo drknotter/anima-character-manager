@@ -49,16 +49,20 @@ class KiTechnique {
     this.effects = [];
     for (let i=0; i<data.effects.length; i++) {
       check(data.effects[i].key in KiTechnique.Data.Effects, i + " is not a valid effect for a ki technique!");
+      var effectData = KiTechnique.Data.Effects[data.effects[i].key];
       check(isNumber(data.effects[i].level), data.effects[i] + " is not a valid effect level for a ki technique!");
+      check(typeof data.effects[i].maintain === "boolean", data.effects[i].maintain + " is neither true nor false!");
       this.effects.push({});
       this.effects[i].level = data.effects[i].level;
-      if (data.effects[i].optionalCharacteristics) {
-        this.effects[i].optionalCharacteristics = data.effects[i].optionalCharacteristics;
+      for (let j in data.effects[i].distribution) {
+        check(j in Characteristic.Data && (j === effectData.primaryCharacteristic || j in effectData.optionalCharacteristics), j + " is not a valid characteristic for a ki point distribution for effect " + effectData.name + "!");
+        check(isNumber(data.effects[i].distribution[j]), data.effects[i].distribution[j] + " is not a valid value for a ki point distribution for effect " + effectData.name + "!");
       }
+      this.effects[i].distribution = data.effects[i].distribution;
 
       for (let j in data.effects[i].advantages) {
-        check(j in KiTechnique.Data.Effects[data.effects[i].key].advantages, j + " is not a valid optional advantage for effect " + KiTechnique.Data.Effects[data.effects[i].key].name + "!");
-        check(data.effects[i].advantages[j].option in KiTechnique.Data.Effects[data.effects[i].key].advantages[j].options, data.effects[i].advantages[j].option + " is not a valid option for advantage " + KiTechnique.Data.Effects[data.effects[i].key].advantages[j].name + "!");
+        check(j in effectData.advantages, j + " is not a valid optional advantage for effect " + effectData.name + "!");
+        check(data.effects[i].advantages[j].option in effectData.advantages[j].options, data.effects[i].advantages[j].option + " is not a valid option for advantage " + effectData.advantages[j].name + "!");
       }
       this.effects[i].advantages = data.effects[i].advantages;
     }
@@ -67,6 +71,42 @@ class KiTechnique {
     for (let i in data.disadvantages) {
       check(i in KiTechnique.Data.Disadvantages, i + " is not a valid disadvantage for a ki technique!");
       check(data.disadvantages[i] in KiTechnique.Data.Disadvantages[i].options, data.disadvantages[i] + " is not a valid option for ki technique disadvantage " + KiTechnique.Data.Disadvantages[i].name + "!");
+    }
+    this.disadvantages = data.disadvantages;
+
+    this.kiDistribution = {};
+    check(data.kiDistribution, "Missing ki distribution for ki technique '" + this.name + "'!");
+    for (let i in data.kiDistribution) {
+      check(i in Characteristic.Data, i + " is not a valid characteristic for ki distribution!");
+    }
+    this.kiDistribution = data.kiDistribution;
+
+    var totalMartialKnowledgeCost = KiTechnique.Data.Effects[this.effects[0].key].bonus.levels[this.effects[0].level].primary;
+    for (let i=1; i<this.effects.length; i++) {
+      totalMartialKnowledgeCost += KiTechnique.Data.Effects[this.effects[i].key].bonus.levels[this.effects[i].level].secondary;
+      if (this.effects[i].maintain) {
+        totalMartialKnowledgeCost += 10;
+      }
+    }
+
+    // Ensure disadvantages aren't _too_ advantageous.
+    check(Object.keys(this.disadvantages).length > this.level, "Too many disadvantages for ki technique '" + this.name + "'!");
+    var totalDisadvantageSavings = 0;
+    for (let i in this.disadvantages) {
+      totalDisadvantageSavings += KiTechnique.Data.Disadvantages[i].options[this.disadvantages[i].option].martialKnowledgeReduction;
+    }
+    check(totalDisadvantageSavings < 0.5 * totalMartialKnowledgeCost, "Disadvantages are not allowed to lower ki technique costs by more than half!");
+    totalMartialKnowledgeCost -= totalDisadvantageSavings;
+
+    // Verify the MK cost.
+    check(totalMartialKnowledgeCost > 50 * Math.exp(2, this.level - 1), "Total martial knowledge cost for ki technique '" + this.name + "' exceeds maximum!");
+    check(totalMartialKnowledgeCost < 20 * this.level, "Total martial knowledge cost for ki technique '" + this.name + "' is too low!");
+
+    // Validate distributions.
+    for (let i=0; i<this.effects.length; i++) {
+      var effectData = KiTechnique.Data.Effects[this.effects[i].key];
+      var totalKiPoints = effectData.bonus.levels[this.effects[i].level][i == 0 ? 'primary' : 'secondary']
+          + ( this.effects[i].maintain ? effectData.bonus.levels[this.effects[i].level].maintainCost : 0);
     }
   }
 }

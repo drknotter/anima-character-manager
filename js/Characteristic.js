@@ -1,6 +1,6 @@
 class Characteristic extends Scoreable {
   constructor(data, key) {
-    super(CHARACTERISTIC_INFO[key]['name']);
+    super(Characteristic.Data[key]['name']);
     if (data.characteristicLevelBonusesInvested) {
       this.characteristicLevelBonusesInvested = data.characteristicLevelBonusesInvested;
     } else {
@@ -14,7 +14,7 @@ class Characteristic extends Scoreable {
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {
-          return CHARACTERISTIC_INFO[key][attrs[i]];
+          return Characteristic.Data[key][attrs[i]];
         }
       });
     }
@@ -52,7 +52,7 @@ class Characteristic extends Scoreable {
   }
 }
 
-var CHARACTERISTIC_INFO = {
+Characteristic.Data = {
   'str':{'name':'Strength','nickname':'Str','description':'No description yet!'},
   'agi':{'name':'Agility','nickname':'Agi','description':'No description yet!'},
   'dex':{'name':'Dexterity','nickname':'Dex','description':'No description yet!'},
