@@ -7,12 +7,12 @@
   text-align: center;
   font-size: 120%;
 }
-#content>table th, #extraOptionsContainer>table th {
+.mainHeader {
   padding: 0.5rem;
   text-align: left;
   width: 6rem;
 }
-#content>table td, #extraOptionsContainer>table td {
+.mainEntry {
   padding: 0.5rem;
 }
 #content>table tr:nth-child(even), #extraOptionsContainer>table tr:nth-child(even) {
@@ -22,7 +22,6 @@
   resize: none;
   border: none;
   width: 100%;
-  height: 100%;
   margin: 0rem;
   padding: 0.25rem;
 }
@@ -39,14 +38,29 @@
   cursor: pointer;
 }
 
-.addEffect, .removeEffect {
+.addEffect, .removeEffect, .removeDisadvantage {
   text-align: center;
   font-weight: bold;
   padding: 0.5rem;
   margin-top: 0.5rem;
   background: #aaa;
 }
-.addEffect:hover, .removeEffect:hover {
+.addEffect:hover, .removeEffect:hover, .removeDisadvantage:hover {
   background: #cce;
   cursor: pointer;
+}
+
+table.effectLevels {
+  background: #fff;
+}
+table.effectLevels td, table.effectLevels th {
+  text-align: center;
+}
+table.effectLevels input[type="radio"] {
+  width: auto;
+  height: auto;
+}
+table.effectLevels td.radio {
+  width: 0.75rem;
+  padding: 0.25rem 1rem;
 }

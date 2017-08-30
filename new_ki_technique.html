@@ -29,28 +29,28 @@
   <div id="content">
     <h1>Create New Ki Technique</h1>
     <table>
-      <tr><th>Name</th><td><input id="newKiTechniqueName" type="text"></td></tr>
-      <tr><th>Description</th><td><textarea id="newKiTechniqueDescription" rows="4"></textarea></td></tr>
-      <tr><th>Level</th><td><select>
+      <tr><th class="mainHeader">Name</th><td class="mainEntry"><input id="newKiTechniqueName" type="text"></td></tr>
+      <tr><th class="mainHeader">Description</th><td class="mainEntry"><textarea id="newKiTechniqueDescription" rows="4"></textarea></td></tr>
+      <tr><th class="mainHeader">Level</th><td class="mainEntry"><select>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </select>
       </td></tr>
-      <tr><td colspan="2">
+      <tr><td colspan="2" class="mainEntry">
         <table id="mainEffectGroup" class="effectGroup">
-          <tr><th class="title">Main Effect</th><tr>
+          <tr><th class="title mainHeader">Main Effect</th></tr>
         </table>
       </td></tr>
-      <tr><td colspan="2">
+      <tr><td colspan="2" class="mainEntry">
         <table id="secondaryEffectGroup" class="effectGroup">
-          <tr><th class="title">Secondary Effects</th></tr>
+          <tr><th class="title mainHeader">Secondary Effects</th></tr>
         </table>
         <div id="addSecondaryEffect" class="addEffect">Add Secondary Effect</div>
       </td></tr>
-      <tr><td colspan="2">
-        <table class="effectGroup">
-          <tr><th class="title">Disadvantages</th></tr>
+      <tr><td colspan="2" class="mainEntry">
+        <table id="disadvantageGroup" class="effectGroup">
+          <tr><th class="title mainHeader">Disadvantages</th></tr>
         </table>
         <div id="addDisadvantage" class="addEffect">Add Disadvantage</div>
       </td></tr>
