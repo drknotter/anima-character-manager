@@ -2,6 +2,7 @@
   margin: 0rem 1rem;
   background: #ccc;
   padding: 0.25rem 0.5rem;
+  min-width: 40rem;
 }
 #content h1 {
   text-align: center;
@@ -24,6 +25,7 @@
   width: 100%;
   margin: 0rem;
   padding: 0.25rem;
+  background: #fff;
 }
 #addKiTechnique {
   text-align: center;
@@ -38,14 +40,18 @@
   cursor: pointer;
 }
 
-.addEffect, .removeEffect, .removeDisadvantage {
+.effectContainer {
+  padding: 0.5rem;
+}
+
+.addEffect, .removeEffect, .removeDisadvantage, .addAdvantage, .removeAdvantage {
   text-align: center;
   font-weight: bold;
   padding: 0.5rem;
   margin-top: 0.5rem;
   background: #aaa;
 }
-.addEffect:hover, .removeEffect:hover, .removeDisadvantage:hover {
+.addEffect:hover, .removeEffect:hover, .removeDisadvantage:hover, .addAdvantage:hover, .removeAdvantage:hover {
   background: #cce;
   cursor: pointer;
 }
@@ -63,4 +69,10 @@ table.effectLevels input[type="radio"] {
 table.effectLevels td.radio {
   width: 0.75rem;
   padding: 0.25rem 1rem;
+}
+.distributionInput {
+  padding: 0.25rem;
+}
+.distributionHeader.disabled {
+  color: #888;
 }
