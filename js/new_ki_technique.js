@@ -41,9 +41,10 @@ function addEffectOptions(select) {
 }
 
 function setEffectInfo(key, isPrimary, infoContainer) {
-  var data = {'key': key, 'isPrimary': isPrimary, 'data': KiTechnique.Data.Effects[key]};
+  let guidKey = guid();
+  var data = {'key': key, 'guid': guidKey, 'isPrimary': isPrimary, 'data': KiTechnique.Data.Effects[key]};
   infoContainer.html(Mustache.render(Template.effectInfo, data));
-  infoContainer.find('input[name='+key+']').change(function(event) {
+  infoContainer.find('input[name="'+key+'|'+guidKey+'"]').change(function(event) {
     console.log($(this).closest('.effectLevel').index());
   });
   for (let i in Characteristic.Data) {
@@ -65,30 +66,56 @@ function setEffectInfo(key, isPrimary, infoContainer) {
   }
   if (KiTechnique.Data.Effects[key].advantages) {
     infoContainer.find('.addAdvantage').click(function(event) {
-      addAdvantage(infoContainer.find('.advantagesContainer'))
+      addAdvantage(key, infoContainer.find('.advantagesContainer'))
     });
   }
 }
 
-function addAdvantage(parent) {
+function addAdvantage(key, parent) {
   var advantageContainer = $(Mustache.render(Template.advantage).replace(/\r?\n|\r/g,''));
   parent.append(advantageContainer);
-  // addEffectOptions(effectContainer.find('.effectSelector'));
-  // effectContainer.find('.removeEffect').click(function(event) {
-  //   effectContainer.remove();
-  // });
-  // effectContainer.find('.effectSelector').change(function(event) {
-  //   if ($(this).val() in KiTechnique.Data.Effects) {
-  //     setEffectInfo($(this).val(), isPrimary, effectContainer.find('.effectInfo'));
-  //   } else {
-  //     effectContainer.find('.effectInfo').empty();
-  //   }
-  // });
+  addAdvantageOptions(key, advantageContainer.find('.advantageSelector'));
+  advantageContainer.find('.removeAdvantage').click(function(event) {
+    advantageContainer.remove();
+  });
+  advantageContainer.find('.advantageSelector').change(function(event) {
+    if ($(this).val() in KiTechnique.Data.Effects[key].advantages) {
+      setAdvantageInfo(key, $(this).val(), advantageContainer.find('.advantageInfo'));
+    } else {
+      advantageContainer.find('.advantageInfo').empty();
+    }
+  });
 }
 
 function addAdvantageOptions(key, select) {
-
+  select.append(Mustache.render(Template.selectOption, {
+    'value': "",
+    'name': ""
+  }));
+  for (let i in KiTechnique.Data.Effects[key].advantages) {
+    select.append(Mustache.render(Template.selectOption, {
+      'value': i,
+      'name': KiTechnique.Data.Effects[key].advantages[i].name
+    }));
+  }
 }
+
+function setAdvantageInfo(effectKey, advantageKey, infoContainer) {
+  infoContainer.html(Mustache.render(Template.advantageInfo, KiTechnique.Data.Effects[effectKey].advantages[advantageKey]));
+  let guidKey = guid();
+  for (let i in KiTechnique.Data.Effects[effectKey].advantages[advantageKey].options) {
+    infoContainer.find('.advantageOptions').append(Mustache.render(Template.advantageOption, {
+      'effectKey': effectKey,
+      'advantageKey': advantageKey,
+      'guid': guidKey,
+      'data': KiTechnique.Data.Effects[effectKey].advantages[advantageKey].options[i]
+    }));
+  }
+  infoContainer.find('input[name="' + effectKey + '|' + advantageKey + '|' + guidKey + '"]').change(function(event) {
+    console.log($(this).closest('.advantageOption').index());
+  });
+}
+
 
 function addDisadvantage(parent) {
   var disadvantageContainer = $(Mustache.render(Template.disadvantage).replace(/\r?\n|\r/g,''));
@@ -96,6 +123,13 @@ function addDisadvantage(parent) {
   addDisadvantageOptions(disadvantageContainer.find('.disadvantageSelector'));
   disadvantageContainer.find('.removeDisadvantage').click(function(event) {
     disadvantageContainer.remove();
+  });
+  disadvantageContainer.find('.disadvantageSelector').change(function(event) {
+    if ($(this).val() in KiTechnique.Data.Disadvantages) {
+      setDisadvantageInfo($(this).val(), disadvantageContainer.find('.disadvantageInfo'));
+    } else {
+      disadvantageContainer.find('.disadvantageInfo').empty();
+    }
   });
 }
 
@@ -110,4 +144,19 @@ function addDisadvantageOptions(select) {
       'name': KiTechnique.Data.Disadvantages[i].name
     }));
   }
+}
+
+function setDisadvantageInfo(disadvantageKey, infoContainer) {
+  infoContainer.html(Mustache.render(Template.disadvantageInfo, KiTechnique.Data.Disadvantages[disadvantageKey]));
+  let guidKey = guid();
+  for (let i in KiTechnique.Data.Disadvantages[disadvantageKey].options) {
+    infoContainer.find('.disadvantageOptions').append(Mustache.render(Template.disadvantageOption, {
+      'disadvantageKey': disadvantageKey,
+      'guid': guidKey,
+      'data': KiTechnique.Data.Disadvantages[disadvantageKey].options[i]
+    }));
+  }
+  infoContainer.find('input[name="' + disadvantageKey + '|' + guidKey + '"]').change(function(event) {
+    console.log($(this).closest('.disadvantageOption').index());
+  });
 }

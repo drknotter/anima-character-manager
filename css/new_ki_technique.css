@@ -16,7 +16,7 @@
 .mainEntry {
   padding: 0.5rem;
 }
-#content>table tr:nth-child(even), #extraOptionsContainer>table tr:nth-child(even) {
+#content>table tr:nth-child(even) {
   background: #ddd;
 }
 #content input, #content textarea, #content select {
@@ -56,17 +56,17 @@
   cursor: pointer;
 }
 
-table.effectLevels {
+table.effectLevels, table.advantageOptions, table.disadvantageOptions {
   background: #fff;
 }
-table.effectLevels td, table.effectLevels th {
+table.effectLevels td, table.effectLevels th, table.advantageOptions td, table.advantageOptions th, table.disadvantageOptions td, table.disadvantageOptions th {
   text-align: center;
 }
-table.effectLevels input[type="radio"] {
+table.effectLevels input[type="radio"], table.advantageOptions input[type='radio'], table.disadvantageOptions input[type='radio'] {
   width: auto;
   height: auto;
 }
-table.effectLevels td.radio {
+table.effectLevels td.radio, table.advantageOptions td.radio, table.disadvantageOptions td.radio {
   width: 0.75rem;
   padding: 0.25rem 1rem;
 }
@@ -75,4 +75,8 @@ table.effectLevels td.radio {
 }
 .distributionHeader.disabled {
   color: #888;
+}
+
+table.advantageOptions .optionName {
+  text-align: left;
 }
