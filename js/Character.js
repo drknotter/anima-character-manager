@@ -131,6 +131,11 @@ class Character {
       this.kiAbilities[i] = new KiAbility(this, i);
     }
 
+    this.kiTechniques = {};
+    for (let i in data.kiTechniques) {
+      this.kiTechniques = new KiTechnique(this, data.kiTechniques[i]);
+    }
+
     // Adjust psychic points by pp invested + mental powers
     Object.defineProperty(this.primaryAbilities.psychicPoints, 'spentBonus', {
       get: function() {

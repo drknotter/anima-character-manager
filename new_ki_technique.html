@@ -31,11 +31,16 @@
     <table>
       <tr><th class="mainHeader">Name</th><td class="mainEntry"><input id="newKiTechniqueName" type="text"></td></tr>
       <tr><th class="mainHeader">Description</th><td class="mainEntry"><textarea id="newKiTechniqueDescription" rows="4"></textarea></td></tr>
-      <tr><th class="mainHeader">Level</th><td class="mainEntry"><select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
+      <tr><th class="mainHeader">Level</th><td class="mainEntry">
+      <div style="display:table; width:100%;">
+        <select id="newKiTechniqueLevel" style="display:table-cell; width:100%;">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <div class="space" style="display:table-cell; width:0.5rem;"></div>
+        <div style="display:table-cell; width:8rem;"><input type="checkbox" id="maintainable" style="width:auto"> Maintainable?</div>
+      </div>
       </td></tr>
       <tr><td colspan="2" class="mainEntry">
         <table id="mainEffectGroup" class="effectGroup">

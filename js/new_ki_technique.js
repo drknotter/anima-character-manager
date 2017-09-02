@@ -5,6 +5,9 @@ $( document ).ready(function() {
   });
   $('#addDisadvantage').click(function(event) {
     addDisadvantage($('#disadvantageGroup'))
+  });
+  $('#addKiTechnique').click(function(event) {
+    addKiTechnique();
   })
 });
 
@@ -44,9 +47,6 @@ function setEffectInfo(key, isPrimary, infoContainer) {
   let guidKey = guid();
   var data = {'key': key, 'guid': guidKey, 'isPrimary': isPrimary, 'data': KiTechnique.Data.Effects[key]};
   infoContainer.html(Mustache.render(Template.effectInfo, data));
-  infoContainer.find('input[name="'+key+'|'+guidKey+'"]').change(function(event) {
-    console.log($(this).closest('.effectLevel').index());
-  });
   for (let i in Characteristic.Data) {
     var headerText = Characteristic.Data[i].nickname;
     var enabled = false;
@@ -104,16 +104,15 @@ function setAdvantageInfo(effectKey, advantageKey, infoContainer) {
   infoContainer.html(Mustache.render(Template.advantageInfo, KiTechnique.Data.Effects[effectKey].advantages[advantageKey]));
   let guidKey = guid();
   for (let i in KiTechnique.Data.Effects[effectKey].advantages[advantageKey].options) {
-    infoContainer.find('.advantageOptions').append(Mustache.render(Template.advantageOption, {
+    let advantageOptionContainer = $(Mustache.render(Template.advantageOption, {
       'effectKey': effectKey,
       'advantageKey': advantageKey,
       'guid': guidKey,
       'data': KiTechnique.Data.Effects[effectKey].advantages[advantageKey].options[i]
-    }));
+    }).replace(/\r?\n|\r/g,''));
+    advantageOptionContainer.data('advantageOptionKey', i);
+    infoContainer.find('.advantageOptions').append(advantageOptionContainer);
   }
-  infoContainer.find('input[name="' + effectKey + '|' + advantageKey + '|' + guidKey + '"]').change(function(event) {
-    console.log($(this).closest('.advantageOption').index());
-  });
 }
 
 
@@ -150,13 +149,97 @@ function setDisadvantageInfo(disadvantageKey, infoContainer) {
   infoContainer.html(Mustache.render(Template.disadvantageInfo, KiTechnique.Data.Disadvantages[disadvantageKey]));
   let guidKey = guid();
   for (let i in KiTechnique.Data.Disadvantages[disadvantageKey].options) {
-    infoContainer.find('.disadvantageOptions').append(Mustache.render(Template.disadvantageOption, {
+    let disadvantageContainer = $(Mustache.render(Template.disadvantageOption, {
       'disadvantageKey': disadvantageKey,
       'guid': guidKey,
       'data': KiTechnique.Data.Disadvantages[disadvantageKey].options[i]
-    }));
+    }).replace(/\r?\n|\r/g,''));
+    disadvantageContainer.data('disadvantageOptionKey', i);
+    infoContainer.find('.disadvantageOptions').append(disadvantageContainer);
   }
-  infoContainer.find('input[name="' + disadvantageKey + '|' + guidKey + '"]').change(function(event) {
-    console.log($(this).closest('.disadvantageOption').index());
-  });
+}
+
+function addKiTechnique() {
+  var character = new Character(JSON.parse(localStorage['character.'+getParameterByName('n')]));
+  var data = {};
+
+  data.name = $('#newKiTechniqueName').val();
+  data.description = $('#newKiTechniqueDescription').val();
+  data.level = Number($('#newKiTechniqueLevel').val());
+  data.maintain = $('#maintainable').is(':checked');
+
+  data.effects = [];
+  var effectContainers = $('.effectContainer');
+  for (let i=0; i<effectContainers.length; i++) {
+    let effectContainer = $(effectContainers[i]);
+    let effectData = {};
+    
+    effectData.key = effectContainer.find('.effectSelector').val();
+    if (effectData.key.length == 0) {
+      continue;
+    }
+
+    let index = effectContainer.find('.effectLevels').find('.effectLevel input:checked').closest('.effectLevel').index();
+    if (index >= 1) {
+      effectData.level = index - 1;
+    }
+    effectData.distribution = {};
+    for (let j in Characteristic.Data) {
+      let points = effectContainer.find('.pointsDistributionContainer .' + j + 'Input input').val();
+      if (points.length > 0) {
+        effectData.distribution[j] = Number(points);
+      }
+    }
+
+    let advantageContainers = effectContainer.find('.advantageContainer');
+    if (advantageContainers.length > 0) {
+      effectData.advantages = [];
+    }
+    for (let j=0; j<advantageContainers.length; j++) {
+      let advantageContainer = $(advantageContainers[j]);
+      let advantageKey = advantageContainer.find('.advantageSelector').val();
+      if (advantageKey.length == 0) {
+        continue;
+      }
+      let advantageOptionContainer = advantageContainer.find('.advantageOptions .advantageOption input:checked').closest('.advantageOption');
+      if (advantageOptionContainer.length != 1) {
+        continue;
+      }
+
+      effectData.advantages.push({'key': advantageKey, 'option': advantageOptionContainer.data('advantageOptionKey')});
+    }
+
+    data.effects.push(effectData);
+  }
+
+  var disadvantageContainers = $('.disadvantageContainer');
+  if (disadvantageContainers.length > 0) {
+    data.disadvantages = [];
+  }
+  for (var i=0; i<disadvantageContainers.length; i++) {
+    let disadvantageContainer = $(disadvantageContainers[i]);
+    let disadvantageKey = disadvantageContainer.find('.disadvantageSelector').val();
+    if (disadvantageKey.length == 0) {
+      continue;
+    }
+    let disadvantageOptionContainer = disadvantageContainer.find('.disadvantageOptions .disadvantageOption input:checked').closest('.disadvantageOption');
+    if (disadvantageOptionContainer.length != 1) {
+      continue;
+    }
+
+    data.disadvantages.push({'key': disadvantageKey, 'option': disadvantageOptionContainer.data('disadvantageOptionKey')});
+  }
+
+  console.log(data);
+  try {
+    var kiTechnique = new KiTechnique(character, data);
+    if (confirm("Everything looks good! Add to Ki Techniques?")) {
+      character.kiTechniques[guid()] = kiTechnique;
+      localStorage['character.'+character.name] = JSON.stringify(character);
+      window.open("spend.html?n=" + character.name, "_self");
+    }
+  } catch(err) {
+    console.log(err);
+    alert(err.message);
+  }
 }
