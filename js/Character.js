@@ -133,7 +133,7 @@ class Character {
 
     this.kiTechniques = {};
     for (let i in data.kiTechniques) {
-      this.kiTechniques = new KiTechnique(this, data.kiTechniques[i]);
+      this.kiTechniques[i] = new KiTechnique(this, data.kiTechniques[i], i);
     }
 
     // Adjust psychic points by pp invested + mental powers

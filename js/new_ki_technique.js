@@ -230,16 +230,19 @@ function addKiTechnique() {
     data.disadvantages.push({'key': disadvantageKey, 'option': disadvantageOptionContainer.data('disadvantageOptionKey')});
   }
 
-  console.log(data);
   try {
-    var kiTechnique = new KiTechnique(character, data);
-    if (confirm("Everything looks good! Add to Ki Techniques?")) {
-      character.kiTechniques[guid()] = kiTechnique;
-      localStorage['character.'+character.name] = JSON.stringify(character);
-      window.open("spend.html?n=" + character.name, "_self");
-    }
+    KiTechnique.Validate(data);
   } catch(err) {
-    console.log(err);
     alert(err.message);
+    return;
+  }
+
+  if ((character.martialKnowledge.score < KiTechnique.Cost(data) && confirm("This Ki Technique costs more MK than you have. Proceed anyway?"))
+        || confirm("Everything looks good! Add to Ki Techniques?")) {
+    var guidKey = guid();  
+    var kiTechnique = new KiTechnique(character, data, guidKey);
+    character.kiTechniques[] = kiTechnique;
+    localStorage['character.'+character.name] = JSON.stringify(character);
+    window.open("spend.html?n=" + character.name, "_self");
   }
 }
