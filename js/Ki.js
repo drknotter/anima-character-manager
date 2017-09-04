@@ -58,9 +58,19 @@ class KiTechnique {
     Object.defineProperty(character.martialKnowledge, key+'KiTechniqueBonus', {
       get: function() {
         return -KiTechnique.Cost(thisClosure);
-      }
+      },
+      configurable: true
     });
+
+    this.remove = function() {
+      delete character.martialKnowledge[key+'KiTechniqueBonus'];
+    }
   }
+
+  get cost() {
+    return KiTechnique.Cost(this);
+  }
+
 }
 
 KiTechnique.Validate = function(data) {

@@ -191,8 +191,20 @@ Template.kiAbility = String.raw`
 Template.kiTechniqueList = String.raw`
 <table id="kiTechniqueList">
 <tr class="kiTechnique">
-<th>Ki Techniques</th>
+<th class="name">Ki Techniques</th>
+<th class="cost">Cost</th>
+<th class="action"></th>
+<th class="action"></th>
 </tr>
 </table>
 <a id="newKiTechnique" href="new_ki_technique.html?n={{name}}">Add New Ki Technique</a>
+`;
+
+Template.kiTechnique = String.raw`
+<tr class="kiTechnique">
+<td class="name">{{name}}</td>
+<td class="cost">{{cost}}</td>
+<td class="action"><div class="action delete"><span>&#x232b;</span></div></td>
+<td class="action"><div class="action edit"><span>&#x270E;</span></div></td>
+</tr>
 `;

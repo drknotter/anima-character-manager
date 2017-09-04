@@ -1,4 +1,7 @@
 $( document ).ready(function() {
+  var character = new Character(JSON.parse(localStorage['character.'+getParameterByName('n')]));
+  var kiKey = getParameterByName('k');
+
   addEffect($('#mainEffectGroup'), true, 'mainEffect');
   $('#addSecondaryEffect').click(function(event) {
     addEffect($('#secondaryEffectGroup'), false);
@@ -9,6 +12,10 @@ $( document ).ready(function() {
   $('#addKiTechnique').click(function(event) {
     addKiTechnique();
   })
+
+  if (kiKey && kiKey.length > 0) {
+    prefill(character, kiKey);
+  }
 });
 
 function addEffect(parent, isPrimary, id) {
@@ -237,12 +244,89 @@ function addKiTechnique() {
     return;
   }
 
-  if ((character.martialKnowledge.score < KiTechnique.Cost(data) && confirm("This Ki Technique costs more MK than you have. Proceed anyway?"))
+  var MK = character.martialKnowledge.score;
+  var guidKey = getParameterByName('k') ? getParameterByName('k') : guid();
+  if (getParameterByName('k')) {
+    MK += KiTechnique.Cost(character.kiTechniques[guidKey]);
+  }
+  if ((MK < KiTechnique.Cost(data) && confirm("This Ki Technique costs more MK than you have. Proceed anyway?"))
         || confirm("Everything looks good! Add to Ki Techniques?")) {
-    var guidKey = guid();  
+    if (getParameterByName('k')) {
+      character.kiTechniques[guidKey].remove();
+    }
     var kiTechnique = new KiTechnique(character, data, guidKey);
-    character.kiTechniques[] = kiTechnique;
+    character.kiTechniques[guidKey] = kiTechnique;
     localStorage['character.'+character.name] = JSON.stringify(character);
     window.open("spend.html?n=" + character.name, "_self");
+  }
+}
+
+function prefill(character, kiKey) {
+  var kiTechnique = character.kiTechniques[kiKey];
+
+  $('#newKiTechniqueName').val(kiTechnique.name);
+  $('#newKiTechniqueDescription').val(kiTechnique.description);
+  $('#newKiTechniqueLevel').val(kiTechnique.level);
+  $('#maintainable').prop('checked', true);
+
+  prefillEffect(kiTechnique.effects[0], $('#mainEffectGroup .effectSelector'), $("#mainEffectGroup .effectInfo"));
+
+  for (let i=1; i<kiTechnique.effects.length; i++) {
+    addEffect($('#secondaryEffectGroup'), false);
+    prefillEffect(
+      kiTechnique.effects[i],
+      $('#secondaryEffectGroup .effectSelector').last(),
+      $("#secondaryEffectGroup .effectInfo").last());
+  }
+
+  for (let i in kiTechnique.disadvantages) {
+    addDisadvantage($('#disadvantageGroup'))
+    prefillDisadvantage(
+      kiTechnique.disadvantages[i],
+      $("#disadvantageGroup .disadvantageSelector").last(),
+      $("#disadvantageGroup .disadvantageInfo").last());
+  }
+}
+
+function prefillEffect(effect, selector, infoContainer) {
+  selector.val(effect.key);
+  setEffectInfo(effect.key, true, infoContainer);
+  $(infoContainer.find('.effectLevel input')[effect.level]).prop('checked', true);
+  for (let i in Characteristic.Data) {
+    if (i in effect.distribution) {
+      infoContainer.find('.' + i + 'Input input').val(effect.distribution[i]);
+    }
+  }
+  for (let i in effect.advantages) {
+    addAdvantage(effect.key, infoContainer);
+    prefillAdvantage(
+      effect,
+      effect.advantages[i],
+      infoContainer.find('.advantageSelector').last(),
+      infoContainer.find('.advantageInfo').last());
+  }
+}
+
+function prefillAdvantage(effect, advantage, selector, infoContainer) {
+  selector.val(advantage.key);
+  setAdvantageInfo(effect.key, advantage.key, infoContainer);
+  var optionContainers = infoContainer.find('.advantageOption')
+  for (let i=0; i<optionContainers.length; i++) {
+    if ($(optionContainers[i]).data('advantageOptionKey') === advantage.option) {
+      $(optionContainers[i]).find('input').prop('checked', true);
+      break;
+    }
+  }
+}
+
+function prefillDisadvantage(disadvantage, selector, infoContainer) {
+  selector.val(disadvantage.key);
+  setDisadvantageInfo(disadvantage.key, infoContainer);
+  var optionContainers = infoContainer.find('.disadvantageOption');
+  for (let i=0; i<optionContainers.length; i++) {
+    if ($(optionContainers[i]).data('disadvantageOptionKey') === disadvantage.option) {
+      $(optionContainers[i]).find('input').prop('checked', true);
+      break;
+    }
   }
 }

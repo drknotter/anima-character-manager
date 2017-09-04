@@ -700,6 +700,22 @@ function renderKiTechniquesSpendingSubgroup(character, parent) {
   parent.append(Mustache.render(Template.spendingOptionSubgroup));
   var subgroup = parent.children('.spendingOptionSubgroup').last();
   subgroup.append(Mustache.render(Template.kiTechniqueList, {'name': character.name}));
+
+  for (let i in character.kiTechniques) {
+    let kiTechniqueContainer = $(Mustache.render(Template.kiTechnique, character.kiTechniques[i]).replace(/\r?\n|\r/g,''));
+    kiTechniqueContainer.find('.delete').click(function(event) {
+      if(confirm('Delete "' + character.kiTechniques[i].name + '"? This cannot be undone!')) {
+        character.kiTechniques[i].remove();
+        delete character.kiTechniques[i];
+        localStorage['character.'+character.name] = JSON.stringify(character);
+        window.open("spend.html?n=" + character.name, "_self");
+      }
+    });
+    kiTechniqueContainer.find('.edit').click(function(event) {
+      window.open("new_ki_technique.html?n=" + character.name + "&k=" + i, "_self");
+    });
+    subgroup.find('#kiTechniqueList').append(kiTechniqueContainer);
+  }
 }
 
 //////////////////////
