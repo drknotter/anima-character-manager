@@ -118,7 +118,7 @@ function totalDpInvestedInTypes(character) {
     }
     for (let i in character.combatModules) {
       if (character.combatModules[i].type === type) {
-        totalDpInvestedInTypes[type] += character.combatModules[i].cost;
+        totalDpInvestedInTypes[type] += character.combatModules[i].dpInvested;
       }
     }
   }
@@ -204,8 +204,8 @@ function modulesByType() {
   }
   for (let i in modulesByType) {
     modulesByType[i].sort(function(a, b) {
-      return CombatModule.Data[i][a].name < CombatModule.Data[i][b].name ? -1
-          : (CombatModule.Data[i][a].name > CombatModule.Data[i][b].name ? 1 : 0);
+      return CombatModule.Data[a].name < CombatModule.Data[b].name ? -1
+          : (CombatModule.Data[a].name > CombatModule.Data[b].name ? 1 : 0);
     });
   }
   return modulesByType;
@@ -357,9 +357,13 @@ function renderModuleSubgroup(character, modules, subgroupName, parent, limit, t
 function renderModule(character, moduleKey, parent, limit, total) {
   var module = CombatModule.Data[moduleKey];
   var hasModule = moduleKey in character.combatModules;
-  var canAfford = character.DP >= module.cost && total + module.cost <= character.totalDP * limit / 100;
+  var cost = character.classId === "weaponmaster" && module.type === "combat" ? Math.floor(module.cost / 2) : module.cost;
+  var canAfford = character.DP >= cost && total + cost <= character.totalDP * limit / 100;
 
-  parent.append(Mustache.render(Template.moduleInvestment, module));
+  parent.append(Mustache.render(Template.moduleInvestment, {
+    'name': module.name,
+    'cost': cost
+  }));
   var dpInvestment = parent.children('.dpInvestment').last();
   var obtainedInput = dpInvestment.find('.obtained input').last();
   obtainedInput.attr({

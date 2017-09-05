@@ -74,7 +74,14 @@ Template.combat = String.raw`
 <tr><td>{{armorType.electricity.name}}</td><td class="score">{{armorType.electricity.score}}</td></tr>
 <tr><td>{{armorType.cold.name}}</td><td class="score">{{armorType.cold.score}}</td></tr>
 <tr><td>{{armorType.energy.name}}</td><td class="score">{{armorType.energy.score}}</td></tr>
+<table class="combatTable" id="combatModules">
+<tr><th>Combat Modules</th></tr>
 </table>
+</table>
+`;
+
+Template.combatModule = String.raw`
+<tr class="combatModule"><td>{{name}}</td></tr>
 `;
 
 Template.secondaryAbilities = String.raw`

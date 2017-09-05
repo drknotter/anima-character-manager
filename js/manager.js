@@ -48,6 +48,17 @@ function renderCharacter(character) {
   }
 
   $('#combat').append(Mustache.render(Template.combat, character));
+  if (!character.combatModules || Object.keys(character.combatModules).length == 0) {
+    $('#combatModules').remove();
+  } else {
+    for (let i in character.combatModules) {
+      var combatModuleContainer = $(Mustache.render(Template.combatModule, character.combatModules[i]).replace(/\r?\n|\r/g,''));
+      combatModuleContainer.click(function(event) {
+        CombatModule.RenderPopup(i, $('#popup'), $('#popupBackground'));
+      })
+      $('#combatModules').append(combatModuleContainer);
+    }
+  }
 
   $('#secondaryAbilities').append(Mustache.render(Template.secondaryAbilities));
   for (let i in SECONDARY_ABILITIES_BY_CATEGORY) {

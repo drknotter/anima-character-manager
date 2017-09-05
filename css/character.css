@@ -494,3 +494,17 @@
   cursor: pointer;
 }
 
+.combatModule:hover {
+  cursor: help;
+}
+.combatModulePopup .name {
+  font-weight: bold;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 110%;
+}
+.combatModulePopup .description {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+

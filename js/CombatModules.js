@@ -2,7 +2,7 @@ class CombatModule {
   constructor(data, character, key) {
     check(key in CombatModule.Data, key + " is not a valid key for a combat module!");
 
-    var attrs = ['description', 'effects', 'cost', 'type'];
+    var attrs = ['name', 'description', 'effects', 'cost', 'type'];
     for (let i in attrs) {
       Object.defineProperty(this, attrs[i], {
         get: function() {
@@ -11,7 +11,7 @@ class CombatModule {
       });
     }
 
-    this.dpInvested = this.cost;
+    this.dpInvested = character.classId === 'weaponmaster' && data.type === 'combat' ? Math.floor(this.cost / 2) : this.cost;
   }  
 }
 
@@ -23,7 +23,7 @@ CombatModule.RenderPopup = function(key, popup, background) {
 CombatModule.Template = {};
 
 CombatModule.Template.popup = String.raw`
-<div class="combatModulePopup">
+<div class="combatModulePopup popup">
 <div class="name">{{name}}</div>
 <div class="description">{{description}}</div>
 <div class="effects">{{effects}}</div>
@@ -52,4 +52,32 @@ CombatModule.Data = {
     'cost': 100,
     'type': 'psychic'
   },
+  'barbarianModule': {
+    'name': 'Barbarian Module',
+    'description': 'These big, powerful weapons are often used by individuals with fierce and barbaric fighting styles',
+    'effects': 'Awards skill in the following weapons: War Axe, Battle Axe, Two-handed Sword, Bastard Sword, and Heavy Battle Mace',
+    'cost': 50,
+    'type': 'combat'
+  },
+  'projectileWeapons': {
+    'name': 'Projectile Weapons',
+    'description': 'The character is able to use his aim with all projectile weapons.',
+    'effects': 'The character can use any projectile weapon using the same Attack ability.',
+    'cost': 50,
+    'type': 'combat'
+  },
+  'areaAttack': {
+    'name': 'Area Attack',
+    'description': 'The character specializes in broad maneuvers that can take out various enemies with greater ease.',
+    'effects': 'This reduces the penalty for an Area Attack maneuver by half. Therefore a character applies -25 to his attack ability when using this attack.',
+    'cost': 40,
+    'type': 'combat'
+  },
+  'armorReduction': {
+    'name': 'Armor Reduction',
+    'description': 'This grants the ability to penetrate through protection and armor with great ease, be it through an increase in brute force or the ability to find vulnerable points.',
+    'effects': 'This allows the fighter to subtract a point of Armor of any adversary. This effect of this ability is added to any other modifier that the character would have due to quality weapons or Ki Technique.',
+    'cost': 40,
+    'type': 'combat'
+  }
 };
