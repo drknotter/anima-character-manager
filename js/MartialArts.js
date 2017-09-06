@@ -4,6 +4,15 @@ class MartialArt {
 
     this.dpInvested = MartialArt.CostFor(character);
 
+    var attrs = ['name'];
+    for (let i in attrs) {
+      Object.defineProperty(this, attrs[i], {
+        get: function() {
+          return MartialArt.Data[key][attrs[i]];
+        }
+      });
+    }
+
     Object.defineProperty(this, 'baseDamage', {
       get: function() {
         return MartialArt.Data[key].baseDamageFn(character);
@@ -56,7 +65,7 @@ MartialArt.RenderPopup = function(key, popup, background) {
 MartialArt.Template = {};
 
 MartialArt.Template.popup = String.raw`
-<div class="martialArtPopup">
+<div class="martialArtPopup popup">
 <div class="name">{{name}}</div>
 <div class="description">{{description}}</div>
 <div class="advantages">{{advantages}}</div>

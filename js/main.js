@@ -51,6 +51,10 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+function jQuerify(input) {
+  return $(input.replace(/\r?\n|\r/g,''));
+}
+
 class Scoreable {
   constructor(name) {
     Object.defineProperty(this, 'name', {

@@ -77,11 +77,18 @@ Template.combat = String.raw`
 <table class="combatTable" id="combatModules">
 <tr><th>Combat Modules</th></tr>
 </table>
+<table class="combatTable" id="martialArts">
+<tr><th>Martial Arts</th><th class="damage">Damage</th></tr>
+</table>
 </table>
 `;
 
 Template.combatModule = String.raw`
 <tr class="combatModule"><td>{{name}}</td></tr>
+`;
+
+Template.martialArt = String.raw`
+<tr class="martialArt"><td>{{name}}</td><td class="damage">{{baseDamage}}</td></tr>
 `;
 
 Template.secondaryAbilities = String.raw`
@@ -314,4 +321,21 @@ Template.rollPopup = String.raw`
 <div id="rolls">Rolls: {{rolls}}</div>
 <div id="rollResult">{{result}}</div>
 </div>
+`;
+
+Template.ki = String.raw`
+<table id="kiAbilities" class="kiTable">
+<tr><th>Ki Abilities</th></tr>
+</table>
+<table id="kiTechniques" class="kiTable">
+<tr><th>Ki Techniques</th></tr>
+</table>
+`;
+
+Template.kiAbility = String.raw`
+<tr class="kiAbility"><td>{{name}}</td></tr>
+`;
+
+Template.kiTechnique = String.raw`
+<tr class="kiTechnique"><td>{{name}}</td></tr>
 `;

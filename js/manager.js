@@ -31,6 +31,7 @@ function renderCharacter(character) {
   sections.push({'id': 'secondaryAbilities', 'closeable': true, 'header': 'Secondary Abilities'});
   sections.push({'id': 'combat', 'closeable': true, 'header': 'Combat'});
   sections.push({'id': 'psychic', 'closeable': true, 'header': 'Psychic Powers'});
+  sections.push({'id': 'ki', 'closeable': true, 'header': 'Ki'});
   sections.push({'id': 'resistances', 'closeable': true, 'header': 'Resistances'});
   sections.push({'id': 'advantages', 'closeable': true, 'header': 'Advantages and Disadvantages'});
   sections.push({'id': 'equipment', 'closeable': true, 'header': 'Equipment'});
@@ -48,15 +49,22 @@ function renderCharacter(character) {
   }
 
   $('#combat').append(Mustache.render(Template.combat, character));
-  if (!character.combatModules || Object.keys(character.combatModules).length == 0) {
-    $('#combatModules').remove();
-  } else {
-    for (let i in character.combatModules) {
-      var combatModuleContainer = $(Mustache.render(Template.combatModule, character.combatModules[i]).replace(/\r?\n|\r/g,''));
-      combatModuleContainer.click(function(event) {
-        CombatModule.RenderPopup(i, $('#popup'), $('#popupBackground'));
-      })
-      $('#combatModules').append(combatModuleContainer);
+  var combatSubsections = ['combatModules', 'martialArts']
+  var combatSubsectionTemplateIds = ['combatModule', 'martialArt'];
+  var combatSubsectionTypes = [CombatModule, MartialArt];
+  for (let c=0; c<combatSubsections.length; c++) {
+    if (!character[combatSubsections[c]] || Object.keys(character[combatSubsections[c]]).length == 0) {
+      $('#'+combatSubsections[c]).remove();
+    } else {
+      for (let i in character[combatSubsections[c]]) {
+        var container = $(Mustache.render(
+          Template[combatSubsectionTemplateIds[c]], 
+          character[combatSubsections[c]][i]).replace(/\r?\n|\r/g,''));
+        container.click(function(event) {
+          combatSubsectionTypes[c].RenderPopup(i, $('#popup'), $('#popupBackground'));
+        })
+        $('#'+combatSubsections[c]).append(container);
+      }
     }
   }
 
@@ -111,6 +119,22 @@ function renderCharacter(character) {
         MentalPower.RenderPopup(disciplinesMentalPowerMap[i][j], $('#popup'), $('#popupBackground'));
       })
     }
+  }
+
+  $('#ki').append(Mustache.render(Template.ki, character));
+  for (let i in character.kiAbilities) {
+    let kiAbilityContainer = jQuerify(Mustache.render(Template.kiAbility, KiAbility.Data[i]));
+    kiAbilityContainer.click(function(event) {
+      KiAbility.RenderPopup(i, $('#popup'), $('#popupBackground'));
+    })
+    $('#kiAbilities').append(kiAbilityContainer);
+  }
+  for (let i in character.kiTechniques) {
+    let kiTechniqueContainer = jQuerify(Mustache.render(Template.kiTechnique, character.kiTechniques[i]));
+    kiTechniqueContainer.click(function(event) {
+      KiTechnique.RenderPopup(character, i, $('#popup'), $('#popupBackground'));
+    })
+    $('#kiTechniques').append(kiTechniqueContainer);
   }
 
   $('#equipment').append(Mustache.render(Template.equipmentList, character));

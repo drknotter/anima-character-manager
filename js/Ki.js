@@ -4,6 +4,11 @@ class KiAbility {
   }
 }
 
+KiAbility.RenderPopup = function(key, popup, background) {
+  popup.html(Mustache.render(KiAbility.Template.popup, KiAbility.Data[key]));
+  background.show();
+}
+
 KiAbility.RequirementFor = function(character, key) {
   return KiAbility.CostRequirement(character, key)
       || KiAbility.Data[key].requirementFn(character);
@@ -33,6 +38,15 @@ KiAbility.Data = {
     }
   }
 };
+
+KiAbility.Template = {};
+KiAbility.Template.popup = String.raw`
+<div class="kiAbilityPopup popup">
+<div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<div class="requirements">Requirements: {{requirements}}</div>
+</div>
+`;
 
 class KiTechnique {
   constructor(character, data, key) {
@@ -187,6 +201,19 @@ KiTechnique.Cost = function(data) {
   totalMartialKnowledgeCost -= totalDisadvantageSavings;
   return totalMartialKnowledgeCost;
 }
+
+KiTechnique.RenderPopup = function(character, key, popup, background) {
+  popup.html(Mustache.render(KiTechnique.Template.popup, character.kiTechniques[key]));
+  background.show();
+}
+
+KiTechnique.Template = {};
+KiTechnique.Template.popup = String.raw`
+<div class="kiTechniquePopup popup">
+<div class="name">{{name}}</div>
+</div>
+`;
+
 
 KiTechnique.Data = {};
 

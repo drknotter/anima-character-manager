@@ -508,3 +508,38 @@
   margin-bottom: 0.5rem;
 }
 
+.martialArtPopup .name, .kiAbilityPopup .name {
+  font-weight: bold;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 110%;
+}
+.martialArtPopup .description, .kiAbilityPopup .description {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.martialArtPopup .requirements, .kiAbilityPopup .requirements {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.martialArt:hover, .kiAbility:hover {
+  cursor: help;
+}
+.martialArt .damage {
+  text-align: center;
+}
+
+.kiTable {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: #eee;
+  text-align: left;
+}
+.kiTable td, .kiTable th {
+  padding: 0.25rem;
+  padding-left: 1rem;
+}
+.kiTable tr:nth-child(even) {
+  background: #ccc;
+}
