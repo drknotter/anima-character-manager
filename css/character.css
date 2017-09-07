@@ -571,6 +571,24 @@
 .kiTechniquePopup .effect .bonus {
   text-align: right;
 }
-.kiTechniquePopup .effect td {
+.kiTechniquePopup .effect td, .kiTechniquePopup .advantage td {
   font-size: 90%;
+}
+.kiTechniquePopup .advantage .description, .kiTechniquePopup .disadvantage .description {
+  font-size: 85%;
+  font-style: italic;
+}
+
+#ki .title {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0.25rem;
+}
+
+.kiRequirementsContainer {
+  table-layout: fixed;
+}
+
+.kiRequirement {
+  text-align: center;
 }

@@ -192,9 +192,12 @@ function addKiTechnique() {
     }
     effectData.distribution = {};
     for (let j in Characteristic.Data) {
-      let points = effectContainer.find('.pointsDistributionContainer .' + j + 'Input input').val();
-      if (points.length > 0) {
-        effectData.distribution[j] = Number(points);
+      let input = effectContainer.find('.pointsDistributionContainer .' + j + 'Input input');
+      if (input.length > 0) {
+        let points = input.val();
+        if (points.length > 0) {
+          effectData.distribution[j] = Number(points);
+        }
       }
     }
 

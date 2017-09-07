@@ -324,9 +324,21 @@ Template.rollPopup = String.raw`
 `;
 
 Template.ki = String.raw`
-<table id="kiAccumulation" class="mainStats">
+<div class="title">Ki Points/Ki Accumulation</div>
+<table id="kiAccumulation" class="stats">
 <tr>
-<td>{{}}
+<td class="stat">{{primaryAbilities.ki_str.score}}/{{primaryAbilities.kiAccumulationMultiple_str.score}}<br/>Str</td>
+<td class="space"/>
+<td class="stat">{{primaryAbilities.ki_agi.score}}/{{primaryAbilities.kiAccumulationMultiple_agi.score}}<br/>Agi</td>
+<td class="space"/>
+<td class="stat">{{primaryAbilities.ki_dex.score}}/{{primaryAbilities.kiAccumulationMultiple_dex.score}}<br/>Dex</td>
+<td class="space"/>
+<td class="stat">{{primaryAbilities.ki_con.score}}/{{primaryAbilities.kiAccumulationMultiple_con.score}}<br/>Con</td>
+<td class="space"/>
+<td class="stat">{{primaryAbilities.ki_pow.score}}/{{primaryAbilities.kiAccumulationMultiple_pow.score}}<br/>Pow</td>
+<td class="space"/>
+<td class="stat">{{primaryAbilities.ki_wp.score}}/{{primaryAbilities.kiAccumulationMultiple_wp.score}}<br/>WP</td>
+</tr>
 </table>
 <table id="kiAbilities" class="kiTable">
 <tr><th>Ki Abilities</th></tr>

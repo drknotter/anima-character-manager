@@ -207,6 +207,7 @@ KiTechnique.RenderPopup = function(character, key, popup, background) {
   popup.html(Mustache.render(KiTechnique.Template.popup, technique));
 
   var advantages = [];
+  var totalDistribution = {'str': 0, 'agi': 0, 'dex': 0, 'con': 0, 'pow': 0, 'wp': 0};
   for (let i in technique.effects) {
     popup.find('.effects').append(Mustache.render(
       KiTechnique.Template.popupEffect, {
@@ -219,12 +220,34 @@ KiTechnique.RenderPopup = function(character, key, popup, background) {
         .advantages[technique.effects[i].advantages[j].key]
         .options[technique.effects[i].advantages[j].option]);
     }
+    for (let j in totalDistribution) {
+      totalDistribution[j] += j in technique.effects[i].distribution ? technique.effects[i].distribution[j] : 0;
+    }
   }
-  for (let i in advantages) {
-    popup.find('.advantages').append(Mustache.render(
-      KiTechnique.Template.popupAdvantage, {
-
-      }))
+  for (let i in totalDistribution) {
+    popup.find('.kiRequirements').append(Mustache.render(
+      KiTechnique.Template.popupDistribution, {
+        "name": Characteristic.Data[i].nickname,
+        "value": totalDistribution[i]
+      }));
+  }
+  if (advantages.length > 0) {
+    for (let i in advantages) {
+      popup.find('.advantages').append(Mustache.render(
+        KiTechnique.Template.popupAdvantage, advantages[i]));
+    }
+  } else {
+    popup.find('.advantages').remove();
+  }
+  if (technique.disadvantages) {
+    for (let i in technique.disadvantages) {
+      popup.find('.disadvantages').append(Mustache.render(
+        KiTechnique.Template.popupDisadvantage, 
+        KiTechnique.Data.Disadvantages[technique.disadvantages[i].key]
+          .options[technique.disadvantages[i].option]));
+    }
+  } else {
+    popup.find('.disadvantages').remove();
   }
   background.show();
 }
@@ -234,6 +257,10 @@ KiTechnique.Template.popup = String.raw`
 <div class="kiTechniquePopup popup">
 <div class="name">{{name}}</div>
 <div class="description">{{description}}</div>
+<table class="kiRequirementsContainer">
+<tr><th colspan="6">Ki Requirements</th></tr>
+<tr class="kiRequirements"></tr>
+</table>
 <table class="effects kiTechniquePopupTable">
 <tr class="effect"><th class="name">Effects</th><th class="bonus"></th></tr>
 </table>
@@ -246,11 +273,25 @@ KiTechnique.Template.popup = String.raw`
 </div>
 `;
 
+KiTechnique.Template.popupDistribution = String.raw`
+<td class="kiRequirement">{{name}}<br/>{{value}}</td>
+`;
 KiTechnique.Template.popupEffect = String.raw`
 <tr class="effect"><td class="name">{{name}}</td><td class="bonus">{{bonusName}} +{{bonusAmount}}</td></tr>
 `;
 KiTechnique.Template.popupAdvantage = String.raw`
-<tr class="advantage"><td class="name">{{name}}</td><td class="bonus">{{bonusName}} +{{bonusAmount}}</td></tr>
+<tr class="advantage">
+<td>
+{{name}}
+<div class="description">{{description}}</div>
+</td></tr>
+`;
+KiTechnique.Template.popupDisadvantage = String.raw`
+<tr class="disadvantage">
+<td>
+{{name}}
+<div class="description">{{description}}</div>
+</td></tr>
 `;
 
 

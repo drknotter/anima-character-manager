@@ -29,20 +29,16 @@ Template.effectInfo = String.raw`
 <th class="agiHeader distributionHeader"></th>
 <th class="dexHeader distributionHeader"></th>
 <th class="conHeader distributionHeader"></th>
-<th class="intHeader distributionHeader"></th>
 <th class="powHeader distributionHeader"></th>
 <th class="wpHeader distributionHeader"></th>
-<th class="perHeader distributionHeader"></th>
 </tr>
 <tr>
 <td class="strInput distributionInput"><input type="number" min="0" value=""></td>
 <td class="agiInput distributionInput"><input type="number" min="0" value=""></td>
 <td class="dexInput distributionInput"><input type="number" min="0" value=""></td>
 <td class="conInput distributionInput"><input type="number" min="0" value=""></td>
-<td class="intInput distributionInput"><input type="number" min="0" value=""></td>
 <td class="powInput distributionInput"><input type="number" min="0" value=""></td>
 <td class="wpInput distributionInput"><input type="number" min="0" value=""></td>
-<td class="perInput distributionInput"><input type="number" min="0" value=""></td>
 </tr>
 </table>
 {{#data.advantages}}
