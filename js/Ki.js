@@ -203,7 +203,29 @@ KiTechnique.Cost = function(data) {
 }
 
 KiTechnique.RenderPopup = function(character, key, popup, background) {
-  popup.html(Mustache.render(KiTechnique.Template.popup, character.kiTechniques[key]));
+  var technique = character.kiTechniques[key];
+  popup.html(Mustache.render(KiTechnique.Template.popup, technique));
+
+  var advantages = [];
+  for (let i in technique.effects) {
+    popup.find('.effects').append(Mustache.render(
+      KiTechnique.Template.popupEffect, {
+        'name': KiTechnique.Data.Effects[technique.effects[i].key].name,
+        'bonusName': KiTechnique.Data.Effects[technique.effects[i].key].bonus.name,
+        'bonusAmount': KiTechnique.Data.Effects[technique.effects[i].key].bonus.levels[technique.effects[i].level].amount
+      }));
+    for (let j in technique.effects[i].advantages) {
+      advantages.push(KiTechnique.Data.Effects[technique.effects[i].key]
+        .advantages[technique.effects[i].advantages[j].key]
+        .options[technique.effects[i].advantages[j].option]);
+    }
+  }
+  for (let i in advantages) {
+    popup.find('.advantages').append(Mustache.render(
+      KiTechnique.Template.popupAdvantage, {
+
+      }))
+  }
   background.show();
 }
 
@@ -211,7 +233,24 @@ KiTechnique.Template = {};
 KiTechnique.Template.popup = String.raw`
 <div class="kiTechniquePopup popup">
 <div class="name">{{name}}</div>
+<div class="description">{{description}}</div>
+<table class="effects kiTechniquePopupTable">
+<tr class="effect"><th class="name">Effects</th><th class="bonus"></th></tr>
+</table>
+<table class="advantages kiTechniquePopupTable">
+<tr><th class="name">Advantages</th></tr>
+</table>
+<table class="disadvantages kiTechniquePopupTable">
+<tr><th class="name">Disadvantages</th></tr>
+</table>
 </div>
+`;
+
+KiTechnique.Template.popupEffect = String.raw`
+<tr class="effect"><td class="name">{{name}}</td><td class="bonus">{{bonusName}} +{{bonusAmount}}</td></tr>
+`;
+KiTechnique.Template.popupAdvantage = String.raw`
+<tr class="advantage"><td class="name">{{name}}</td><td class="bonus">{{bonusName}} +{{bonusAmount}}</td></tr>
 `;
 
 

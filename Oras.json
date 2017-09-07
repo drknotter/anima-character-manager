@@ -38,6 +38,7 @@
       "base": 9
     }
   },
+  "preferredWeapon": "unarmed",
   "classId": "mentalist",
   "primaryAbilities": {
     "attack": {
@@ -64,16 +65,10 @@
     "ki_con": {
       "dpInvested": 0
     },
-    "ki_int": {
-      "dpInvested": 0
-    },
     "ki_pow": {
       "dpInvested": 0
     },
     "ki_wp": {
-      "dpInvested": 0
-    },
-    "ki_per": {
       "dpInvested": 0
     },
     "kiAccumulationMultiple_str": {
@@ -88,16 +83,10 @@
     "kiAccumulationMultiple_con": {
       "dpInvested": 0
     },
-    "kiAccumulationMultiple_int": {
-      "dpInvested": 0
-    },
     "kiAccumulationMultiple_pow": {
       "dpInvested": 0
     },
     "kiAccumulationMultiple_wp": {
-      "dpInvested": 0
-    },
-    "kiAccumulationMultiple_per": {
       "dpInvested": 0
     },
     "zeon": {
@@ -329,6 +318,10 @@
   "psychicPotential": {
     "ppInvested": 15
   },
+  "combatModules": {},
+  "martialArts": {},
+  "kiAbilities": {},
+  "kiTechniques": {},
   "currentLifePoints": 110,
   "currentFatigue": 6,
   "wealth": 1,
@@ -352,7 +345,7 @@
             "bonus": 20
           }
         ],
-        "possesionBonuses": []
+        "possessionBonuses": []
       },
       "72d5e9c5-36d5-32af-cca5-b8dd16c802d6": {
         "name": "Anti-Magic Pendant",
@@ -373,7 +366,7 @@
             "bonus": 30
           }
         ],
-        "possesionBonuses": []
+        "possessionBonuses": []
       },
       "ac870fb6-4b90-f367-1a16-9d0bfd5bca15": {
         "name": "Anti-Demon Pendant",
@@ -394,7 +387,7 @@
             "bonus": 3
           }
         ],
-        "possesionBonuses": []
+        "possessionBonuses": []
       },
       "9c5bc9b6-a673-5ced-32b1-2a3061104c3c": {
         "name": "Coin of Duality",
@@ -407,7 +400,7 @@
         "qualityBonus": 0,
         "equipped": false,
         "equippedBonuses": [],
-        "possesionBonuses": []
+        "possessionBonuses": []
       }
     },
     "armors": {
@@ -422,7 +415,7 @@
         "qualityBonus": 0,
         "equipped": true,
         "equippedBonuses": [],
-        "possesionBonuses": [],
+        "possessionBonuses": [],
         "armorRequirement": 0,
         "naturalPenalty": 0,
         "perceptionPenalty": 0,
@@ -448,7 +441,7 @@
         "qualityBonus": 0,
         "equipped": true,
         "equippedBonuses": [],
-        "possesionBonuses": [],
+        "possessionBonuses": [],
         "armorRequirement": 0,
         "naturalPenalty": 0,
         "perceptionPenalty": 0,
@@ -476,7 +469,7 @@
         "qualityBonus": 0,
         "equipped": false,
         "equippedBonuses": [],
-        "possesionBonuses": [],
+        "possessionBonuses": [],
         "damage": 25,
         "speed": 20,
         "requiredStrength": 3,

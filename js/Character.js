@@ -95,6 +95,9 @@ class Character {
       check(data[abilityCategories[a]], "Missing " + abilityCategories[a] + "!");
       this[abilityCategories[a]] = {};
       for (let key in data[abilityCategories[a]]) {
+        if (!(key in ABILITY_DATA)) {
+          continue;
+        }
         this[abilityCategories[a]][key] = new Ability(data[abilityCategories[a]][key], this, key);
       }
     }

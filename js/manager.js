@@ -134,6 +134,10 @@ function renderCharacter(character) {
     kiTechniqueContainer.click(function(event) {
       KiTechnique.RenderPopup(character, i, $('#popup'), $('#popupBackground'));
     })
+    kiTechniqueContainer.find('.edit').click(function(event) {
+      event.stopPropagation();
+      window.open("new_ki_technique.html?n=" + character.name + "&k=" + i + "&m=true", "_self");
+    });
     $('#kiTechniques').append(kiTechniqueContainer);
   }
 

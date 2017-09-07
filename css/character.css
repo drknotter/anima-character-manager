@@ -301,22 +301,22 @@
   padding: 0.5rem 1rem;
 }
 
-.equipment td.action, .equipment th.action {
+.equipment td.action, .equipment th.action, .kiTechnique td.action, .kiTechnique th.action {
   width: 1.5rem;
   padding-right: 0.5rem;
 }
-.equipment div.action {
+.equipment div.action, .kiTechnique div.action {
   width: 100%;
   height: 1.5rem;
   text-align: center;
   display: table;
   background: #aaa;
 }
-.equipment div.action:hover {
+.equipment div.action:hover, .kiTechnique div.action:hover {
   background: #bbe;
   cursor: pointer;
 }
-.equipment div.action>span {
+.equipment div.action>span, .kiTechnique div.action>span {
   display: table-cell;
   vertical-align: middle;
 }
@@ -523,7 +523,7 @@
   font-weight: bold;
 }
 
-.martialArt:hover, .kiAbility:hover {
+.martialArt:hover, .kiAbility:hover, .kiTechnique:hover {
   cursor: help;
 }
 .martialArt .damage {
@@ -542,4 +542,35 @@
 }
 .kiTable tr:nth-child(even) {
   background: #ccc;
+}
+
+.kiTechniquePopup>.name {
+  font-weight: bold;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 110%;
+}
+.kiTechniquePopup>.description {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.kiTechniquePopup .kiTechniquePopupTable {
+  background: #eee;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+.kiTechniquePopup .kiTechniquePopupTable td {
+  padding: 0.25rem;
+}
+.kiTechniquePopup .kiTechniquePopupTable tr:nth-child(even) {
+  background: #ccc;
+}
+.kiTechniquePopup .kiTechniquePopupTable .name {
+  text-align: left;
+}
+.kiTechniquePopup .effect .bonus {
+  text-align: right;
+}
+.kiTechniquePopup .effect td {
+  font-size: 90%;
 }

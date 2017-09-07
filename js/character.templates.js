@@ -324,11 +324,15 @@ Template.rollPopup = String.raw`
 `;
 
 Template.ki = String.raw`
+<table id="kiAccumulation" class="mainStats">
+<tr>
+<td>{{}}
+</table>
 <table id="kiAbilities" class="kiTable">
 <tr><th>Ki Abilities</th></tr>
 </table>
 <table id="kiTechniques" class="kiTable">
-<tr><th>Ki Techniques</th></tr>
+<tr><th>Ki Techniques</th><th></th></tr>
 </table>
 `;
 
@@ -337,5 +341,8 @@ Template.kiAbility = String.raw`
 `;
 
 Template.kiTechnique = String.raw`
-<tr class="kiTechnique"><td>{{name}}</td></tr>
+<tr class="kiTechnique">
+<td>{{name}}</td>
+<td class="action"><div class="action edit"><span>&#x270E;</span></div></td>
+</tr>
 `;

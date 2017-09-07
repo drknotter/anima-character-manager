@@ -257,7 +257,11 @@ function addKiTechnique() {
     var kiTechnique = new KiTechnique(character, data, guidKey);
     character.kiTechniques[guidKey] = kiTechnique;
     localStorage['character.'+character.name] = JSON.stringify(character);
-    window.open("spend.html?n=" + character.name, "_self");
+    if (getParameterByName('m')) {
+      window.open("manage.html?n=" + character.name, "_self");
+    } else {
+      window.open("spend.html?n=" + character.name, "_self");
+    }
   }
 }
 
