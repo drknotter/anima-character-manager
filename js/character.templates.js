@@ -327,17 +327,17 @@ Template.ki = String.raw`
 <div class="title">Ki Points/Ki Accumulation</div>
 <table id="kiAccumulation" class="stats">
 <tr>
-<td class="stat">{{primaryAbilities.ki_str.score}}/{{primaryAbilities.kiAccumulationMultiple_str.score}}<br/>Str</td>
+<td class="stat">{{primaryAbilities.ki_str.score}}/{{primaryAbilities.kiAccumulation_str.score}}<br/>Str</td>
 <td class="space"/>
-<td class="stat">{{primaryAbilities.ki_agi.score}}/{{primaryAbilities.kiAccumulationMultiple_agi.score}}<br/>Agi</td>
+<td class="stat">{{primaryAbilities.ki_agi.score}}/{{primaryAbilities.kiAccumulation_agi.score}}<br/>Agi</td>
 <td class="space"/>
-<td class="stat">{{primaryAbilities.ki_dex.score}}/{{primaryAbilities.kiAccumulationMultiple_dex.score}}<br/>Dex</td>
+<td class="stat">{{primaryAbilities.ki_dex.score}}/{{primaryAbilities.kiAccumulation_dex.score}}<br/>Dex</td>
 <td class="space"/>
-<td class="stat">{{primaryAbilities.ki_con.score}}/{{primaryAbilities.kiAccumulationMultiple_con.score}}<br/>Con</td>
+<td class="stat">{{primaryAbilities.ki_con.score}}/{{primaryAbilities.kiAccumulation_con.score}}<br/>Con</td>
 <td class="space"/>
-<td class="stat">{{primaryAbilities.ki_pow.score}}/{{primaryAbilities.kiAccumulationMultiple_pow.score}}<br/>Pow</td>
+<td class="stat">{{primaryAbilities.ki_pow.score}}/{{primaryAbilities.kiAccumulation_pow.score}}<br/>Pow</td>
 <td class="space"/>
-<td class="stat">{{primaryAbilities.ki_wp.score}}/{{primaryAbilities.kiAccumulationMultiple_wp.score}}<br/>WP</td>
+<td class="stat">{{primaryAbilities.ki_wp.score}}/{{primaryAbilities.kiAccumulation_wp.score}}<br/>WP</td>
 </tr>
 </table>
 <table id="kiAbilities" class="kiTable">
