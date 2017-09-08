@@ -334,7 +334,11 @@ function renderDpSpendingOption(character, investment, parent, limit, total) {
   if (limit) {
     maxForInvestment = Math.min(maxForInvestment, investment.dpInvested + (character.totalDP * limit / 100 - total));
   }
-  var data = {'investment': investment, 'maxForInvestment': maxForInvestment};
+  var data = {
+    'investment': investment, 
+    'maxForInvestment': maxForInvestment,
+    'bonusForInvestment': investment.name == "Magic Accumulation" ? investment.baseBonus : investment.bonus
+  };
   parent.append(Mustache.render(Template.dpInvestment, data));
   $('.dpInvested>input').last().change({'investment': investment, 'character': character}, function(event) {
     changeDP(event, Number(this.value));

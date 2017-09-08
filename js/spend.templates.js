@@ -43,7 +43,7 @@ Template.martialArtInvestmentHeader = String.raw`
 Template.dpInvestment = String.raw`
 <tr class="dpInvestment">
 <td>{{investment.name}}</td>
-<td class="cost">{{investment.cost}}/{{investment.bonus}}</td>
+<td class="cost">{{investment.cost}}/{{bonusForInvestment}}</td>
 <td class="dpInvested"><input type="number" min="0" max="{{maxForInvestment}}" value="{{investment.dpInvested}}" step="{{investment.cost}}"></td>
 <td class="score">{{investment.score}}</td>
 </tr>

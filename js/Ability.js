@@ -36,7 +36,11 @@ class Ability extends Scoreable {
 
     Object.defineProperty(this, 'dpBonus', {
       get: function() {
-        return Math.floor(this.dpInvested / this.cost) * this.bonus;
+        var baseDpBonus = Math.floor(this.dpInvested / this.cost) * this.bonus;
+        if (key == "magicAccumulation") {
+          return baseDpBonus * this.baseBonus;
+        }
+        return baseDpBonus;
       }
     })
     Object.defineProperty(this, 'naturalBonus', {
