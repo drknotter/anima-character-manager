@@ -170,7 +170,7 @@ class Class {
       'limit': Math.floor(this.limits['supernatural'] * 100) + '%',
       'array': [
         this.primaryAbilityCosts['zeon'],
-        this.primaryAbilityCosts['magicAccumulationMultiple'],
+        this.primaryAbilityCosts['magicAccumulation'],
         this.primaryAbilityCosts['magicProjection'],
         this.primaryAbilityCosts['summon'],
         this.primaryAbilityCosts['control'],
@@ -283,7 +283,7 @@ var BONUS_NAMES = {
   'kiAccumulation_per':'Ki Accumulation Multiple (Per)',
   'wearArmor':'Wear Armor',
   'zeon':'Zeon',
-  'magicAccumulationMultiple':'Magic Accumulation Multiple',
+  'magicAccumulation':'Magic Accumulation Multiple',
   'magicProjection':'Magic Projection',
   'summon':'Summon',
   'control':'Control',
@@ -388,7 +388,7 @@ Class.warrior = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -535,7 +535,7 @@ Class.acrobaticWarrior = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -684,7 +684,7 @@ Class.paladin = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':2,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':60,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -833,7 +833,7 @@ Class.darkPaladin = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':2,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':60,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':1,'bonus':3,'currency':'DP'},
@@ -983,7 +983,7 @@ Class.weaponmaster = new Class({
               {'cost':1,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1129,7 +1129,7 @@ Class.technician = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1272,7 +1272,7 @@ Class.tao = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1415,7 +1415,7 @@ Class.ranger = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1564,7 +1564,7 @@ Class.shadow = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1712,7 +1712,7 @@ Class.thief = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -1862,7 +1862,7 @@ Class.assassin = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2012,7 +2012,7 @@ Class.wizard = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':1,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':50,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2157,7 +2157,7 @@ Class.warlock = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':1,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':50,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2304,7 +2304,7 @@ Class.illusionist = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':1,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':60,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2454,7 +2454,7 @@ Class.wizardMentalist = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':1,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':50,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},
@@ -2599,7 +2599,7 @@ Class.summoner = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':1,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':60,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2748,7 +2748,7 @@ Class.warriorSummoner = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':1,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':60,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -2899,7 +2899,7 @@ Class.mentalist = new Class({
               {'cost':3,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -3041,7 +3041,7 @@ Class.warriorMentalist = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':3,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':70,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':3,'bonus':1,'currency':'DP'},
@@ -3186,7 +3186,7 @@ Class.freelancer = new Class({
               {'cost':2,'bonus':1,'currency':'DP'},
           'zeon':
               {'cost':2,'bonus':5,'currency':'DP'},
-          'magicAccumulationMultiple':
+          'magicAccumulation':
               {'cost':60,'bonus':1,'currency':'DP'},
           'magicProjection':
               {'cost':2,'bonus':1,'currency':'DP'},

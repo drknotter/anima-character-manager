@@ -24,7 +24,7 @@ var PRIMARY_DP_SPEND_GROUPS = {
     'name': 'Supernatural',
     'abilities': [
       'zeon',
-      'magicAccumulationMultiple',
+      'magicAccumulation',
       'magicProjection',
       'summon',
       'control',

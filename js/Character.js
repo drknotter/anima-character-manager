@@ -163,7 +163,7 @@ class Character {
         return zeonBonusByPower[power - 1];
       }
     });
-    Object.defineProperty(this.primaryAbilities.magicAccumulationMultiple, 'baseBonus', {
+    Object.defineProperty(this.primaryAbilities.magicAccumulation, 'baseBonus', {
       get: function() {
         var maBonusByPower = [0,0,0,0,5,5,5,10,10,10,10,15,15,15,20,25,25,30,30,35];
         var power = Math.min(Math.max(me.characteristics.pow.score, 1), 20);
