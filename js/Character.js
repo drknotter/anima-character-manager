@@ -156,6 +156,21 @@ class Character {
       }
     });
 
+    Object.defineProperty(this.primaryAbilities.zeon, 'baseBonus', {
+      get: function() {
+        var zeonBonusByPower = [5, 20, 40, 55, 70, 85, 95, 110, 120, 135, 150, 160, 175, 185, 200, 215, 225, 240, 250, 265];
+        var power = Math.min(Math.max(me.characteristics.pow.score, 1), 20);
+        return zeonBonusByPower[power - 1];
+      }
+    });
+    Object.defineProperty(this.primaryAbilities.magicAccumulationMultiple, 'baseBonus', {
+      get: function() {
+        var maBonusByPower = [0,0,0,0,5,5,5,10,10,10,10,15,15,15,20,25,25,30,30,35];
+        var power = Math.min(Math.max(me.characteristics.pow.score, 1), 20);
+        return maBonusByPower[power - 1];
+      }
+    })
+
     this.currentLifePoints = this.lifePoints.score;
     if (data.currentLifePoints) {
       this.currentLifePoints = data.currentLifePoints;
