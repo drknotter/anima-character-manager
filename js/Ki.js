@@ -543,6 +543,490 @@ KiTechnique.Data.Effects = {
         }
       }
     }
+  },
+  "counterattackAbility": {
+    "name": "Counterattack Ability",
+    "description": "This effect adds a bonus to a character's Attack Ability when counterattacking. These bonuses only apply after a successful defense that grants the possibility of a Counter-attack.",
+    "primaryCharacteristic": "dex",
+    "relatedElements": "Air, Water, Earth",
+    "optionalCharacteristics": {
+      "agi": 2,
+      "pow": 2,
+      "wp": 3,
+      "str": 2
+    },
+    "bonus": {
+      "name": "Attack Bonus",
+      "levels": [
+        {
+          "amount": 10,
+          "primary": 1,
+          "secondary": 2,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 25,
+          "primary": 4,
+          "secondary": 2,
+          "martialKnowledge": 5,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 40,
+          "primary": 3,
+          "secondary": 5,
+          "martialKnowledge": 10,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 50,
+          "primary": 4,
+          "secondary": 6,
+          "martialKnowledge": 10,
+          "maintainCost": 4,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 75,
+          "primary": 6,
+          "secondary": 9,
+          "martialKnowledge": 15,
+          "maintainCost": 6,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 90,
+          "primary": 9,
+          "secondary": 12,
+          "martialKnowledge": 20,
+          "maintainCost": 8,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 100,
+          "primary": 12,
+          "secondary": 15,
+          "martialKnowledge": 25,
+          "maintainCost": 10,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 125,
+          "primary": 14,
+          "secondary": 18,
+          "martialKnowledge": 30,
+          "maintainCost": 12,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 150,
+          "primary": 18,
+          "secondary": 22,
+          "martialKnowledge": 35,
+          "maintainCost": 14,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 175,
+          "primary": 22,
+          "secondary": 26,
+          "martialKnowledge": 40,
+          "maintainCost": 16,
+          "minimumTechniqueLevel": 3
+        },
+        {
+          "amount": 200,
+          "primary": 26,
+          "secondary": 32,
+          "martialKnowledge": 45,
+          "maintainCost": 18,
+          "minimumTechniqueLevel": 3
+        },
+      ]
+    }
+  },
+  "blockAbility": {
+    "name": "Block Ability",
+    "description": "This effect adds a bonus to a character's Block Ability when using the Technique. The player rolls the dice and adds the number under \"Block Bonus\" to his dice roll.",
+    "primaryCharacteristic": "dex",
+    "relatedElements": "Light, Water, Earth",
+    "optionalCharacteristics": {
+      "agi": 2,
+      "pow": 2,
+      "wp": 3,
+      "str": 2
+    },
+    "bonus": {
+      "name": "Block Bonus",
+      "levels": [
+        {
+          "amount": 10,
+          "primary": 2,
+          "secondary": 4,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 25,
+          "primary": 3,
+          "secondary": 5,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 40,
+          "primary": 4,
+          "secondary": 6,
+          "martialKnowledge": 10,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 50,
+          "primary": 5,
+          "secondary": 8,
+          "martialKnowledge": 15,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 75,
+          "primary": 8,
+          "secondary": 11,
+          "martialKnowledge": 20,
+          "maintainCost": 4,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 90,
+          "primary": 12,
+          "secondary": 15,
+          "martialKnowledge": 25,
+          "maintainCost": 5,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 100,
+          "primary": 14,
+          "secondary": 18,
+          "martialKnowledge": 30,
+          "maintainCost": 8,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 125,
+          "primary": 18,
+          "secondary": 22,
+          "martialKnowledge": 35,
+          "maintainCost": 10,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 150,
+          "primary": 22,
+          "secondary": 26,
+          "martialKnowledge": 40,
+          "maintainCost": 12,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 175,
+          "primary": 26,
+          "secondary": 32,
+          "martialKnowledge": 45,
+          "maintainCost": 14,
+          "minimumTechniqueLevel": 3
+        },
+        {
+          "amount": 200,
+          "primary": 30,
+          "secondary": 36,
+          "martialKnowledge": 50,
+          "maintainCost": 16,
+          "minimumTechniqueLevel": 3
+        },
+      ]
+    }
+  },
+  "limitedAdditionalAttack": {
+    "name": "Limited Additional Attack",
+    "description": "Characters may use this ability to perform penalty-free additional attacks. However, additional effects from this Technique only apply to one attack and not the additional ones. For example, a Technique that grants two additional attacks, as well as a +50 bonus to Attack Ability and another +50 to damage would allow a character to perform three attacks with a +50 bonus to his Attack Ability and damage only on one of them.",
+    "primaryCharacteristic": "dex",
+    "relatedElements": "Air, Water, Darkness",
+    "optionalCharacteristics": {
+      "agi": 2,
+      "pow": 3,
+      "wp": 3,
+      "con": 1
+    },
+    "bonus": {
+      "name": "Attacks",
+      "levels": [
+        {
+          "amount": 1,
+          "primary": 3,
+          "secondary": 5,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 2,
+          "primary": 6,
+          "secondary": 9,
+          "martialKnowledge": 10,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 3,
+          "primary": 9,
+          "secondary": 12,
+          "martialKnowledge": 15,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 4,
+          "primary": 12,
+          "secondary": 15,
+          "martialKnowledge": 20,
+          "maintainCost": 4,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 5,
+          "primary": 15,
+          "secondary": 19,
+          "martialKnowledge": 30,
+          "maintainCost": 6,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 6,
+          "primary": 18,
+          "secondary": 22,
+          "martialKnowledge": 40,
+          "maintainCost": 8,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 8,
+          "primary": 22,
+          "secondary": 26,
+          "martialKnowledge": 50,
+          "maintainCost": 10,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 10,
+          "primary": 26,
+          "secondary": 32,
+          "martialKnowledge": 60,
+          "maintainCost": 12,
+          "minimumTechniqueLevel": 3
+        },
+      ]
+    },
+    "advantages": {
+      "continuousAttack": {
+        "name": "Continuous Attack",
+        "description": "This Advantage allows a character to deliver all of his attacks uninterrupted. His opponent cannot counterattack until all attacks are resolved. However, this Advantage does not prevent the opponent's counterattack indefinitely. If the Combat Result allows, he may take his counterattack right after his attacker finishes his last blow. In any event, the fact that an opponent cannot counterattack does not prevent him from withdrawing from physical combat.",
+        "options": {
+          "vitalSacrifice": {
+            "name": "Continuous Attack",
+            "description": "",
+            "cost": 10,
+            "martialKnowledge": 30,
+            "maintainCost": 5
+          },
+        }
+      }
+    }
+  },
+  "initiativeAugmentation": {
+    "name": "Initiative Augmentation",
+    "description": "This effect increases a character's initiative for the turn. Simply add the amount under 'Bonus to Initiative' to his Initiative rolls. This must be declared before calculating Initiative for that turn.",
+    "primaryCharacteristic": "agi",
+    "relatedElements": "Air",
+    "optionalCharacteristics": {
+      "dex": 1,
+      "pow": 3,
+      "wp": 3,
+      "con": 2
+    },
+    "bonus": {
+      "name": "Bonus to Initiative",
+      "levels": [
+        {
+          "amount": 25,
+          "primary": 1,
+          "secondary": 2,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 50,
+          "primary": 2,
+          "secondary": 4,
+          "martialKnowledge": 10,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 75,
+          "primary": 4,
+          "secondary": 6,
+          "martialKnowledge": 15,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 100,
+          "primary": 6,
+          "secondary": 9,
+          "martialKnowledge": 20,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 125,
+          "primary": 8,
+          "secondary": 11,
+          "martialKnowledge": 25,
+          "maintainCost": 4,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 150,
+          "primary": 10,
+          "secondary": 13,
+          "martialKnowledge": 30,
+          "maintainCost": 5,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 175,
+          "primary": 12,
+          "secondary": 15,
+          "martialKnowledge": 35,
+          "maintainCost": 6,
+          "minimumTechniqueLevel": 3
+        },
+        {
+          "amount": 200,
+          "primary": 14,
+          "secondary": 18,
+          "martialKnowledge": 40,
+          "maintainCost": 7,
+          "minimumTechniqueLevel": 3
+        },
+      ]
+    }
+  },
+  "automaticTransportation": {
+    "name": "Automatic Transportation",
+    "description": "The character automatically covers the distance shown in the effect's first column. Even though movement is automatic, the Technique does not confer the ability to pass through solid bodies --- except when the character using the Technique is also an Immaterial entity. If a character combines this ability with an attack effect, he can attack the moment he appears. Automatic Transportation cannot be used to gain automatically the bonus for a Back or Flank attack because an enemy can turn to face the attack. If combined with a successful defense, a character can automatically withdraw from combat.",
+    "primaryCharacteristic": "agi",
+    "relatedElements": "Air, Light, Darkness",
+    "optionalCharacteristics": {
+      "str": 2,
+      "pow": 3,
+      "dex": 2,
+      "con": 2
+    },
+    "bonus": {
+      "name": "Distance",
+      "levels": [
+        {
+          "amount": "30 feet",
+          "primary": 2,
+          "secondary": 4,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": "60 feet",
+          "primary": 3,
+          "secondary": 5,
+          "martialKnowledge": 10,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": "150 feet",
+          "primary": 4,
+          "secondary": 6,
+          "martialKnowledge": 10,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": "300 feet",
+          "primary": 5,
+          "secondary": 8,
+          "martialKnowledge": 15,
+          "maintainCost": 4,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": "800 feet",
+          "primary": 6,
+          "secondary": 9,
+          "martialKnowledge": 20,
+          "maintainCost": 5,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": "1,500 feet",
+          "primary": 8,
+          "secondary": 11,
+          "martialKnowledge": 25,
+          "maintainCost": 6,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": "3,000 feet",
+          "primary": 10,
+          "secondary": 13,
+          "martialKnowledge": 30,
+          "maintainCost": 7,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": "3 miles",
+          "primary": 14,
+          "secondary": 18,
+          "martialKnowledge": 35,
+          "maintainCost": 8,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": "6 miles",
+          "primary": 18,
+          "secondary": 22,
+          "martialKnowledge": 40,
+          "maintainCost": 10,
+          "minimumTechniqueLevel": 3
+        },
+        {
+          "amount": "60 miles",
+          "primary": 22,
+          "secondary": 26,
+          "martialKnowledge": 50,
+          "maintainCost": 12,
+          "minimumTechniqueLevel": 3
+        },
+      ]
+    }
   }
 };
 
