@@ -42,10 +42,11 @@ function addEffectOptions(select) {
     'value': "",
     'name': ""
   }));
-  for (let i in KiTechnique.Data.Effects) {
+  var sortedKeys = Object.keys(KiTechnique.Data.Effects).sort();
+  for (let i in sortedKeys) {
     select.append(Mustache.render(Template.selectOption, {
-      'value': i,
-      'name': KiTechnique.Data.Effects[i].name
+      'value': sortedKeys[i],
+      'name': KiTechnique.Data.Effects[sortedKeys[i]].name
     }));
   }
 }
@@ -99,10 +100,11 @@ function addAdvantageOptions(key, select) {
     'value': "",
     'name': ""
   }));
-  for (let i in KiTechnique.Data.Effects[key].advantages) {
+  var sortedKeys = Object.keys(KiTechnique.Data.Effects[key].advantages).sort();
+  for (let i in sortedKeys) {
     select.append(Mustache.render(Template.selectOption, {
-      'value': i,
-      'name': KiTechnique.Data.Effects[key].advantages[i].name
+      'value': sortedKeys[i],
+      'name': KiTechnique.Data.Effects[key].advantages[sortedKeys[i]].name
     }));
   }
 }
@@ -144,10 +146,11 @@ function addDisadvantageOptions(select) {
     'value': "",
     'name': ""
   }));
-  for (let i in KiTechnique.Data.Disadvantages) {
+  var sortedKeys = Object.keys(KiTechnique.Data.Disadvantages).sort();
+  for (let i in sortedKeys) {
     select.append(Mustache.render(Template.selectOption, {
-      'value': i,
-      'name': KiTechnique.Data.Disadvantages[i].name
+      'value': sortedKeys[i],
+      'name': KiTechnique.Data.Disadvantages[sortedKeys[i]].name
     }));
   }
 }

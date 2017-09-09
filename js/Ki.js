@@ -36,6 +36,65 @@ KiAbility.Data = {
     'requirementFn': function(character) {
       return 'useOfKi' in character.kiAbilities ? null : "Requires 'Use of Ki'";
     }
+  },
+  'presenceExtrusion': {
+    'name': 'Presence Extrusion',
+    'description': 'This ability allows a character to create an invisible aura of Ki around himself. In this way, he can physically touch pure energy and intangible elements --- such as fire, spectral beings, or even magic. In physical combat, a character using Presence Extrusion may injure beings normally only vulnerable to supernatural attacks, up to a value of twice his Presence. In other words, someone with a Presence of 50 could potentially damage a creature as if he used a mystical weapon of Presence value 100. This ability also allows character to repel supernatural effects with the Block Ability or even slash a fireball in half.',
+    'requirements': 'Use of Ki',
+    'martialKnowledge': 10,
+    'requirementFn': function(character) {
+      return 'useOfKi' in character.kiAbilities ? null : "Requires 'Use of Ki'";
+    }
+  },
+  'auraExtension': {
+    'name': 'Aura Extension',
+    'description': "This ability allows a character to extend his aura and convey energy to any hand-held device as if it were a natural extension of the individual. Aura Extension channels a character's essence through a weapon, for example, making it more powerful and difficult to break. This ability also allows a character to extend the powers bestowed by Presence Extrusion to his weapon, granting it the possibility of damaging Energy as if it were a mystical device. These aura-powered weapons or objects can also stop supernatural attacks and similar effects. Consequently, Aura Extension increases a weapon's Base Damage by 10 points and adds 10 points to its Fortitude and 5 points to its Breakage. The latter ability may also be applied to armor. If two individuals engage in combat using weapons powered by this ability, the clash of their sharp edges will send out sparks visible to everyone.",
+    'requirements': 'Presence Extrusion',
+    'martialKnowledge': 10,
+    'requirementFn': function(character) {
+      return 'presenceExtrusion' in character.kiAbilities ? null : "Requires 'Presence Extrusion'";
+    }
+  },
+  'increasedDamage': {
+
+  },
+  'physicalShield': {
+
+  },
+  'kiTransmission': {
+    'name': 'Ki Transmission',
+    'description': "This ability allows a character to transmit or absorb Ki from another subject. When two individuals with this ability meet, they can exchange their points freely. Naturally, the Ki exchange occurs between the same Characteristics from which they stem. The transmission index per round is equal to a character's Accumulation.",
+    'requirements': 'Use of Ki',
+    'requirementFn': function(character) {
+      return 'useOfKi' in character.kiAbilities ? null : "Requires 'Use of Ki'";
+    }
+  },
+  'kiHealing': {
+    'name': 'Ki Healing',
+    'description': "This ability allows a character to restore 2 Life Points to a wounded creature for every 1 generic Ki Point spent. A character with this ability can heal himself or any other individual with which he comes into contact. This ability cannot restor health completely; it can only repair up to half the damage.",
+    'requirements': 'Ki Transmission',
+    'requirementFn': function(character) {
+      return 'kiTransmission' in character.kiAbilities ? null : "Requires 'Ki Transmission'";
+    }
+  },
+  'superiorHealing': {
+
+  },
+  'energyArmor': {
+    'name': 'Energy Armor',
+    'description': "This abiliity allows a character to use his aura as a spiritual shield against esoteric effects and pure energy based attacks. Energy Armor grants a natural AT of 2 against Energy. Even though this ability counts as an armor, a character does not suffer any penalties for using additional layers of protection.",
+    'requirements': 'Presence Extrusion',
+    'requirementFn': function(character) {
+      return 'presenceExtrusion' in character.kiAbilities ? null : "Requires 'Presence Extrusion'";
+    }
+  },
+  'inhumanity': {
+    'name': 'Inhumanity',
+    'description': "This ability allows a character to perform physical tasks otherwise impossible to human beings. Inhumanity allows its user to count any Inhuman-level results they achieve on the Difficulty Table and get the most out of the capabilities their Characteristics allow."
+    'requirements': 'Use of Ki',
+    'requirementFn': function(character) {
+      return 'useOfKi' in character.kiAbilities ? null : "Requires 'Use of Ki'";
+    }
   }
 };
 
@@ -1023,6 +1082,87 @@ KiTechnique.Data.Effects = {
           "secondary": 26,
           "martialKnowledge": 50,
           "maintainCost": 12,
+          "minimumTechniqueLevel": 3
+        },
+      ]
+    }
+  },
+  "armorIncrease": {
+    "name": "Armor Increase",
+    "description": "This effect allows a character to increase his Armor Type for a complete turn. It may be combined with any other armor as an additional layer, but it does not bring additional penalties to Initiative. This effect works against all kinds of attack.",
+    "primaryCharacteristic": "con",
+    "relatedElements": "Earth, Water, Light",
+    "optionalCharacteristics": {
+      "pow": 1,
+      "wp": 2,
+      "str": 2,
+      "agi": 3
+    },
+    "bonus": {
+      "name": "Armor Type",
+      "levels": [
+        {
+          "amount": 1,
+          "primary": 1,
+          "secondary": 2,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 2,
+          "primary": 2,
+          "secondary": 4,
+          "martialKnowledge": 5,
+          "maintainCost": 1,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 3,
+          "primary": 4,
+          "secondary": 6,
+          "martialKnowledge": 5,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 4,
+          "primary": 6,
+          "secondary": 9,
+          "martialKnowledge": 5,
+          "maintainCost": 2,
+          "minimumTechniqueLevel": 1
+        },
+        {
+          "amount": 5,
+          "primary": 8,
+          "secondary": 11,
+          "martialKnowledge": 5,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 6,
+          "primary": 10,
+          "secondary": 13,
+          "martialKnowledge": 5,
+          "maintainCost": 3,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 7,
+          "primary": 12,
+          "secondary": 15,
+          "martialKnowledge": 5,
+          "maintainCost": 4,
+          "minimumTechniqueLevel": 2
+        },
+        {
+          "amount": 8,
+          "primary": 14,
+          "secondary": 18,
+          "martialKnowledge": 5,
+          "maintainCost": 5,
           "minimumTechniqueLevel": 3
         },
       ]
