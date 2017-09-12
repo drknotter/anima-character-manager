@@ -65,6 +65,7 @@ KiAbility.Data = {
     'name': 'Ki Transmission',
     'description': "This ability allows a character to transmit or absorb Ki from another subject. When two individuals with this ability meet, they can exchange their points freely. Naturally, the Ki exchange occurs between the same Characteristics from which they stem. The transmission index per round is equal to a character's Accumulation.",
     'requirements': 'Use of Ki',
+    'martialKnowledge': 10,
     'requirementFn': function(character) {
       return 'useOfKi' in character.kiAbilities ? null : "Requires 'Use of Ki'";
     }
@@ -73,6 +74,7 @@ KiAbility.Data = {
     'name': 'Ki Healing',
     'description': "This ability allows a character to restore 2 Life Points to a wounded creature for every 1 generic Ki Point spent. A character with this ability can heal himself or any other individual with which he comes into contact. This ability cannot restor health completely; it can only repair up to half the damage.",
     'requirements': 'Ki Transmission',
+    'martialKnowledge': 10,
     'requirementFn': function(character) {
       return 'kiTransmission' in character.kiAbilities ? null : "Requires 'Ki Transmission'";
     }
@@ -84,14 +86,16 @@ KiAbility.Data = {
     'name': 'Energy Armor',
     'description': "This abiliity allows a character to use his aura as a spiritual shield against esoteric effects and pure energy based attacks. Energy Armor grants a natural AT of 2 against Energy. Even though this ability counts as an armor, a character does not suffer any penalties for using additional layers of protection.",
     'requirements': 'Presence Extrusion',
+    'martialKnowledge': 10,
     'requirementFn': function(character) {
       return 'presenceExtrusion' in character.kiAbilities ? null : "Requires 'Presence Extrusion'";
     }
   },
   'inhumanity': {
     'name': 'Inhumanity',
-    'description': "This ability allows a character to perform physical tasks otherwise impossible to human beings. Inhumanity allows its user to count any Inhuman-level results they achieve on the Difficulty Table and get the most out of the capabilities their Characteristics allow."
+    'description': "This ability allows a character to perform physical tasks otherwise impossible to human beings. Inhumanity allows its user to count any Inhuman-level results they achieve on the Difficulty Table and get the most out of the capabilities their Characteristics allow.",
     'requirements': 'Use of Ki',
+    'martialKnowledge': 30,
     'requirementFn': function(character) {
       return 'useOfKi' in character.kiAbilities ? null : "Requires 'Use of Ki'";
     }
