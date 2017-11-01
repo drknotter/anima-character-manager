@@ -97,11 +97,9 @@ function renderCharacter(character) {
   $('#psychic').append(Mustache.render(Template.psychic));
   $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Psychic Points', 'score': character.primaryAbilities.psychicPoints.score}));
   $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Psychic Potential', 'score': character.psychicPotential.score}));
-  $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Psychic Projection', 'score': character.primaryAbilities.psychicProjection.score, 'percentile': character.primaryAbilities.psychicProjection.percentile}));
+  $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Psychic Projection', 'score': character.primaryAbilities.psychicProjection.score}));
   $('#mainPsychicInfo .mainPsychicInfo .score').last().addClass('openRollable');
   $('#mainPsychicInfo .mainPsychicInfo .score').last().attr({'data-name': 'Psychic Projection', 'data-bonus': character.primaryAbilities.psychicProjection.score});
-  $('#mainPsychicInfo .mainPsychicInfo .percentileScore').last().addClass('percentileRollable');
-  $('#mainPsychicInfo .mainPsychicInfo .percentileScore').last().attr({'data-name': 'Psychic Projection', 'data-bonus': character.primaryAbilities.psychicProjection.percentile});
   $('#mainPsychicInfo').append(Mustache.render(Template.mainPsychicInfo, {'name': 'Innate Slots', 'score': character.innateSlots.score}));
 
   var disciplinesMentalPowerMap = {};
