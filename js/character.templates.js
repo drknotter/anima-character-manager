@@ -152,7 +152,7 @@ Template.psychic = String.raw`
 `;
 
 Template.mainPsychicInfo = String.raw`
-<tr class="mainPsychicInfo"><td class="name">{{name}}</td><td class="score">{{score}}</td></tr>
+<tr class="mainPsychicInfo"><td class="name">{{name}}</td><td class="score">{{score}}</td><td class="percentileScore">{{percentile}}{{#percentile}}%{{/percentile}}</td></tr>
 `;
 
 Template.mentalPowerDiscipline = String.raw`

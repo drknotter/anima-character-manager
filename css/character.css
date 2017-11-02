@@ -192,7 +192,7 @@
 #mainPsychicInfo tr:nth-child(even) {
   background: #ccc;
 }
-#mainPsychicInfo .score {
+#mainPsychicInfo .score, #mainPsychicInfo .percentileScore {
   text-align: right;
 }
 
