@@ -94,6 +94,12 @@ class Character {
     for (let a in abilityCategories) {
       check(data[abilityCategories[a]], "Missing " + abilityCategories[a] + "!");
       this[abilityCategories[a]] = {};
+
+      if ("magicAccumulationMultiple" in data[abilityCategories[a]]) {
+        data[abilityCategories[a]]["magicAccumulation"] = data[abilityCategories[a]]["magicAccumulationMultiple"];
+        delete data[abilityCategories[a]]["magicAccumulationMultiple"];
+      }
+
       for (let key in data[abilityCategories[a]]) {
         if (!(key in ABILITY_DATA)) {
           continue;
