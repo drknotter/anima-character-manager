@@ -22,18 +22,22 @@ class Elan extends Scoreable {
     }
 
     for (let i in this.gifts) {
-      if (Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonus) {
-        let keyChain = Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonus.split('|');
-        let property = character;
-        for (let p in keyChain) {
-          property = property[keyChain[p]];
-        }
-        if (property instanceof Scoreable) {
-          Object.defineProperty(property, key + this.gifts[i] + "Bonus", {
-            get: function() {
-              return character.elan[key].elanBonus;
-            }
-          })
+      if (Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonuses) {
+        for (let b in  Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonuses) {
+          let elanLevelGiftBonus = Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonuses[b];
+          console.log(elanLevelGiftBonus);
+          let keyChain = elanLevelGiftBonus.split('|');
+          let property = character;
+          for (let p in keyChain) {
+            property = property[keyChain[p]];
+          }
+          if (property instanceof Scoreable) {
+            Object.defineProperty(property, key + this.gifts[i] + "Bonus", {
+              get: function() {
+                return character.elan[key].elanBonus;
+              }
+            })
+          }
         }
       }
     }
@@ -125,14 +129,14 @@ Elan.Data = {
         'description': 'This gift will increase the bearer\'s natural charisma with a special bonus to Leadership equivalent to his or her Elan level. For instance, anyone with 50 Elan points would gain a +50 bonus.',
         'cost': 5,
         'requiredElan': 10,
-        'elanLevelGiftBonus': 'secondaryAbilities|leadership'
+        'elanLevelGiftBonuses': ['secondaryAbilities|leadership']
       },
       'theValueOfHeroes': {
         'name': 'The Value of Heroes',
         'description': 'The character is armed with unusual courage and is thus able to remain undaunted where others would run. This grants him a special bonus to the Composure secondary ability equivalent to his Elan level.',
         'cost': 5,
         'requiredElan': 20,
-        'elanLevelGiftBonus': 'secondaryAbilities|composure'
+        'elanLevelGiftBonuses': ['secondaryAbilities|composure']
       }
     }
   },
@@ -158,13 +162,28 @@ Elan.Data = {
     'name': 'Jedah',
     'type': 'Shajad',
     'description': 'No description yet!',
-    'gifts': {}
+    'gifts': {
+      'theGiftOfPolitics': {
+        'name': 'The Gift of Politics',
+        'description': 'It confers a disproportionate capability for influencing and persuading. It gives a special bonus (equal to the character\'s Elan level) to the Persuasion and Leadership secondary abilities.',
+        'cost': 5,
+        'requiredElan': 10,
+        'elanLevelGiftBonuses': ['secondaryAbilities|leadership', 'secondaryAbilities|persuasion']
+      },
+    }
   },
   'noah': {
     'name': 'Noah',
     'type': 'Shajad',
     'description': 'No description yet!',
-    'gifts': {}
+    'gifts': {
+      'inTheRightHands': {
+        'name': 'In the Right Hands',
+        'description': 'This gift provides the exceptional ability to find the necessary equipment for every circumstance. In this way, a swordsman who has lost his weapon fleeing from a group of enemies will be likely to stumble upon a sword on the way, while a thief without a picklock will come across a device that will serve his purpose very close to the door he is attempting to open.',
+        'cost': 5,
+        'requiredElan': 10,
+      },
+    }
   },
   'erebus': {
     'name': 'Erebus',
@@ -182,7 +201,14 @@ Elan.Data = {
     'name': 'Eriol',
     'type': 'Shajad',
     'description': 'No description yet!',
-    'gifts': {}
+    'gifts': {
+      'grantingMisfortuneAndDisgrace': {
+        'name': 'Granting Misfortune and Disgrace',
+        'description': 'Whoever has this gift is armed with the ability to influence other people\' luck (positively or negatively) in the short term. Intensity and duration can be molded according to Elan level.',
+        'cost': 10,
+        'requiredElan': 10,
+      },
+    }
   },
   'meseguis': {
     'name': 'Meseguis',
