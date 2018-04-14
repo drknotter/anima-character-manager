@@ -105,7 +105,14 @@ Elan.Data = {
     'name': 'Uriel',
     'type': 'Beryl',
     'description': 'No description yet!',
-    'gifts': {}
+    'gifts': {
+      'instinctOfLiberty': {
+        'name': 'Instinct of Liberty',
+        'description': 'Characters have a great ability for finding the way out of wherever they may be. Their natural instinct allows them to escape from places they do not want to stay, and to sense what the most trouble-free, available route will be.',
+        'cost': 5,
+        'requiredElan': 10
+      },
+    }
   },
   'gabriel': {
     'name': 'Gabriel',
@@ -214,6 +221,14 @@ Elan.Data = {
     'name': 'Meseguis',
     'type': 'Shajad',
     'description': 'No description yet!',
-    'gifts': {}
+    'gifts': {
+      'serentityOfMelancholy': {
+        'name': 'Serenity of Melancholy',
+        'description': 'Through this gift, pain and sorrow inundate characters, allowing them to suffer stoically through situations that would make anyone else lose their composure. This gift will endow characters with a special bonus to the Composure and Withstand Pain secondary abilities equivalent to their elan level.',
+        'cost': 5,
+        'requiredElan': 10,
+        'elanLevelGiftBonuses': ['secondaryAbilities|composure', 'secondaryAbilities|withstandPain']
+      },
+    }
   },
 };
