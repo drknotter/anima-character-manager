@@ -151,7 +151,15 @@ Elan.Data = {
     'name': 'Barakiel',
     'type': 'Beryl',
     'description': 'No description yet!',
-    'gifts': {}
+    'gifts': {
+      'aisthetics': {
+        'name': 'Aesthetics',
+        'description': 'Whatever the character does is beautiful. This gift translates into a special bonus to the secondary ability Style, equivalent to the character\'s Elan level.',
+        'cost': 5,
+        'requiredElan': 10,
+        'elanLevelGiftBonuses': ['secondaryAbilities|style']
+      },
+    }
   },
   'edamiel': {
     'name': 'Edamiel',
