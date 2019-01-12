@@ -23,6 +23,10 @@ class Elan extends Scoreable {
 
     for (let i in this.gifts) {
       if (Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonuses) {
+        let elanLevelGiftMultiplier = Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftMultiplier;
+        if (typeof elanLevelGiftMultiplier === 'undefined') {
+          elanLevelGiftMultiplier = 1.0;
+        }
         for (let b in  Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonuses) {
           let elanLevelGiftBonus = Elan.Data[key].gifts[this.gifts[i]].elanLevelGiftBonuses[b];
           console.log(elanLevelGiftBonus);
@@ -34,7 +38,7 @@ class Elan extends Scoreable {
           if (property instanceof Scoreable) {
             Object.defineProperty(property, key + this.gifts[i] + "Bonus", {
               get: function() {
-                return character.elan[key].elanBonus;
+                return character.elan[key].elanBonus * elanLevelGiftMultiplier;
               }
             })
           }
@@ -98,6 +102,12 @@ Elan.Data = {
         'description': 'It enables characters to heal any disease of the same or lower Elan value they possess. As an example, a character with 30 points of Elan would cure diseases up to that level.',
         'cost': 10,
         'requiredElan': 20
+      },
+      'keepingInTheWorld': {
+        'name': 'Keeping in the World',
+        'description': 'Characters may immediately bring back to life individuals in a Between Life and Death state, simply by imposing their hands on the subject without the need of a PhR check.',
+        'cost': 5,
+        'requiredElan': 30,
       }
     }
   },
@@ -144,6 +154,12 @@ Elan.Data = {
         'cost': 5,
         'requiredElan': 20,
         'elanLevelGiftBonuses': ['secondaryAbilities|composure']
+      },
+      'exaltationOfTheSpirit': {
+        'name': 'Exaltation of the Spirit',
+        'description': 'THe character heightens the sense of justice of those usually in contact with him and leads them to an awareness of the importance of good conduct.',
+        'cost': 10,
+        'requiredElan': 30
       }
     }
   },
@@ -152,7 +168,7 @@ Elan.Data = {
     'type': 'Beryl',
     'description': 'No description yet!',
     'gifts': {
-      'aisthetics': {
+      'aesthetics': {
         'name': 'Aesthetics',
         'description': 'Whatever the character does is beautiful. This gift translates into a special bonus to the secondary ability Style, equivalent to the character\'s Elan level.',
         'cost': 5,
@@ -185,6 +201,26 @@ Elan.Data = {
         'requiredElan': 10,
         'elanLevelGiftBonuses': ['secondaryAbilities|leadership', 'secondaryAbilities|persuasion']
       },
+      'increasedDomination': {
+        'name': 'Increased Domination',
+        'description': 'Union with Jedah allows the character to use the forces of the Flow of Souls to subdue supernatural beings. Because of this, a user of this gift will apply a special bonus to his or her Control Summoning ability equal to half the character\'s Elan. This gift will not work against Light-based beings.',
+        'cost': 10,
+        'requiredElan': 20,
+        'elanLevelGiftBonuses': ['primaryAbilities|control'],
+        'elanLevelGiftMultiplier': 0.5
+      },
+      'shadow': {
+        'name': 'Shadow',
+        'description': 'Through supernatural means, characters are able to alter their shadow\'s appearance or shape in any way they like.',
+        'cost': 5,
+        'requiredElan': 30,
+      },
+      'darkAffinity': {
+        'name': 'Dark Affinity',
+        'description': 'The receiver of this gift will obtain affinity with all dark supernatural beings who will recognize them as one of their own.',
+        'cost': 5,
+        'requiredElan': 40,
+      }
     }
   },
   'noah': {
@@ -198,6 +234,26 @@ Elan.Data = {
         'cost': 5,
         'requiredElan': 10,
       },
+      'theWillToImprove': {
+        'name': 'The Will to Improve',
+        'description': 'The competitive spirit of the character is easily transmitted to others, and he becomes a strong influence to the people he is in regular contact with. Everyone around him wants to improve and better themselves.',
+        'cost': 10,
+        'requiredElan': 20,
+      },
+      'resistant': {
+        'name': 'Resistant',
+        'description': 'The gift allows extraordinary resistance to physical damage and its consequences. Character get a PhR bonus equivalent to half their Elan.',
+        'cost': 5,
+        'requiredElan': 20,
+        'elanLevelGiftBonuses': ['resistances|physical'],
+        'elanLevelGiftMultiplier': 0.5
+      },
+      'inhuman': {
+        'name': 'Inhuman',
+        'description': 'It allows the bearer to reach Inhuman difficulty levels in whatever fields the character excels or specializes.',
+        'cost': 5,
+        'requiredElan': 30,
+      }
     }
   },
   'erebus': {
@@ -223,6 +279,12 @@ Elan.Data = {
         'cost': 10,
         'requiredElan': 10,
       },
+      'alteringTheLawOfChance': {
+        'name': 'Altering the Laws of Chance',
+        'description': 'This ability exceptionally alters a character\'s luck, increasing his chances of performing great feats or failing tasks tragically. Necessary results for obtaining an open roll will drop two degrees for every 20 elan points and will extend in one for a fumble. It is up to the character to decide whether to use this ability before rolling the dice.',
+        'cost': 5,
+        'requiredElan': 20,
+      }
     }
   },
   'meseguis': {
@@ -237,6 +299,12 @@ Elan.Data = {
         'requiredElan': 10,
         'elanLevelGiftBonuses': ['secondaryAbilities|composure', 'secondaryAbilities|withstandPain']
       },
+      'thePathOfVengeance': {
+        'name': 'The Path of Vengeance',
+        'description': 'Guided by Meseguis\' hand, the gift will endow characters with a natural instince to sense the best direction to take on their revenge. This is not to say they will know exactly what to do, but they will always have at least a clue on where to start looking.',
+        'cost': 5,
+        'requiredElan': 20,
+      }
     }
   },
 };

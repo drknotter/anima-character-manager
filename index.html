@@ -48,6 +48,7 @@
               window.open("manage.html?n=" + character.name, "_self");
             }
           } catch(err) {
+            console.log(err.stack);
             alert("Unable to import character: " + err.message);
           }
         });
@@ -70,6 +71,7 @@
                 }
               });
             } catch(err) {
+              console.log(err.stack);
               alert("Unable to read character " + name + "! " + err.message);
             }
           }
